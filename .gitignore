@@ -3,11 +3,12 @@
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
 
-Temp/
-Obj/
+ParasiteTheGame/Temp/
+ParasiteTheGame/Obj/
 UnityGenerated/
-Library/
-Assets/AssetStoreTools*
+ParasiteTheGame/Library/
+ParasiteTheGame/Logs/
+ParasiteTheGame/Assets/AssetStoreTools*
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
