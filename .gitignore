@@ -4,11 +4,12 @@
 #
 
 ParasiteTheGame/Temp/
-ParasiteTheGame/Obj/
+ParasiteTheGame/obj/
 UnityGenerated/
 ParasiteTheGame/Library/
 ParasiteTheGame/Logs/
 ParasiteTheGame/Assets/AssetStoreTools*
+UserSettings
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta

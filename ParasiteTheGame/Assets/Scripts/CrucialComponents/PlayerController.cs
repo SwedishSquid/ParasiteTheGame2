@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamagable
 {
     private Rigidbody2D thisRigidbody2d;
     private Vector2 input;
     private float velocity = 3.09f;
     private LayerMask controllablesLayer;
     public IControlable controlled;
+    private int health;
     // Start is called before the first frame update
     void Start()
     {
         thisRigidbody2d = GetComponent<Rigidbody2D>();
         controllablesLayer = LayerMask.GetMask("Controllables");
+        health = 100;
     }
 
     // Update is called once per frame
@@ -56,5 +58,16 @@ public class PlayerController : MonoBehaviour
         thisRigidbody2d.simulated = true;
         controlled.OnRelease(this);
         controlled = null;
+    }
+
+    public bool TryTakeDamage(DamageInfo dmgInf)
+    {
+        if (controlled is null || dmgInf.Source == DamageSource.Enemy)
+        {
+            health -= dmgInf.Amount;
+            Debug.Log($"Player hurt : health = {health}");
+            return true;
+        }
+        return false;
     }
 }
