@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyExample : MonoBehaviour, IControlable
+public class EnemyExample : MonoBehaviour, IControlable, IDamagable
 {
     private Rigidbody2D myRigidbody;
     private float velocity = 10;
     private IWeapon weapon;
     private LayerMask weaponLayer;
     private float radius = 1.06f;
+    public bool IsCaptured;
+    private int health;
 
     void Start()
     {
@@ -49,6 +51,7 @@ public class EnemyExample : MonoBehaviour, IControlable
     {
         //just to see if working
         Debug.Log("Captured");
+        IsCaptured = true;
     }
 
     public void OnRelease(PlayerController player)
@@ -56,6 +59,7 @@ public class EnemyExample : MonoBehaviour, IControlable
         //just to see if working
         myRigidbody.velocity = new Vector2(0, 0);
         Debug.Log("Released");
+        IsCaptured = false;
     }
 
     public void ActOnPickOrDrop()
@@ -92,5 +96,17 @@ public class EnemyExample : MonoBehaviour, IControlable
     {
         weapon.OnDropDown(this);
         weapon = null;
+    }
+
+    public bool TryTakeDamage(DamageInfo dmgInf)
+    {
+        if ((IsCaptured && dmgInf.Source == DamageSource.Enemy) 
+            ||(!IsCaptured && dmgInf.Source == DamageSource.Player))
+        {
+            health -= dmgInf.Amount;
+            Debug.Log($"Enemy hurt : health = {health}");
+            return true;
+        }
+        return false;
     }
 }
