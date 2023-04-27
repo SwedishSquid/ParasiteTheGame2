@@ -7,8 +7,8 @@ public class ThrowComponent : MonoBehaviour
 {
     protected int ticksLeft = 1000;
     protected Rigidbody2D rigidbody2d;
-    // Update is called once per frame
-    void Update()
+    
+    protected virtual void Update()
     {
         rigidbody2d.velocity *= GetSlowdownFactor(ticksLeft);
         ticksLeft--;
@@ -24,12 +24,12 @@ public class ThrowComponent : MonoBehaviour
     /// <param name="direction"></param>
     /// <param name="speed"></param>
     ///  <param name="rotationSpeed"> Degrees per second </param>
-    public void StartThrow(Vector2 direction, Vector2 additionalVelocity = new Vector2(), int lifetime = 1000,
+    public virtual void StartThrow(Vector2 direction, Vector2 additionalVelocity = new Vector2(), int lifetime = 1000,
         float speed = 8f, bool rotateRandomly = true, float rotationSpeed = 40)
     {
         ticksLeft = lifetime;
 
-        gameObject.layer = LayerMask.NameToLayer("CollidableItems");
+        gameObject.layer = Constants.CollidableItemsLayer;
 
         rigidbody2d = gameObject.AddComponent<Rigidbody2D>();
         rigidbody2d.velocity = direction * speed + additionalVelocity;
@@ -42,25 +42,23 @@ public class ThrowComponent : MonoBehaviour
     /// <summary>
     /// warning! this method transports object to layer "Weapons"
     /// </summary>
-    public void EndThrow()
+    public virtual void EndThrow()
     {
         this.enabled = false;
 
         Destroy(rigidbody2d); rigidbody2d = null;
 
-        gameObject.layer = LayerMask.NameToLayer("Weapons");
+        gameObject.layer = Constants.ItemsLayer; 
     }
 
-    protected float GetSlowdownFactor(int timeLeft)
+    protected virtual float GetSlowdownFactor(int timeLeft)
     {
         float factor = 1f;
         return (timeLeft * factor) / (1 + factor * timeLeft);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("collision took place");
-        Debug.Log($"object = {collision.gameObject}");
         if (collision.gameObject.TryGetComponent<IDamagable>(out var damagable))
         {
             gameObject.GetComponent<IUsable>().DealDamageByThrow(damagable);

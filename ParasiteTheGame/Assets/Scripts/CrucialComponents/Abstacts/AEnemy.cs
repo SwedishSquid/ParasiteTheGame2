@@ -7,8 +7,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
     protected IUsable item;
-    protected LayerMask pickableItemsLayer;
-    protected LayerMask collidableItems;
     protected float radius = 1.06f;
     protected float itemPickingRadius = 2f;
     public bool IsCaptured;
@@ -19,7 +17,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     protected virtual void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
-        pickableItemsLayer = LayerMask.GetMask("Weapons") | LayerMask.GetMask("CollidableItems");
     }
 
     public virtual void ControlledUpdate(InputInfo inpInf)
@@ -79,8 +76,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
 
     protected virtual void PickUp()
     {
-        var t = Physics2D.OverlapCircle(transform.position, itemPickingRadius, pickableItemsLayer);
-        Debug.Log(t);
+        var t = Physics2D.OverlapCircle(transform.position, itemPickingRadius, Constants.PickableItems);
         if (t)
         {
             item = t.gameObject.GetComponent<IUsable>();

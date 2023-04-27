@@ -8,14 +8,12 @@ public class PlayerController : MonoBehaviour, IDamagable
     private Rigidbody2D thisRigidbody2d;
     private Vector2 input;
     private float velocity = 3.09f;
-    private LayerMask controllablesLayer;
     public IControlable controlled;
     private int health;
-    // Start is called before the first frame update
+
     void Start()
     {
         thisRigidbody2d = GetComponent<Rigidbody2D>();
-        controllablesLayer = LayerMask.GetMask("Controllables");
         health = 100;
     }
 
@@ -57,7 +55,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     private void Capture()
     {
-        var t = Physics2D.OverlapPoint(transform.position, controllablesLayer);
+        var t = Physics2D.OverlapPoint(transform.position, Constants.ControllablesLayer);
         if (t)
         {
             controlled = t.gameObject.GetComponent<IControlable>();
