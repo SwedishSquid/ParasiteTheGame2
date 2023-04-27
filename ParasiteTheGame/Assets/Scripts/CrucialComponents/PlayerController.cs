@@ -44,6 +44,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (t)
         {
             controlled = t.gameObject.GetComponent<IControlable>();
+            if (!controlled.CanBeCaptured)
+            {
+                controlled = null;
+                return;
+            }
             thisRigidbody2d.simulated = false;
             controlled.OnCapture(this);
         }
@@ -62,7 +67,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     public bool TryTakeDamage(DamageInfo dmgInf)
     {
-        if (controlled is null || dmgInf.Source == DamageSource.Enemy)
+        if (controlled is null && dmgInf.Source != DamageSource.Player)
         {
             health -= dmgInf.Amount;
             Debug.Log($"Player hurt : health = {health}");

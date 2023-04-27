@@ -11,7 +11,8 @@ public class InputHandler
         var mousePos = Input.mousePosition;
         var jumpout = Input.GetButtonDown("JumpOut");
         var pickOrDrop = Input.GetButtonDown("PickOrDrop");
-        var fireeee = Input.GetButtonDown("Fire");
-        return new InputInfo(axes, mousePos, jumpout, pickOrDrop, fireeee);
+        var fireeee = Input.GetButton("Fire");
+        var throwItem = Input.GetButtonDown("ThrowItem");
+        return new InputInfo(axes, mousePos, jumpout, pickOrDrop, fireeee, throwItem);
     }
 }

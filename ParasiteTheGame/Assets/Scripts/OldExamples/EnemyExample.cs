@@ -12,6 +12,8 @@ public class EnemyExample : MonoBehaviour, IControlable, IDamagable
     public bool IsCaptured;
     private int health;
 
+    public bool CanBeCaptured { get; protected set; } = true;
+
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();

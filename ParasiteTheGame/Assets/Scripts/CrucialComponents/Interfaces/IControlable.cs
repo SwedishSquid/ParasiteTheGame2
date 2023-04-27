@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IControlable
 {
+    public bool CanBeCaptured { get; }
     public void ControlledUpdate(InputInfo inpInf);
 
     /// <summary>
@@ -11,9 +12,9 @@ public interface IControlable
     /// </summary>
     public void UpdatePlayerPos(Transform playerTransform);
 
-    //do we need this?
-    public void AutomaticUpdate();
-
+    /// <summary>
+    /// called when picking or dropping items
+    /// </summary>
     public void ActOnPickOrDrop();
 
     /// <summary>

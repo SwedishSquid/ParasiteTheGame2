@@ -12,13 +12,16 @@ public struct InputInfo
 
     public readonly bool FirePressed { get; }
 
-    public InputInfo(Vector2 axes, Vector3 mousePos, bool jumpout, bool pickOrDrop, bool firePressed)
+    public readonly bool ThrowItemPressed { get; }
+
+    public InputInfo(Vector2 axes, Vector3 mousePos, bool jumpout, bool pickOrDrop, bool firePressed, bool throwItem)
     {
         Axis = axes;
         MousePos = mousePos;
         JumpoutPressed = jumpout;
         PickOrDropPressed = pickOrDrop;
         FirePressed = firePressed;
+        ThrowItemPressed = throwItem;
     }
 
     /// <summary>

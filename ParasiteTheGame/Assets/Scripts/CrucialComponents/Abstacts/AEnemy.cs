@@ -1,0 +1,125 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
+{
+    protected Rigidbody2D myRigidbody;
+    protected float velocity = 10;
+    protected IUsable item;
+    protected LayerMask weaponLayer;
+    protected LayerMask collidableItems;
+    protected float radius = 1.06f;
+    public bool IsCaptured;
+    protected int health = 100;
+
+    public virtual bool CanBeCaptured { get; protected set; } = true;
+
+    protected virtual void Start()
+    {
+        myRigidbody = GetComponent<Rigidbody2D>();
+        weaponLayer = LayerMask.GetMask("Weapons");
+    }
+
+    public virtual void ControlledUpdate(InputInfo inpInf)
+    {
+        myRigidbody.velocity = inpInf.Axis * velocity;
+        if (item != null)
+        {
+            item.HandleUpdate(inpInf);
+            if (inpInf.ThrowItemPressed)
+            {
+                item.Throw(inpInf);
+                item = null;
+            }
+        }
+    }
+
+    public virtual void OnCapture(PlayerController player)
+    {
+        IsCaptured = true;
+    }
+
+    public virtual void OnRelease(PlayerController player)
+    {
+        myRigidbody.velocity = new Vector2(0, 0);
+        IsCaptured = false;
+    }
+
+    public virtual void UpdatePlayerPos(Transform playerTransform)
+    {
+        playerTransform.position = transform.position;
+    }
+
+    public virtual bool TryTakeDamage(DamageInfo dmgInf)
+    {
+        if ((IsCaptured && dmgInf.Source == DamageSource.Enemy)
+            || (!IsCaptured && dmgInf.Source == DamageSource.Player))
+        {
+            health -= dmgInf.Amount;
+            Debug.Log($"Enemy hurt : health = {health}");
+            return true;
+        }
+        return false;
+    }
+
+    public virtual void ActOnPickOrDrop()
+    {
+        if (item == null)
+        {
+            PickUp();
+        }
+        else
+        {
+            DropDown();
+        }
+    }
+
+    protected virtual void PickUp()
+    {
+        var t = Physics2D.OverlapCircle(transform.position, radius, weaponLayer);
+        Debug.Log(t);
+        if (t)
+        {
+            item = t.gameObject.GetComponent<IUsable>();
+            item?.OnPickUp(this);
+        }
+        else
+        {
+            Debug.Log("nothing to pick up");
+        }
+    }
+
+    protected virtual void DropDown()
+    {
+        item.OnDropDown(this);
+        item = null;
+    }
+
+    public virtual Vector2 GetUserPosition()
+    {
+        return transform.position;
+    }
+
+    public virtual float GetUserHeight()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual float GetUserWidth()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual float GetUserRadius()
+    {
+        return radius;
+    }
+
+    public virtual DamageSource GetDamageSource()
+    {
+        if (IsCaptured)
+        {
+            return DamageSource.Player;
+        }
+        return DamageSource.Enemy;
+    }
+}
