@@ -4,6 +4,5 @@ using UnityEngine;
 
 enum GameState
 {
-    NotControlling,
-    Controlling
+    MainGameMode
 }

@@ -19,11 +19,28 @@ public class PlayerController : MonoBehaviour, IDamagable
         health = 100;
     }
 
-    // Update is called once per frame
     public void HandleUpdate(InputInfo inpInf)
     {
-        input = inpInf.Axis;
-        thisRigidbody2d.velocity = input * velocity;
+        if (inpInf.JumpoutPressed)
+        {
+            ActOnJumpout();
+        }
+        if (controlled is null)
+        {
+            input = inpInf.Axis;
+            thisRigidbody2d.velocity = input * velocity;
+        }
+        else
+        {
+            if (inpInf.PickOrDropPressed)
+            {
+                controlled.ActOnPickOrDrop();
+            }
+
+            controlled.ControlledUpdate(inpInf);
+            controlled.UpdatePlayerPos(transform);
+        }
+        
     }
 
     public void ActOnJumpout()

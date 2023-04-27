@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class EnemyExample2 : AEnemy
 {
-    
+    protected override void Start()
+    {
+        base.Start();
+        health = 150;
+    }
 }

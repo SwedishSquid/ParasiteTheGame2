@@ -7,9 +7,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
     protected IUsable item;
-    protected LayerMask weaponLayer;
+    protected LayerMask pickableItemsLayer;
     protected LayerMask collidableItems;
     protected float radius = 1.06f;
+    protected float itemPickingRadius = 2f;
     public bool IsCaptured;
     protected int health = 100;
 
@@ -18,7 +19,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     protected virtual void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
-        weaponLayer = LayerMask.GetMask("Weapons");
+        pickableItemsLayer = LayerMask.GetMask("Weapons") | LayerMask.GetMask("CollidableItems");
     }
 
     public virtual void ControlledUpdate(InputInfo inpInf)
@@ -54,7 +55,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     public virtual bool TryTakeDamage(DamageInfo dmgInf)
     {
         if ((IsCaptured && dmgInf.Source == DamageSource.Enemy)
-            || (!IsCaptured && dmgInf.Source == DamageSource.Player))
+            || (!IsCaptured && dmgInf.Source == DamageSource.Player)
+            || dmgInf.Source == DamageSource.Environment)
         {
             health -= dmgInf.Amount;
             Debug.Log($"Enemy hurt : health = {health}");
@@ -77,7 +79,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
 
     protected virtual void PickUp()
     {
-        var t = Physics2D.OverlapCircle(transform.position, radius, weaponLayer);
+        var t = Physics2D.OverlapCircle(transform.position, itemPickingRadius, pickableItemsLayer);
         Debug.Log(t);
         if (t)
         {
@@ -99,6 +101,11 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     public virtual Vector2 GetUserPosition()
     {
         return transform.position;
+    }
+
+    public virtual Vector2 GetUserVelocity()
+    {
+        return myRigidbody.velocity;
     }
 
     public virtual float GetUserHeight()

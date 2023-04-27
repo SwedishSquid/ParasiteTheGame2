@@ -15,10 +15,13 @@ public abstract class AWeapon : MonoBehaviour, IUsable
     protected Vector3 forward = new Vector3(0, 0, 1);
     [SerializeField] protected ThrowHandler throwHandlerPrefab;
 
+    protected ThrowComponent throwComponent;
+
 
     virtual protected void Start()
     {
-        rigidbody2 = GetComponent<Rigidbody2D>();
+        throwComponent = GetComponent<ThrowComponent>();
+        throwComponent.enabled = false; //just in case weapon creator forgets
     }
 
     virtual public void HandleUpdate(InputInfo inpInf)
@@ -42,6 +45,10 @@ public abstract class AWeapon : MonoBehaviour, IUsable
 
     virtual public void OnPickUp(IUser user)
     {
+        if (throwComponent.enabled)
+        {
+            throwComponent.EndThrow();
+        }
         this.user = user;
         damageSource = user.GetDamageSource();
         gameObject.GetComponent<Collider2D>().enabled = false;
@@ -55,28 +62,13 @@ public abstract class AWeapon : MonoBehaviour, IUsable
 
     virtual public void Throw(InputInfo inpInf)
     {
+        var userVelocity = user.GetUserVelocity();
         OnDropDown(user);
-        var rigid = gameObject.AddComponent<Rigidbody2D>();
-        rigid.gravityScale = 0;
-        rigid.simulated = true;
-        rigid.velocity = inpInf.GetMouseDir() * throwSpeed;
-        gameObject.layer = LayerMask.NameToLayer("CollidableItems"); ;
-        var th = Instantiate(throwHandlerPrefab, transform.position, transform.rotation);
-        th.InitIt(gameObject, 0.997f);
-        /*if (this.TryGetComponent<Rigidbody2D>(out var rigid))
-        {
-            rigid.simulated = true;
-            rigid.velocity = inpInf.GetMouseDir() * throwSpeed;
-            var th = Instantiate(throwHandlerPrefab, transform.position, transform.rotation);
-            th.InitIt(gameObject);
-        }*/
+        throwComponent.StartThrow(inpInf.GetMouseDir(), userVelocity * 0.2f);
     }
 
-    virtual protected void OnCollisionEnter(Collision collision)
+    virtual public void DealDamageByThrow(IDamagable damagable)
     {
-        if (rigidbody2.simulated && collision.gameObject.TryGetComponent<IDamagable>(out var damagabe))
-        {
-            damagabe.TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, damageAmount));
-        }
+        damagable.TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, damageAmount));
     }
 }

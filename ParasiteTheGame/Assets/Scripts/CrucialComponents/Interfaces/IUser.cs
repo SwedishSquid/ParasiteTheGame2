@@ -7,6 +7,8 @@ public interface IUser
 {
     public Vector2 GetUserPosition();
 
+    public Vector2 GetUserVelocity();
+
     public float GetUserHeight();
     public float GetUserWidth();
     public float GetUserRadius();

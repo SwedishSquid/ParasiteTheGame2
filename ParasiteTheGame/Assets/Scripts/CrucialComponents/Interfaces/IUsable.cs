@@ -11,4 +11,6 @@ public interface IUsable
     public void OnPickUp(IUser user);
 
     public void OnDropDown(IUser user);
+
+    public void DealDamageByThrow(IDamagable damagable);
 }
