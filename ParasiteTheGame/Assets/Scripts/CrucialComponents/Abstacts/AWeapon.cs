@@ -12,7 +12,6 @@ public abstract class AWeapon : MonoBehaviour, IUsable
     protected int frameCount = 0;
     protected float throwSpeed = 30;
     protected Rigidbody2D rigidbody2;
-    protected Vector3 forward = new Vector3(0, 0, 1);
     [SerializeField] protected ThrowHandler throwHandlerPrefab;
 
     protected ThrowComponent throwComponent;
@@ -29,7 +28,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable
         var desiredRotation = inpInf.GetMouseDir();
         var angle = Mathf.Atan2(desiredRotation.y, desiredRotation.x) * (180 / Mathf.PI);
         transform.position = user.GetUserPosition() + (desiredRotation * user.GetUserRadius());
-        transform.rotation = Quaternion.AngleAxis(angle, forward);
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         frameCount++;
         if (inpInf.FirePressed && frameCount >= fireRate)
         {

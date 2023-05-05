@@ -36,7 +36,7 @@ public class ThrowComponent : MonoBehaviour
         rigidbody2d.angularVelocity = rotateRandomly ? (2 * Random.value - 1) * rotationSpeed : rotationSpeed;
         rigidbody2d.gravityScale = 0;
         
-        this.enabled = true;
+        enabled = true;
     }
 
     /// <summary>
@@ -44,8 +44,8 @@ public class ThrowComponent : MonoBehaviour
     /// </summary>
     public virtual void EndThrow()
     {
-        this.enabled = false;
-
+        enabled = false;
+        
         Destroy(rigidbody2d); rigidbody2d = null;
 
         gameObject.layer = Constants.ItemsLayer; 

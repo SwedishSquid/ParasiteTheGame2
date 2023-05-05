@@ -13,6 +13,7 @@ public class InputHandler
         var pickOrDrop = Input.GetButtonDown("PickOrDrop");
         var fireeee = Input.GetButton("Fire");
         var throwItem = Input.GetButtonDown("ThrowItem");
-        return new InputInfo(axes, mousePos, jumpout, pickOrDrop, fireeee, throwItem);
+        var chooseDirJumpOn = Input.GetButton("ChooseDirJumpOn");
+        return new InputInfo(axes, mousePos, jumpout, pickOrDrop, fireeee, throwItem, chooseDirJumpOn);
     }
 }
