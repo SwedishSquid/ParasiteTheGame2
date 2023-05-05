@@ -15,6 +15,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable
     [SerializeField] protected ThrowHandler throwHandlerPrefab;
 
     protected ThrowComponent throwComponent;
+    [SerializeField] protected AudioSource audioSource;
 
 
     virtual protected void Start()
