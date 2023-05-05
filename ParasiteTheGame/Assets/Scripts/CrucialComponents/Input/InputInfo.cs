@@ -14,10 +14,7 @@ public struct InputInfo
 
     public readonly bool ThrowItemPressed { get; }
     
-    public bool ChooseDirJumpOnPressed { get; }
-
-    public InputInfo(Vector2 axes, Vector3 mousePos, bool jumpout, bool pickOrDrop, bool firePressed, bool throwItem,
-        bool ChooseDirJumpOn)
+    public InputInfo(Vector2 axes, Vector3 mousePos, bool jumpout, bool pickOrDrop, bool firePressed, bool throwItem)
     {
         Axis = axes;
         MousePos = mousePos;
@@ -25,7 +22,6 @@ public struct InputInfo
         PickOrDropPressed = pickOrDrop;
         FirePressed = firePressed;
         ThrowItemPressed = throwItem;
-        ChooseDirJumpOnPressed = ChooseDirJumpOn;
     }
 
     /// <summary>

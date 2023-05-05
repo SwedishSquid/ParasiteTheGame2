@@ -9,11 +9,10 @@ public class InputHandler
     {
         var axes = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         var mousePos = Input.mousePosition;
-        var jumpout = Input.GetButtonDown("JumpOut");
+        var jumpout = Input.GetButton("JumpOut");
         var pickOrDrop = Input.GetButtonDown("PickOrDrop");
         var fireeee = Input.GetButton("Fire");
         var throwItem = Input.GetButtonDown("ThrowItem");
-        var chooseDirJumpOn = Input.GetButton("ChooseDirJumpOn");
-        return new InputInfo(axes, mousePos, jumpout, pickOrDrop, fireeee, throwItem, chooseDirJumpOn);
+        return new InputInfo(axes, mousePos, jumpout, pickOrDrop, fireeee, throwItem);
     }
 }
