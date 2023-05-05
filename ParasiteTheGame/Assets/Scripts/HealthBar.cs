@@ -29,7 +29,7 @@ public class HealthBar : MonoBehaviour
 
     private void Update()
     {
-        if (!enabled)
+        if (!gameObject.activeSelf)
             return;
         if (Time.time - lastHealthUpdate > 5)
             gameObject.SetActive(false);
