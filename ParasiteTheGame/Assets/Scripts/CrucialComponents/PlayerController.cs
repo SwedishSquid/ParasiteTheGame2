@@ -12,11 +12,12 @@ public class PlayerController : MonoBehaviour, IDamagable
     
     private int health;
     
-    private const float jumpVelocity = 20f;
+    private float jumpVelocity = 20;
     private bool isActJump;
-    private const int maxJumpTime = 100;
+    private int maxJumpTime = 100;
     private int jumpOnTimer;
     private Vector3 jumpDirection;
+    private int maxJumpTimeOut = 20;
     private int jumpTimeOut;
 
     [SerializeField]private Canvas arrowJumpOn;
@@ -32,31 +33,11 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     public void HandleUpdate(InputInfo inpInf)
     {
-        if (isActJump)
-        {
-            ActJumpOn();
+        if (TryHandleJump(inpInf))
             return;
-        }
-        if (isChooseDirJump && !inpInf.JumpoutPressed)
-        {
-            ActOnJumpout(inpInf);
-            isChooseDirJump = false;
-        }
-        if (isChooseDirJump)
-        {
-            ActChooseDirJump(inpInf);
-            return;
-        }
-        if (inpInf.JumpoutPressed)
-        {
-            isChooseDirJump = true;
-            return;
-        }
+        
         if (controlled is null)
         {
-            if (arrowJumpOn.gameObject.activeSelf)
-                arrowJumpOn.gameObject.SetActive(false);
-            
             input = inpInf.Axis;
             thisRigidbody2d.velocity = input * velocity;
         }
@@ -73,25 +54,48 @@ public class PlayerController : MonoBehaviour, IDamagable
         
     }
 
-    public void ActOnJumpout(InputInfo inpInf)
+    private bool TryHandleJump(InputInfo inpInf)
     {
-        if (controlled == null)
+        if (isActJump)
         {
-            jumpTimeOut = 0;
-            StartJumpOn(inpInf);
+            ActJumpOn();
+            return true;
         }
-        else
+        if (isChooseDirJump && !inpInf.JumpoutPressed)
+        {
+            ActOnJumpout(inpInf.GetMouseDir());
+            isChooseDirJump = false;
+        }
+        if (isChooseDirJump)
+        {
+            ActChooseDirJump(inpInf.GetMouseDir());
+            return true;
+        }
+        if (inpInf.JumpoutPressed)
+        {
+            thisRigidbody2d.velocity = Vector2.zero;
+            isChooseDirJump = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void ActOnJumpout(Vector3 direction)
+    {
+        if (controlled != null)
         {
             LetItGo();
-            jumpTimeOut = 20;
-            StartJumpOn(inpInf);
+            jumpTimeOut = maxJumpTimeOut;
         }
+
+        jumpDirection = direction;
+        StartJumpOn();
     }
     
-    private void StartJumpOn(InputInfo inpInf)
+    private void StartJumpOn()
     {
         arrowJumpOn.gameObject.SetActive(false);
-        jumpDirection = inpInf.GetMouseDir();
         isActJump = true;
         jumpOnTimer = maxJumpTime;
     }
@@ -132,12 +136,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         return false;
     }
 
-    private void ActChooseDirJump(InputInfo inpInf)
+    private void ActChooseDirJump(Vector3 direction)
     {
         if (!arrowJumpOn.gameObject.activeSelf)
             arrowJumpOn.gameObject.SetActive(true);
-        var desiredRotation = inpInf.GetMouseDir();
-        var angle = Mathf.Atan2(desiredRotation.y, desiredRotation.x) * (180 / Mathf.PI);
+        var angle = Mathf.Atan2(direction.y, direction.x) * (180 / Mathf.PI);
         arrowJumpOn.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
