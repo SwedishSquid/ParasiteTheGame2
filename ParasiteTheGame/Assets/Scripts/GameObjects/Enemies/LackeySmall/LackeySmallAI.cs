@@ -15,7 +15,7 @@ public class LackeySmallAI : MonoBehaviour
     void Update()
     {
         var direction = new Vector2(Random.value*2 - 1, Random.value*2 - 1).normalized;
-        var inpInf = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !lackey.HaveItem, true, false);
+        var inpInf = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !lackey.HaveItem, true, false, false);
         lackey.ControlledUpdate(inpInf);
     }
 }

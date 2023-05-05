@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCaptured: 0
+  healthBar: {fileID: 0}
 --- !u!114 &3958183750173467819
 MonoBehaviour:
   m_ObjectHideFlags: 0
