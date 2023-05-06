@@ -6,7 +6,6 @@ public class MenuSettings
 {
     public void FullScreenToggle()
     {
-        isFullScreen = !isFullScreen;
-        Screen.fullScreen = isFullScreen;
+        Screen.fullScreen = !Screen.fullScreen;
     }
 }
