@@ -8,8 +8,8 @@ public abstract class AWeapon : MonoBehaviour, IUsable
     protected IUser user;
     protected DamageSource damageSource;
     protected int damageAmount = 7;
-    protected int fireRate = 20; //frames per firing
-    protected int frameCount = 0;
+    protected float fireRate = 0.5f; //seconds between fire
+    protected float cooldownLeft = 0;
     protected float throwSpeed = 30;
     protected Rigidbody2D rigidbody2;
     [SerializeField] protected ThrowHandler throwHandlerPrefab;
@@ -26,16 +26,24 @@ public abstract class AWeapon : MonoBehaviour, IUsable
 
     virtual public void HandleUpdate(InputInfo inpInf)
     {
+        HandleMovement(inpInf);
+        if (inpInf.FirePressed && cooldownLeft <= 0)
+        {
+            cooldownLeft = fireRate;
+            Fire(inpInf);
+        }
+        if (cooldownLeft > 0)
+        {
+            cooldownLeft -= Time.deltaTime;
+        }
+    }
+
+    protected virtual void HandleMovement(InputInfo inpInf)
+    {
         var desiredRotation = inpInf.GetMouseDir();
         var angle = Mathf.Atan2(desiredRotation.y, desiredRotation.x) * (180 / Mathf.PI);
         transform.position = user.GetUserPosition() + (desiredRotation * user.GetUserRadius());
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        frameCount++;
-        if (inpInf.FirePressed && frameCount >= fireRate)
-        {
-            frameCount = 0;
-            Fire(inpInf);
-        }
     }
 
     virtual protected void Fire(InputInfo inpInf)
