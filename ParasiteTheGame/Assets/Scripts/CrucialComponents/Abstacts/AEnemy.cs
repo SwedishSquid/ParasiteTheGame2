@@ -11,7 +11,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     protected float itemPickingRadius = 2f;
     public bool IsCaptured;
     protected int health = 100;
-    [SerializeField] private HealthBar healthBar;
+    [SerializeField] protected HealthBar healthBar;
 
     public virtual bool CanBeCaptured { get; protected set; } = true;
 

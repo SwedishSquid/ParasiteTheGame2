@@ -42759,6 +42759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50384ac890e417f43b3ca9419c87b8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
   arrowJumpOn: {fileID: 1079384616}
 --- !u!223 &1079384616 stripped
 Canvas:

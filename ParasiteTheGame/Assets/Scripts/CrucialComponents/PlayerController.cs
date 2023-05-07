@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     public IControlable controlled;
     
     private int health;
+    [SerializeField] private HealthBar healthBar;
     
     private float jumpVelocity = 20;
     private bool isActJump;
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (isChooseDirJump)
         {
             ActChooseDirJump(inpInf.GetMouseDir());
-            return true;
+            return controlled is null;
         }
         if (inpInf.JumpoutPressed)
         {

@@ -7,6 +7,7 @@ public class LackeySmall : AEnemy
     Animator animator;
     protected override void Start()
     {
+        healthBar.SetMaxHealth(health);
         myRigidbody = GetComponent<Rigidbody2D>();
         radius = 2;
         animator = GetComponent<Animator>();
@@ -82,6 +83,7 @@ public class LackeySmall : AEnemy
             }
             else
             {
+                healthBar.SetValue(health);
                 animator.SetBool("isUncontious", false);
             }
             //
