@@ -18,13 +18,13 @@ public abstract class AWeapon : MonoBehaviour, IUsable
     [SerializeField] protected AudioSource audioSource;
 
 
-    virtual protected void Start()
+    protected virtual void Start()
     {
         throwComponent = GetComponent<ThrowComponent>();
         throwComponent.enabled = false; //just in case weapon creator forgets
     }
 
-    virtual public void HandleUpdate(InputInfo inpInf)
+    public virtual void HandleUpdate(InputInfo inpInf)
     {
         HandleMovement(inpInf);
         if (inpInf.FirePressed && cooldownLeft <= 0)
@@ -46,12 +46,12 @@ public abstract class AWeapon : MonoBehaviour, IUsable
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    virtual protected void Fire(InputInfo inpInf)
+    protected virtual void Fire(InputInfo inpInf)
     {
         //summon something
     }
 
-    virtual public void OnPickUp(IUser user)
+    public virtual void OnPickUp(IUser user)
     {
         if (throwComponent.enabled)
         {
@@ -62,20 +62,20 @@ public abstract class AWeapon : MonoBehaviour, IUsable
         gameObject.GetComponent<Collider2D>().enabled = false;
     }
 
-    virtual public void OnDropDown(IUser user)
+    public virtual void OnDropDown(IUser user)
     {
         this.user = null;
         gameObject.GetComponent<Collider2D>().enabled = true;
     }
 
-    virtual public void Throw(InputInfo inpInf)
+    public virtual void Throw(InputInfo inpInf)
     {
         var userVelocity = user.GetUserVelocity();
         OnDropDown(user);
         throwComponent.StartThrow(inpInf.GetMouseDir(), userVelocity * 0.2f);
     }
 
-    virtual public void DealDamageByThrow(IDamagable damagable)
+    public virtual void DealDamageByThrow(IDamagable damagable)
     {
         damagable.TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, damageAmount));
     }

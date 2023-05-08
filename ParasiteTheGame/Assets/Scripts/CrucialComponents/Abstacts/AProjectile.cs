@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class AProjectile : MonoBehaviour
 {
-    private DamageInfo damageInfo;
-    private float velocity;
-    private Vector3 direction;
-    private float rayLength;
-    private float lifetime;   //seconds
+    protected DamageInfo damageInfo;
+    protected float velocity;
+    protected Vector3 direction;
+    protected float rayLength;
+    protected float lifetime;   //seconds
 
     /// <param name="rayLength">to raycast in front of the projectile</param>
     /// <param name="lifetime">seconds</param>
@@ -20,7 +20,7 @@ public class AProjectile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         transform.position += Time.deltaTime * velocity * direction;
         var obg = Physics2D.Raycast(transform.position, direction, rayLength, Constants.DamageTakersLayer);

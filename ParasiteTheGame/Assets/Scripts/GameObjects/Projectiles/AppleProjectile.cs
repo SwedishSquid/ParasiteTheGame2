@@ -2,37 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppleProjectile : MonoBehaviour
+public class AppleProjectile : AProjectile
 {
-    protected bool isHeld = true;
-    protected float timeLeft = 1f;
+    protected float rotationAngle;
+    protected float currentAngle = 0;
 
-    protected void Update()
+    /// <param name="rotationAngle">degrees per second</param>
+    public void SetParameters(DamageInfo dmjInf, Vector3 direction, float rotationAngle = 0)
     {
-        if (isHeld)
+        SetParameters(dmjInf, direction, 8f, 1f, 2f);
+        this.rotationAngle = rotationAngle;
+    }
+
+    protected override void Update()
+    {
+        transform.position += Time.deltaTime * velocity * direction;
+        currentAngle += (rotationAngle * Time.deltaTime) % 360;
+        transform.rotation = Quaternion.AngleAxis(currentAngle, Vector3.forward);
+        var obg = Physics2D.Raycast(transform.position, direction, rayLength, Constants.DamageTakersLayer);
+        if (obg)
         {
-            return;
+            var damagable = obg.collider.gameObject.GetComponent<IDamagable>();
+            //walls can have no scripts and thus can be not a IDamagable instance
+            if (damagable is null || damagable.TryTakeDamage(damageInfo))
+            {
+                Destroy(gameObject);
+            }
         }
-        timeLeft -= Time.deltaTime;
-        if (timeLeft <= 0f)
+
+        lifetime -= Time.deltaTime;
+        if (lifetime <= 0)
         {
             Destroy(gameObject);
         }
-    }
-
-    public void SetParameters(float speed, float lifetime = 1f, bool isHeld = true)
-    {
-
-    }
-
-    public void OnThrow()
-    {
-        isHeld = false;
-    }
-
-    public void ChangePosition(Vector2 position, Quaternion rotation = new Quaternion())
-    {
-        transform.position= position;
-        transform.rotation= rotation;
     }
 }
