@@ -7,7 +7,7 @@ public class MenuScript: MonoBehaviour
 {
     public void PlayPressed()
     {
-        SceneManager.LoadScene("SceneExample"); // change to scene "GAME_NAME"
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//"SceneExample"); // change to scene "GAME_NAME"
     }
 
     public void ExitPressed()
