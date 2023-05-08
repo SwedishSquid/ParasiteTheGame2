@@ -15,11 +15,11 @@ public class PlayerController : MonoBehaviour, IDamagable
     
     private float jumpVelocity = 20;
     private bool isActJump;
-    private int maxJumpTime = 100;
-    private int jumpOnTimer;
+    private float maxJumpTime = 0.2f;
+    private float jumpOnTimer;
     private Vector3 jumpDirection;
-    private int maxJumpTimeOut = 20;
-    private int jumpTimeOut;
+    private float maxJumpTimeOut = 0.04f;
+    private float jumpTimeOut;
 
     [SerializeField]private Canvas arrowJumpOn;
     private bool isChooseDirJump;
@@ -104,8 +104,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void ActJumpOn()
     {
         thisRigidbody2d.velocity = jumpDirection * jumpVelocity;
-        jumpOnTimer--;
-        if (TryCapture() || jumpOnTimer == 0)
+        jumpOnTimer -= Time.deltaTime;
+        if (TryCapture() || jumpOnTimer <= 0)
         {
             isActJump = false;
             thisRigidbody2d.velocity = Vector2.zero;
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         if (jumpTimeOut > 0)
         {
-            jumpTimeOut--;
+            jumpTimeOut -= Time.deltaTime;
             return false;
         }
         var t = Physics2D.Raycast(transform.position, jumpDirection, 0.2f,
