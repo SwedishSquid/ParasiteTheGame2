@@ -43,7 +43,6 @@ public class LackeySmall : AEnemy
     {
         IsCaptured = true;
         //
-        player.GetComponent<SpriteRenderer>().enabled = false;
         animator.SetBool("isUncontious", false);
         GetComponent<LackeySmallAI>().enabled = false;
         //
@@ -51,10 +50,9 @@ public class LackeySmall : AEnemy
 
     public override void OnRelease(PlayerController player)
     {
-        myRigidbody.velocity = new Vector2(0, 0);
+        myRigidbody.velocity = Vector2.zero;
         IsCaptured = false;
         //
-        player.GetComponent<SpriteRenderer>().enabled = true;
         if (health <= 0)
         {
             animator.SetBool("isUncontious", true);

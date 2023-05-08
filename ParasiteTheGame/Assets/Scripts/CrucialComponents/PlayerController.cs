@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IDamagable
 {
     private Rigidbody2D thisRigidbody2d;
+    private SpriteRenderer thisSpriteRenderer;
     private Vector2 input;
     private float velocity = 3.09f;
     public IControlable controlled;
@@ -15,11 +16,13 @@ public class PlayerController : MonoBehaviour, IDamagable
     
     private float jumpVelocity = 20;
     private bool isActJump;
-    private float maxJumpTime = 0.2f;
+    private float maxJumpTime = 0.3f;
     private float jumpOnTimer;
     private Vector3 jumpDirection;
-    private float maxJumpTimeOut = 0.04f;
+    private float maxJumpTimeOut = 0.08f;
     private float jumpTimeOut;
+    private float maxJumpCooldown = 4f;
+    private float jumpCooldown;
 
     [SerializeField]private Canvas arrowJumpOn;
     private bool isChooseDirJump;
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         arrowJumpOn.transform.position = transform.position;
         thisRigidbody2d = GetComponent<Rigidbody2D>();
+        thisSpriteRenderer = GetComponent<SpriteRenderer>();
         health = 100;
     }
 
@@ -57,6 +61,13 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     private bool TryHandleJump(InputInfo inpInf)
     {
+        if (jumpCooldown > 0)
+        {
+            jumpCooldown -= Time.deltaTime;
+            if (inpInf.JumpoutPressed)
+                Debug.Log($"jumpCooldown: {jumpCooldown}");
+            return false;
+        }
         if (isActJump)
         {
             ActJumpOn();
@@ -108,6 +119,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (TryCapture() || jumpOnTimer <= 0)
         {
             isActJump = false;
+            jumpCooldown = maxJumpCooldown;
             thisRigidbody2d.velocity = Vector2.zero;
         }
     }
@@ -130,6 +142,7 @@ public class PlayerController : MonoBehaviour, IDamagable
                 return false;
             }
             thisRigidbody2d.simulated = false;
+            thisSpriteRenderer.enabled = false;
             controlled.OnCapture(this);
             return true;
         }
@@ -148,6 +161,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void LetItGo()
     {
         thisRigidbody2d.simulated = true;
+        thisSpriteRenderer.enabled = true;
         controlled.OnRelease(this);
         controlled = null;
     }
