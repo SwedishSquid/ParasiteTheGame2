@@ -41,7 +41,7 @@ public class LackeySmall : AEnemy
 
     public override void OnCapture(PlayerController player)
     {
-        IsCaptured = true;
+        base.OnCapture(player);
         //
         animator.SetBool("isUncontious", false);
         GetComponent<LackeySmallAI>().enabled = false;
@@ -50,8 +50,7 @@ public class LackeySmall : AEnemy
 
     public override void OnRelease(PlayerController player)
     {
-        myRigidbody.velocity = Vector2.zero;
-        IsCaptured = false;
+        base.OnRelease(player);
         //
         if (health <= 0)
         {
@@ -78,6 +77,10 @@ public class LackeySmall : AEnemy
             {
                 animator.SetBool("isUncontious", true);
                 GetComponent<LackeySmallAI>().enabled = false;
+                if (item != null)
+                {
+                    DropDown();
+                }
             }
             else
             {
@@ -100,11 +103,9 @@ public class LackeySmall : AEnemy
         }
         else
         {
-            //
-            //Debug.Log("nothing to pick up");
-            //
+            
+            Debug.Log("nothing to pick up");
+            
         }
     }
-
-    public bool HaveItem => item is not null;
 }

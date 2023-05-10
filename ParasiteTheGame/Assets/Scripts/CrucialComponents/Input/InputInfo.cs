@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct InputInfo
+public readonly struct InputInfo
 {
     public readonly Vector2 Axis { get; }
     public readonly Vector3 MousePos { get; }

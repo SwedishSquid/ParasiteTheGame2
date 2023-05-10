@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class ThrowComponent : MonoBehaviour
 {
-    protected int ticksLeft = 1000;
+    protected float timeLeft = 2f; //seconds
     protected Rigidbody2D rigidbody2d;
     
     protected virtual void Update()
     {
-        rigidbody2d.velocity *= GetSlowdownFactor(ticksLeft);
-        ticksLeft--;
-        if (ticksLeft <= 0)
+        rigidbody2d.velocity *= GetSlowdownFactor(timeLeft);
+        timeLeft -= Time.deltaTime;
+        if (timeLeft <= 0)
         {
             EndThrow();
         }
@@ -24,10 +24,10 @@ public class ThrowComponent : MonoBehaviour
     /// <param name="direction"></param>
     /// <param name="speed"></param>
     ///  <param name="rotationSpeed"> Degrees per second </param>
-    public virtual void StartThrow(Vector2 direction, Vector2 additionalVelocity = new Vector2(), int lifetime = 1000,
+    public virtual void StartThrow(Vector2 direction, Vector2 additionalVelocity = new Vector2(), float lifetime = 2,
         float speed = 8f, bool rotateRandomly = true, float rotationSpeed = 40)
     {
-        ticksLeft = lifetime;
+        timeLeft = lifetime;
 
         gameObject.layer = Constants.CollidableItemsLayer;
 
@@ -51,9 +51,9 @@ public class ThrowComponent : MonoBehaviour
         gameObject.layer = Constants.ItemsLayer; 
     }
 
-    protected virtual float GetSlowdownFactor(int timeLeft)
+    protected virtual float GetSlowdownFactor(float timeLeft)
     {
-        float factor = 1f;
+        float factor = 500f;
         return (timeLeft * factor) / (1 + factor * timeLeft);
     }
 
