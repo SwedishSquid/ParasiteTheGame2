@@ -13,14 +13,12 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     public bool IsCaptured;
     protected int health = 100;
     protected DamageSource damageSource = DamageSource.Enemy;
-    [SerializeField] private HealthBar healthBar;
 
     public virtual bool CanBeCaptured { get; protected set; } = true;
 
     protected virtual void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
-        healthBar?.SetMaxHealth(health);
     }
 
     public virtual void ControlledUpdate(InputInfo inpInf)
@@ -66,8 +64,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
             || dmgInf.Source == DamageSource.Environment)
         {
             health -= dmgInf.Amount;
-            if (health >= 0) healthBar?.SetValue(health);
-            Debug.Log($"Enemy hurt : health = {health}");
+            
+            Debug.Log($"Creature hurt : health = {health}");
             return true;
         }
         return false;
@@ -95,7 +93,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
         }
         else
         {
-            Debug.Log("nothing to pick up");
+            //Debug.Log("nothing to pick up");
         }
     }
 

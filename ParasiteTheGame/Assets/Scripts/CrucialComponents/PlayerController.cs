@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
     private Vector3 jumpDirection;
     private float maxJumpTimeOut = 0.08f;
     private float jumpTimeOut;
-    private float maxJumpCooldown = 4f;
+    private float maxJumpCooldown = 0.8f;
     private float jumpCooldown;
 
     [SerializeField]private Canvas arrowJumpOn;

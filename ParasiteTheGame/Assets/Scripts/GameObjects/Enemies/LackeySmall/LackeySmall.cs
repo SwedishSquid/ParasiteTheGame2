@@ -2,15 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LackeySmall : AEnemy
+public class LackeySmall : AEnemyPlus
 {
-    Animator animator;
     protected override void Start()
     {
-        healthBar.SetMaxHealth(health);
-        myRigidbody = GetComponent<Rigidbody2D>();
+        base.Start();
         radius = 2;
-        animator = GetComponent<Animator>();
     }
 
     public override void ControlledUpdate(InputInfo inpInf)
@@ -66,13 +63,9 @@ public class LackeySmall : AEnemy
 
     public override bool TryTakeDamage(DamageInfo dmgInf)
     {
-        if ((IsCaptured && dmgInf.Source == DamageSource.Enemy)
-            || (!IsCaptured && dmgInf.Source == DamageSource.Player)
-            || dmgInf.Source == DamageSource.Environment)
+        var result = base.TryTakeDamage(dmgInf);
+        if (result)
         {
-            health -= dmgInf.Amount;
-            Debug.Log($"Enemy hurt : health = {health}");
-            //
             if (health <= 0)
             {
                 animator.SetBool("isUncontious", true);
@@ -87,25 +80,7 @@ public class LackeySmall : AEnemy
                 healthBar.SetValue(health);
                 animator.SetBool("isUncontious", false);
             }
-            //
-            return true;
         }
-        return false;
-    }
-
-    protected override void PickUp()
-    {
-        var t = Physics2D.OverlapCircle(transform.position, itemPickingRadius, Constants.PickableItems);
-        if (t)
-        {
-            item = t.gameObject.GetComponent<IUsable>();
-            item?.OnPickUp(this);
-        }
-        else
-        {
-            
-            Debug.Log("nothing to pick up");
-            
-        }
+        return result;
     }
 }

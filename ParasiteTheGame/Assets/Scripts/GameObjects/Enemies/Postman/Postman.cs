@@ -2,16 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Postman : AEnemy
+public class Postman : AEnemyPlus
 {
     // Start is called before the first frame update
-    Animator animator;
-
-    protected override void Start()
-    {
-        myRigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
 
     public override void ControlledUpdate(InputInfo inpInf)
     {
@@ -39,18 +32,9 @@ public class Postman : AEnemy
         }
     }
 
-    public override void OnCapture(PlayerController player)
-    {
-        base.OnCapture(player);
-        Debug.Log("remove sprite switching off from here");
-        player.GetComponent<SpriteRenderer>().enabled = false;
-    }
-
     public override void OnRelease(PlayerController player)
     {
         base.OnRelease(player);
         animator.SetBool("isMoving", false);
-        Debug.Log("remove sprite switching off from here");
-        player.GetComponent<SpriteRenderer>().enabled = true;
     }
 }

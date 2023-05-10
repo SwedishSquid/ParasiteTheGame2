@@ -6,7 +6,6 @@ using static UnityEngine.EventSystems.EventTrigger;
 public abstract class AWeapon : MonoBehaviour, IUsable
 {
     protected IUser user;
-    protected DamageSource damageSource;
     protected int damageAmount = 7;
     protected float fireRate = 0.5f; //seconds between fire
     protected float cooldownLeft = 0;
@@ -17,6 +16,17 @@ public abstract class AWeapon : MonoBehaviour, IUsable
     protected ThrowComponent throwComponent;
     [SerializeField] protected AudioSource audioSource;
 
+    protected DamageSource _lastDamageSource;
+    protected DamageSource damageSource { 
+        get
+        {
+            if (user != null)
+            {
+                _lastDamageSource = user.GetDamageSource();
+            }
+            return _lastDamageSource;
+        }
+    }
 
     protected virtual void Start()
     {
@@ -58,7 +68,6 @@ public abstract class AWeapon : MonoBehaviour, IUsable
             throwComponent.EndThrow();
         }
         this.user = user;
-        damageSource = user.GetDamageSource();
         gameObject.GetComponent<Collider2D>().enabled = false;
     }
 
@@ -70,6 +79,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable
 
     public virtual void Throw(InputInfo inpInf)
     {
+        _ = damageSource; //update damateInfo in case it wasn't updated before
         var userVelocity = user.GetUserVelocity();
         OnDropDown(user);
         throwComponent.StartThrow(inpInf.GetMouseDir(), userVelocity * 0.2f);
