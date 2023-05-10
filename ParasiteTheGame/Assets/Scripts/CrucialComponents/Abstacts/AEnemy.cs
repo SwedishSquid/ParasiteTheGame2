@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
@@ -11,6 +12,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     protected float itemPickingRadius = 2f;
     public bool IsCaptured;
     protected int health = 100;
+    protected DamageSource damageSource = DamageSource.Enemy;
     [SerializeField] private HealthBar healthBar;
 
     public virtual bool CanBeCaptured { get; protected set; } = true;
@@ -38,12 +40,18 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     public virtual void OnCapture(PlayerController player)
     {
         IsCaptured = true;
+        damageSource = DamageSource.Player;
     }
 
     public virtual void OnRelease(PlayerController player)
     {
         myRigidbody.velocity = new Vector2(0, 0);
+        if (item != null)
+        {
+            DropDown();
+        }
         IsCaptured = false;
+        damageSource = DamageSource.Enemy;
     }
 
     public virtual void UpdatePlayerPos(Transform playerTransform)
@@ -122,10 +130,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
 
     public virtual DamageSource GetDamageSource()
     {
-        if (IsCaptured)
-        {
-            return DamageSource.Player;
-        }
-        return DamageSource.Enemy;
+        return damageSource;
     }
+    
+    public bool HaveItem => item != null;
 }

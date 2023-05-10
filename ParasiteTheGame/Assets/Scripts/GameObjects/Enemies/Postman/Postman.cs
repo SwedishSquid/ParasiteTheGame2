@@ -41,15 +41,16 @@ public class Postman : AEnemy
 
     public override void OnCapture(PlayerController player)
     {
-        IsCaptured = true;
+        base.OnCapture(player);
+        Debug.Log("remove sprite switching off from here");
         player.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     public override void OnRelease(PlayerController player)
     {
-        myRigidbody.velocity = new Vector2(0, 0);
-        IsCaptured = false;
+        base.OnRelease(player);
         animator.SetBool("isMoving", false);
+        Debug.Log("remove sprite switching off from here");
         player.GetComponent<SpriteRenderer>().enabled = true;
     }
 }
