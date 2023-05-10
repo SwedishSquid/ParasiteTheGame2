@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamagable
+public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
 {
     private Rigidbody2D thisRigidbody2d;
     private SpriteRenderer thisSpriteRenderer;
@@ -175,5 +175,15 @@ public class PlayerController : MonoBehaviour, IDamagable
             return true;
         }
         return false;
+    }
+
+    public void SaveGame(GameData gameData)
+    {
+        gameData.playerPosition = transform.position;
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        transform.position = gameData.playerPosition;
     }
 }
