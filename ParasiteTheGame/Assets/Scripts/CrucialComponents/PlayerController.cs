@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
         controlled = null;
     }
 
-    public bool TryTakeDamage(DamageInfo dmgInf)
+    public bool TryTakeDamage(DamageInfo dmgInf, Vector2 direction)
     {
         if (controlled is null && dmgInf.Source != DamageSource.Player)
         {

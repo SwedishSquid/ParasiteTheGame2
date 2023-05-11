@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDamagable
 {
-    public bool TryTakeDamage(DamageInfo dmgInf);
+    public bool TryTakeDamage(DamageInfo dmgInf, Vector2 direction);
 }

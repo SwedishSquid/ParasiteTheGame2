@@ -13,6 +13,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     public bool IsCaptured;
     protected int health = 100;
     protected DamageSource damageSource = DamageSource.Enemy;
+    
+    protected Vector2 damageDir;
+    protected float maxFreezeTime = 0.3f;
+    public float freezeTime;
 
     public virtual bool CanBeCaptured { get; protected set; } = true;
 
@@ -23,6 +27,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
 
     public virtual void ControlledUpdate(InputInfo inpInf)
     {
+        
         myRigidbody.velocity = inpInf.Axis * velocity;
         if (item != null)
         {
@@ -57,18 +62,24 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
         playerTransform.position = transform.position;
     }
 
-    public virtual bool TryTakeDamage(DamageInfo dmgInf)
+    public virtual bool TryTakeDamage(DamageInfo dmgInf, Vector2 direction)
     {
         if ((IsCaptured && dmgInf.Source == DamageSource.Enemy)
             || (!IsCaptured && dmgInf.Source == DamageSource.Player)
             || dmgInf.Source == DamageSource.Environment)
         {
             health -= dmgInf.Amount;
-            
+
             Debug.Log($"Creature hurt : health = {health}");
             return true;
         }
         return false;
+    }
+
+    public void GetDamageEffect()
+    {
+        myRigidbody.velocity = damageDir * 10;
+        Debug.Log("This work");
     }
 
     public virtual void ActOnPickOrDrop()

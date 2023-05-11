@@ -14,9 +14,9 @@ public abstract class AEnemyPlus : AEnemy
         healthBar.SetMaxHealth(health);
     }
 
-    public override bool TryTakeDamage(DamageInfo dmgInf)
+    public override bool TryTakeDamage(DamageInfo dmgInf, Vector2 direction)
     {
-        var answer = base.TryTakeDamage(dmgInf);
+        var answer = base.TryTakeDamage(dmgInf, direction);
         if (answer && health >= 0 && healthBar != null) healthBar.SetValue(health);
         return answer;
     }

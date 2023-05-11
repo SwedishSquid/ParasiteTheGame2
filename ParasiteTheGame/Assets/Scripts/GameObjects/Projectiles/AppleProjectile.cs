@@ -24,7 +24,7 @@ public class AppleProjectile : AProjectile
         {
             var damagable = obg.collider.gameObject.GetComponent<IDamagable>();
             //walls can have no scripts and thus can be not a IDamagable instance
-            if (damagable is null || damagable.TryTakeDamage(damageInfo))
+            if (damagable is null || damagable.TryTakeDamage(damageInfo, direction))
             {
                 Destroy(gameObject);
             }

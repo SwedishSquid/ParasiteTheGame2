@@ -37,7 +37,7 @@ public class BulletExample : MonoBehaviour
         {
             var idmg = obg.collider.gameObject.GetComponent<IDamagable>();
             //walls can have no scripts and thus can be not a IDamagable instance
-            if (idmg is null || idmg.TryTakeDamage(damageInfo))
+            if (idmg is null || idmg.TryTakeDamage(damageInfo, direction))
             {
                 Destroy(gameObject);
             }
