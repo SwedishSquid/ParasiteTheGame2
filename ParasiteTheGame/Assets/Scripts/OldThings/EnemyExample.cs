@@ -100,7 +100,7 @@ public class EnemyExample : MonoBehaviour, IControlable, IDamagable
         weapon = null;
     }
 
-    public bool TryTakeDamage(DamageInfo dmgInf, Vector2 direction)
+    public bool TryTakeDamage(DamageInfo dmgInf)
     {
         if ((IsCaptured && dmgInf.Source == DamageSource.Enemy) 
             ||(!IsCaptured && dmgInf.Source == DamageSource.Player))

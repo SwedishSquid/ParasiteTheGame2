@@ -15,6 +15,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     protected DamageSource damageSource = DamageSource.Enemy;
     
     protected Vector2 damageDir;
+    protected float freezeVelocity = 3;
     protected float maxFreezeTime = 0.3f;
     public float freezeTime;
 
@@ -62,24 +63,25 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
         playerTransform.position = transform.position;
     }
 
-    public virtual bool TryTakeDamage(DamageInfo dmgInf, Vector2 direction)
+    public virtual bool TryTakeDamage(DamageInfo dmgInf)
     {
         if ((IsCaptured && dmgInf.Source == DamageSource.Enemy)
             || (!IsCaptured && dmgInf.Source == DamageSource.Player)
             || dmgInf.Source == DamageSource.Environment)
         {
             health -= dmgInf.Amount;
-
+            GetDamageEffect(dmgInf);
+            
             Debug.Log($"Creature hurt : health = {health}");
             return true;
         }
         return false;
     }
 
-    public void GetDamageEffect()
+    public void GetDamageEffect(DamageInfo dmgInf)
     {
-        myRigidbody.velocity = damageDir * 10;
-        Debug.Log("This work");
+        freezeTime = maxFreezeTime;
+        myRigidbody.velocity = dmgInf.Direction * freezeVelocity;
     }
 
     public virtual void ActOnPickOrDrop()

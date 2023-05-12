@@ -17,7 +17,6 @@ public class LackeySmallAI : MonoBehaviour
         if (lackey.freezeTime > 0)
         {
             lackey.freezeTime -= Time.deltaTime;
-            lackey.GetDamageEffect();
             return;
         }
         var direction = new Vector2(Random.value*2 - 1, Random.value*2 - 1).normalized;

@@ -61,9 +61,9 @@ public class LackeySmall : AEnemyPlus
         //
     }
 
-    public override bool TryTakeDamage(DamageInfo dmgInf, Vector2 direction)
+    public override bool TryTakeDamage(DamageInfo dmgInf)
     {
-        var result = base.TryTakeDamage(dmgInf, direction);
+        var result = base.TryTakeDamage(dmgInf);
         if (result)
         {
             if (health <= 0)
@@ -79,8 +79,7 @@ public class LackeySmall : AEnemyPlus
             {
                 healthBar.SetValue(health);
                 animator.SetBool("isUncontious", false);
-                freezeTime = maxFreezeTime;
-                damageDir = direction;
+                animator.SetBool("isMoving", false);
             }
         }
         return result;

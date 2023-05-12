@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
     private bool isActJump;
     private float maxJumpTime = 0.3f;
     private float jumpOnTimer;
-    private Vector3 jumpDirection;
+    private Vector2 jumpDirection;
     private float maxJumpTimeOut = 0.08f;
     private float jumpTimeOut;
     private float maxJumpCooldown = 0.8f;
@@ -63,9 +63,9 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
     {
         if (jumpCooldown > 0)
         {
-            jumpCooldown -= Time.deltaTime;
             if (inpInf.JumpoutPressed)
                 Debug.Log($"jumpCooldown: {jumpCooldown}");
+            jumpCooldown -= Time.deltaTime;
             return false;
         }
         if (isActJump)
@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
         {
             ActOnJumpout(inpInf.GetMouseDir());
             isChooseDirJump = false;
+            return true;
         }
         if (isChooseDirJump)
         {
@@ -109,12 +110,12 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
     {
         arrowJumpOn.gameObject.SetActive(false);
         isActJump = true;
+        thisRigidbody2d.velocity += jumpVelocity * jumpDirection;
         jumpOnTimer = maxJumpTime;
     }
 
     private void ActJumpOn()
     {
-        thisRigidbody2d.velocity = jumpDirection * jumpVelocity;
         jumpOnTimer -= Time.deltaTime;
         if (TryCapture() || jumpOnTimer <= 0)
         {
@@ -166,7 +167,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
         controlled = null;
     }
 
-    public bool TryTakeDamage(DamageInfo dmgInf, Vector2 direction)
+    public bool TryTakeDamage(DamageInfo dmgInf)
     {
         if (controlled is null && dmgInf.Source != DamageSource.Player)
         {

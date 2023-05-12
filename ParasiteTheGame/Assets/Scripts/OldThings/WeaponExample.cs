@@ -35,7 +35,7 @@ public class WeaponExample : MonoBehaviour, IWeapon
     public void RotateAndMove(Vector2 desiredRotation, Vector2 centre, float radius)
     {
         var angle = Mathf.Atan2(desiredRotation.y, desiredRotation.x) * (180 / Mathf.PI);
-        transform.position = centre + (desiredRotation * radius);
+        transform.position = centre + desiredRotation * radius;
         transform.rotation = Quaternion.AngleAxis(angle, forward);
         currentDirection = desiredRotation;
     }
@@ -43,7 +43,8 @@ public class WeaponExample : MonoBehaviour, IWeapon
     public void Use()
     {
         Debug.Log("Puf Puf Puf!!!");
-        var bullet = Instantiate(bulletPrefab, transform.position + (currentDirection * 0.6f), transform.rotation);
-        bullet.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1), currentDirection, 10, 0.2f, 2000);
+        var bullet = Instantiate(bulletPrefab, transform.position + currentDirection * 0.6f, transform.rotation);
+        bullet.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1, currentDirection),
+            currentDirection, 10, 0.2f, 2000);
     }
 }

@@ -87,6 +87,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable
 
     public virtual void DealDamageByThrow(IDamagable damagable)
     {
-        damagable.TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, damageAmount), transform.position.normalized);
+        damagable.TryTakeDamage(
+            new DamageInfo(DamageType.Melee, damageSource, damageAmount, rigidbody2.velocity.normalized));
     }
 }

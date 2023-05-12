@@ -6,7 +6,7 @@ using UnityEngine;
 public class MeleeWeapon : AWeapon
 {
     private LayerMask damageTakerLayers;
-    private bool didDamage = false;
+    private bool didDamage;
     public Animator anim;
     private float animTime;
     public string hitName = "Hit";
@@ -30,16 +30,18 @@ public class MeleeWeapon : AWeapon
         for (int i = 0; i < enemies.Length; i++)
         {
             didDamage = enemies[i].GetComponent<AEnemy>()
-                .TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, 4),
-                    inpInf.GetMouseDir());
+                .TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, 4, transform.position.normalized));
         }
     }
 
     
     protected virtual void Update()
     {
-        animTime -= Time.deltaTime;
-        if (animTime <= 0)
-            anim.SetBool(hitName, false);
+        if (animTime > 0)
+        {
+            animTime -= Time.deltaTime;
+            if (animTime <= 0)
+                anim.SetBool(hitName, false);
+        }
     }
 }

@@ -28,6 +28,8 @@ public class AppleBasket : AWeapon
     {
         Vector3 currentDirection = inpInf.GetMouseDir();
         var apple = Instantiate(appleProjPrefab, transform.position + (currentDirection * 0.6f), transform.rotation);
-        apple.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1), currentDirection, (Random.value - 0.5f) * 360);
+        apple.SetParameters(
+            new DamageInfo(DamageType.Distant, damageSource, 1, currentDirection),
+            currentDirection, (Random.value - 0.5f) * 360);
     }
 }
