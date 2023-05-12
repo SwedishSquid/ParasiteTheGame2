@@ -12,11 +12,11 @@ public class LackeySmall : AEnemyPlus
 
     public override void ControlledUpdate(InputInfo inpInf)
     {
-        myRigidbody.velocity = inpInf.Axis * velocity;
+        base.ControlledUpdate(inpInf);
         //
         animator.SetFloat("moveX", inpInf.Axis.x);
         animator.SetFloat("moveY", inpInf.Axis.y);
-        if (inpInf.Axis.x != 0 || inpInf.Axis.y != 0)
+        if (freezeTime <= 0 && (inpInf.Axis.x != 0 || inpInf.Axis.y != 0))
         {
             animator.SetBool("isMoving", true);
         }
@@ -25,15 +25,6 @@ public class LackeySmall : AEnemyPlus
             animator.SetBool("isMoving", false);
         }
         //
-        if (item != null)
-        {
-            item.HandleUpdate(inpInf);
-            if (inpInf.ThrowItemPressed)
-            {
-                item.Throw(inpInf);
-                item = null;
-            }
-        }
     }
 
     public override void OnCapture(PlayerController player)

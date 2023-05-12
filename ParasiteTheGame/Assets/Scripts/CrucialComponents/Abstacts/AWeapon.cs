@@ -10,7 +10,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable
     protected float fireRate = 0.5f; //seconds between fire
     protected float cooldownLeft = 0;
     protected float throwSpeed = 30;
-    protected Rigidbody2D rigidbody2;
+    //protected Rigidbody2D rigidbody2;
     [SerializeField] protected ThrowHandler throwHandlerPrefab;
 
     protected ThrowComponent throwComponent;
@@ -87,7 +87,11 @@ public abstract class AWeapon : MonoBehaviour, IUsable
 
     public virtual void DealDamageByThrow(IDamagable damagable)
     {
-        damagable.TryTakeDamage(
-            new DamageInfo(DamageType.Melee, damageSource, damageAmount, rigidbody2.velocity.normalized));
+        //this rigidbody is not permanent - it will be destroyed sooner or later
+        if(TryGetComponent<Rigidbody2D>(out var rigidbody2))
+        {
+            damagable.TryTakeDamage(
+                new DamageInfo(DamageType.Melee, damageSource, damageAmount, Vector2.zero, 0));
+        }
     }
 }

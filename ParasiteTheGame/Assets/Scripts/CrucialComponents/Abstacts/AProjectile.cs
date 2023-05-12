@@ -23,7 +23,7 @@ public class AProjectile : MonoBehaviour
     protected virtual void Update()
     {
         transform.position += Time.deltaTime * velocity * direction;
-        var obg = Physics2D.Raycast(transform.position, direction, rayLength, Constants.DamageTakersLayer);
+        var obg = Physics2D.Raycast(transform.position, direction, rayLength, LayerConstants.DamageTakersLayer);
         if (obg)
         {
             var damagable = obg.collider.gameObject.GetComponent<IDamagable>();

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using UnityEditor.Sprites;
 using UnityEngine;
 
 public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
@@ -16,8 +18,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     
     protected Vector2 damageDir;
     protected float freezeVelocity = 3;
-    protected float maxFreezeTime = 0.3f;
-    public float freezeTime;
+    protected float maxFreezeTime = OtherConstants.CommonMaxFreezeTime;
+    protected float maxImmunityTime = OtherConstants.CommonImmunityTime;
+    protected float freezeTime;
+    protected float immunityTime;
 
     public virtual bool CanBeCaptured { get; protected set; } = true;
 
@@ -28,8 +32,21 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
 
     public virtual void ControlledUpdate(InputInfo inpInf)
     {
+
+        if (freezeTime > 0)
+        {
+            freezeTime -= Time.deltaTime;
+            inpInf = inpInf.ConstructForFrozen();
+        }else
+        {
+            myRigidbody.velocity = inpInf.Axis * velocity;
+        }
+
+        if (immunityTime > 0)
+        {
+            immunityTime -= Time.deltaTime;
+        }
         
-        myRigidbody.velocity = inpInf.Axis * velocity;
         if (item != null)
         {
             item.HandleUpdate(inpInf);
@@ -65,10 +82,16 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
 
     public virtual bool TryTakeDamage(DamageInfo dmgInf)
     {
+        //Debug.Log(immunityTime);
+
         if ((IsCaptured && dmgInf.Source == DamageSource.Enemy)
             || (!IsCaptured && dmgInf.Source == DamageSource.Player)
             || dmgInf.Source == DamageSource.Environment)
         {
+            if (immunityTime > 0)
+            {
+                return true;
+            }
             health -= dmgInf.Amount;
             GetDamageEffect(dmgInf);
             
@@ -81,7 +104,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     public void GetDamageEffect(DamageInfo dmgInf)
     {
         freezeTime = maxFreezeTime;
-        myRigidbody.velocity = dmgInf.Direction * freezeVelocity;
+        immunityTime = maxImmunityTime;
+        myRigidbody.velocity += dmgInf.Direction * (freezeVelocity * dmgInf.DamageVelocityMultiplier);
     }
 
     public virtual void ActOnPickOrDrop()
@@ -98,7 +122,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
 
     protected virtual void PickUp()
     {
-        var t = Physics2D.OverlapCircle(transform.position, itemPickingRadius, Constants.PickableItems);
+        var t = Physics2D.OverlapCircle(transform.position, itemPickingRadius, LayerConstants.PickableItems);
         if (t)
         {
             item = t.gameObject.GetComponent<IUsable>();

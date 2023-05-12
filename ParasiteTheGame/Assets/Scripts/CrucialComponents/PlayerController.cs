@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
             return false;
         }
         var t = Physics2D.Raycast(transform.position, jumpDirection, 0.2f,
-            Constants.ControllablesLayer);
+            LayerConstants.ControllablesLayer);
         if (t)
         {
             controlled = t.collider.gameObject.GetComponent<IControlable>();

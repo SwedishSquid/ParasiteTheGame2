@@ -19,7 +19,7 @@ public class AppleProjectile : AProjectile
         transform.position += Time.deltaTime * velocity * direction;
         currentAngle += (rotationAngle * Time.deltaTime) % 360;
         transform.rotation = Quaternion.AngleAxis(currentAngle, Vector3.forward);
-        var obg = Physics2D.Raycast(transform.position, direction, rayLength, Constants.DamageTakersLayer);
+        var obg = Physics2D.Raycast(transform.position, direction, rayLength, LayerConstants.DamageTakersLayer);
         if (obg)
         {
             var damagable = obg.collider.gameObject.GetComponent<IDamagable>();

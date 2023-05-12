@@ -31,4 +31,9 @@ public readonly struct InputInfo
     {
         return new Vector2(MousePos.x - (Screen.width / 2), MousePos.y - (Screen.height / 2)).normalized;
     }
+
+    public InputInfo ConstructForFrozen()
+    {
+        return new InputInfo(Vector2.zero, MousePos, JumpoutPressed, false, false, false);
+    }
 }

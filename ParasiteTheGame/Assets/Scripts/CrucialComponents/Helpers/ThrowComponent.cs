@@ -29,7 +29,7 @@ public class ThrowComponent : MonoBehaviour
     {
         timeLeft = lifetime;
 
-        gameObject.layer = Constants.CollidableItemsLayer;
+        gameObject.layer = LayerConstants.CollidableItemsLayer;
 
         rigidbody2d = gameObject.AddComponent<Rigidbody2D>();
         rigidbody2d.velocity = direction * speed + additionalVelocity;
@@ -48,7 +48,7 @@ public class ThrowComponent : MonoBehaviour
         
         Destroy(rigidbody2d); rigidbody2d = null;
 
-        gameObject.layer = Constants.ItemsLayer; 
+        gameObject.layer = LayerConstants.ItemsLayer; 
     }
 
     protected virtual float GetSlowdownFactor(float timeLeft)
