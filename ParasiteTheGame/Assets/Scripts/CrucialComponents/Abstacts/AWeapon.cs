@@ -10,7 +10,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable
     protected float fireRate = 0.5f; //seconds between fire
     protected float cooldownLeft = 0;
     protected float throwSpeed = 30;
-    //protected Rigidbody2D rigidbody2;
+
     [SerializeField] protected ThrowHandler throwHandlerPrefab;
 
     protected ThrowComponent throwComponent;
@@ -79,7 +79,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable
 
     public virtual void Throw(InputInfo inpInf)
     {
-        _ = damageSource; //update damateInfo in case it wasn't updated before
+        _ = damageSource; //update damageInfo in case it wasn't updated before
         var userVelocity = user.GetUserVelocity();
         OnDropDown(user);
         throwComponent.StartThrow(inpInf.GetMouseDir(), userVelocity * 0.2f);
