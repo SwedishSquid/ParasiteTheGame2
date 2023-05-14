@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FileGameDataHandler
 {
-    private string path;
+    private readonly string path;
 
     public FileGameDataHandler(string pathToDir, string fileName)
     {

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
     [Header("File Storage Config")]
     [SerializeField]
-    private string fileName = "gameData.game";
+    private string fileName;
 
     private GameData gameData;
     public static DataPersistenceManager instance { get; private set; }
@@ -23,14 +24,37 @@ public class DataPersistenceManager : MonoBehaviour
             Debug.LogError("another DataPersistenceManager on the scene detected");
         }
         instance = this;
+
+        gameDataHandler = new FileGameDataHandler(Application.persistentDataPath, fileName);
     }
 
     private void Start()
     {
-        gameDataHandler = new FileGameDataHandler(Application.persistentDataPath, fileName);
-        dataPersistenceObjects = FindAllDataPersistenceObjects();
+        
+        
+    }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
+    }
+
+    public void OnSceneUnloaded(Scene scene)
+    {
+        SaveGame();
     }
 
     public void NewGame()
