@@ -1,5 +1,5 @@
 
-
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -15,28 +15,45 @@ public class FileGameDataHandler
     public GameData Load()
     {
         string dataToLoad;
-        using (var stream = new FileStream(path, FileMode.Open))
+
+        GameData loadedData = null;
+        if (File.Exists(path))
         {
-            using (var reader = new StreamReader(stream))
+            try
             {
-                dataToLoad = reader.ReadToEnd();
+                using (var stream = new FileStream(path, FileMode.Open))
+                using (var reader = new StreamReader(stream))
+                {
+                    dataToLoad = reader.ReadToEnd();
+                }
+                loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e.Message + "occured during reading from file");
             }
         }
-
-        var loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
 
         return loadedData;
     }
 
     public void Save(GameData gameData)
     {
-        var dataToStore = JsonUtility.ToJson(gameData, true);
-        using (var stream = new FileStream(path, FileMode.Create))
+        try
         {
-            using (var writer = new StreamWriter(stream))
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            var dataToStore = JsonUtility.ToJson(gameData, true);
+            using (var stream = new FileStream(path, FileMode.Create))
             {
-                writer.Write(dataToStore);
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.Write(dataToStore);
+                }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message + "occured while saving to file");
         }
     }
 }

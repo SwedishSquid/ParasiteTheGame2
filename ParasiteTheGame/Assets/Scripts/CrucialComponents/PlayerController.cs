@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
+public class PlayerController : MonoBehaviour, IDamagable, ISavable
 {
     private Rigidbody2D thisRigidbody2d;
     private SpriteRenderer thisSpriteRenderer;
