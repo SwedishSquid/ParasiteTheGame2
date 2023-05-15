@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
     private Vector2 input;
     private float velocity = 3.09f;
     public IControlable controlled;
+    private string controlledGUID = "";
     
     private int health;
     [SerializeField] private HealthBar healthBar;
@@ -27,13 +28,16 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
     [SerializeField]private Canvas arrowJumpOn;
     private bool isChooseDirJump;
     
+    void Awake()
+    {
+        thisRigidbody2d = GetComponent<Rigidbody2D>();
+        thisSpriteRenderer = GetComponent<SpriteRenderer>();
+        health = 100;
+    }
 
     void Start()
     {
         arrowJumpOn.transform.position = transform.position;
-        thisRigidbody2d = GetComponent<Rigidbody2D>();
-        thisSpriteRenderer = GetComponent<SpriteRenderer>();
-        health = 100;
     }
 
     public void HandleUpdate(InputInfo inpInf)
@@ -145,6 +149,12 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
             thisRigidbody2d.simulated = false;
             thisSpriteRenderer.enabled = false;
             controlled.OnCapture(this);
+
+            if (t.collider.gameObject.TryGetComponent<ISavable>(out var savable))
+            {
+                controlledGUID = savable.GetGUID();
+            }
+            
             return true;
         }
         
@@ -165,6 +175,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         thisSpriteRenderer.enabled = true;
         controlled.OnRelease(this);
         controlled = null;
+        controlledGUID = "";
     }
 
     public bool TryTakeDamage(DamageInfo dmgInf)
@@ -180,11 +191,42 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
 
     public void SaveGame(GameData gameData)
     {
-        gameData.playerPosition = transform.position;
+        gameData.PlayerInfo.IsInitialised = true;
+        gameData.PlayerInfo.Health = health;
+        gameData.PlayerInfo.ControlledGUID = controlledGUID;
+        gameData.GetLevel(gameData.CurrentLevelName).PlayerPosition = transform.position;
     }
 
     public void LoadData(GameData gameData)
     {
-        transform.position = gameData.playerPosition;
+        if (!gameData.PlayerInfo.IsInitialised)
+        {
+            return;
+        }
+        health = gameData.PlayerInfo.Health;
+        controlledGUID = gameData.PlayerInfo.ControlledGUID;
+        transform.position = gameData.GetLevel(gameData.CurrentLevelName).PlayerPosition;
+    }
+
+    public string GetGUID()
+    {
+        //not very useful in player script
+        //much more useful for Enemies and Items
+        return "the-only-one-player";
+    }
+
+    public void AfterAllObjectsLoaded(GameData gameData)
+    {
+        if (controlledGUID == "")
+        {
+            return;
+        }
+
+        var r = gameData.GetEnemyOnSceneByGUID(gameData.CurrentLevelName, controlledGUID);
+        controlled = r.thisEnemy;
+
+        thisRigidbody2d.simulated = false;
+        thisSpriteRenderer.enabled = false;
+        controlled.OnCapture(this);
     }
 }

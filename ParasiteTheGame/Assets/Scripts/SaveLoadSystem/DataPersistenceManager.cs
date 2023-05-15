@@ -11,50 +11,51 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField]
     private string fileName;
 
-    private GameData gameData;
-    public static DataPersistenceManager instance { get; private set; }
+    /*[Header("Enable to save qurrent items on scene. Run scene. Disable.")]
+    public bool SetCurrentValuesAsDefault = false;*/
 
-    private List<ISavable> dataPersistenceObjects;
+
+    private GameData gameData;
+    public static DataPersistenceManager Instance { get; private set; }
+
+    private List<ISavable> dataPersistenceObjects = new List<ISavable>();
     private FileGameDataHandler gameDataHandler;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
-            Debug.LogError("another DataPersistenceManager on the scene detected");
+            Debug.Log("another DataPersistenceManager on the scene detected, creation of new one cancelled");
+            Destroy(this.gameObject);
+            return;
         }
-        instance = this;
+        Instance = this;
 
         gameDataHandler = new FileGameDataHandler(Application.persistentDataPath, fileName);
-    }
-
-    private void Start()
-    {
         
-        
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        /*if (SetCurrentValuesAsDefault)
+        {
+            Debug.Log("Current save system mode is writing items new default position." +
+                " Exit application now to save. Disable it after.");
+            return;
+        }*/
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
-    }
-
-    public void OnSceneUnloaded(Scene scene)
-    {
-        SaveGame();
     }
 
     public void NewGame()
@@ -79,6 +80,11 @@ public class DataPersistenceManager : MonoBehaviour
             gameObject.LoadData(gameData);
         }
 
+        foreach (var gameObject in dataPersistenceObjects)
+        {
+            gameObject.AfterAllObjectsLoaded(gameData);
+        }
+
         Debug.Log("loaded the game");
     }
 
@@ -88,6 +94,13 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistence.SaveGame(gameData);
         }
+
+        /*if (SetCurrentValuesAsDefault)
+        {
+            gameDataHandler.SaveDefaultLevel(gameData, SceneManager.GetActiveScene().name);
+            Debug.Log("saving new default values finished");
+            return;
+        }*/
         gameDataHandler.Save(gameData);
 
         Debug.Log("Saved the game");

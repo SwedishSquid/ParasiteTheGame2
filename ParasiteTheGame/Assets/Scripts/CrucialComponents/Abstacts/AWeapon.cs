@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public abstract class AWeapon : MonoBehaviour, IUsable
+public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 {
+    [SerializeField] protected string id;
+
+    [ContextMenu("Generate GUID for id")]
+    protected void GenerateGUID()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
+
     protected IUser user;
     protected int damageAmount = 7;
     protected float fireRate = 0.5f; //seconds between fire
@@ -28,10 +36,15 @@ public abstract class AWeapon : MonoBehaviour, IUsable
         }
     }
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         throwComponent = GetComponent<ThrowComponent>();
         throwComponent.enabled = false; //just in case weapon creator forgets
+    }
+
+    protected virtual void Start()
+    {
+        
     }
 
     public virtual void HandleUpdate(InputInfo inpInf)
@@ -93,5 +106,36 @@ public abstract class AWeapon : MonoBehaviour, IUsable
             damagable.TryTakeDamage(
                 new DamageInfo(DamageType.Melee, damageSource, damageAmount, Vector2.zero, 0));
         }
+    }
+
+    public void SaveGame(GameData gameData)
+    {
+        var itemData = gameData.GetItemOnSceneByGUID(gameData.CurrentLevelName, id);
+
+        itemData.ItemPosition = transform.position;
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        if (gameData.TryGetItemOnLevelByGUID(gameData.CurrentLevelName, id, out var itemData))
+        {
+            transform.position = itemData.ItemPosition;
+        }
+
+        itemData.thisItem = this;
+    }
+
+    public string GetGUID()
+    {
+        if (id == "")
+        {
+            Debug.LogError($"GUID for {this} is not set");
+        }
+        return id;
+    }
+
+    public void AfterAllObjectsLoaded(GameData gameData)
+    {
+        //do nothing :D
     }
 }

@@ -7,6 +7,11 @@ public class Settings : MonoBehaviour
 {
     public AudioMixer SettingsAudioM;
 
+    private void Start()
+    {
+        SetStandart();
+    }
+
     public void FullScreenToggle()
     {
         Screen.fullScreen = !Screen.fullScreen;
@@ -15,5 +20,10 @@ public class Settings : MonoBehaviour
     public void AudioVolume(float sliderValue)
     {
         SettingsAudioM.SetFloat("settingsVolume", sliderValue);
+    }
+
+    public void SetStandart()
+    {
+        SettingsAudioM.SetFloat("settingsVolume", -50);
     }
 }
