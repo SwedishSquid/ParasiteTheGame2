@@ -15,4 +15,6 @@ public class EnemyData
     public bool CanBeCaptured;
 
     public int Health;
+
+    public string TypeName = "";
 }

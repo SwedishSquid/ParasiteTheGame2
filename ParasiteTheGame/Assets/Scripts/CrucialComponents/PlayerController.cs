@@ -223,10 +223,25 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         }
 
         var r = gameData.GetEnemyOnSceneByGUID(gameData.CurrentLevelName, controlledGUID);
+
+        
+
         controlled = r.thisEnemy;
+
+        Debug.Log(r.thisEnemy);
 
         thisRigidbody2d.simulated = false;
         thisSpriteRenderer.enabled = false;
         controlled.OnCapture(this);
+    }
+
+    public void SetGUID(string GUID)
+    {
+        Debug.LogError("should never be called setGUID on player - it is a player!");
+    }
+
+    public void DestroyIt()
+    {
+        //nope :D
     }
 }

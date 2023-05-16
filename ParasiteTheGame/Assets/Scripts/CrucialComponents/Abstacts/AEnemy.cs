@@ -15,6 +15,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         id = System.Guid.NewGuid().ToString();
     }
 
+    protected virtual string typeName => "write here classname, for example";
+
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
     
@@ -201,6 +203,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         enemyData.CanBeCaptured = CanBeCaptured;
         enemyData.PickedItemGUID = itemGUID;
         enemyData.Health = health;
+
+        enemyData.TypeName = typeName;
     }
 
     public void LoadData(GameData gameData)
@@ -214,6 +218,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         }
 
         enemyData.thisEnemy = this;
+
+        Debug.Log($"EnemyDataLoaded = {enemyData.thisEnemy}");
     }
 
     public string GetGUID()
@@ -240,6 +246,25 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         item = gameData.GetItemOnSceneByGUID(gameData.CurrentLevelName, itemGUID).thisItem;
 
         item.OnPickUp(this);
+    }
+
+    public void SetGUID(string GUID)
+    {
+        id = GUID;
+    }
+
+    public void DestroyIt()
+    {
+        Destroy(gameObject);
+    }
+
+    public ISavable GetISavableItem()
+    {
+        if (item != null && item is AWeapon)
+        {
+            return item as ISavable;
+        }
+        return null;
     }
 
     public bool HaveItem => item != null;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponExample2 : AWeapon
 {
+    new protected string typeName = "WeaponExample2";
+
     [SerializeField] protected BulletExample bulletPrefab;
     protected override void Fire(InputInfo inpInf)
     {

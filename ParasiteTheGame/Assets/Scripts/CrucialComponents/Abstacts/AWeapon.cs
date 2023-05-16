@@ -13,6 +13,8 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         id = System.Guid.NewGuid().ToString();
     }
 
+    protected string typeName = "override this and fill the type name here"; // = "AppleBusket" for example
+
     protected IUser user;
     protected int damageAmount = 7;
     protected float fireRate = 0.5f; //seconds between fire
@@ -113,6 +115,8 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         var itemData = gameData.GetItemOnSceneByGUID(gameData.CurrentLevelName, id);
 
         itemData.ItemPosition = transform.position;
+
+        itemData.TypeName = typeName;
     }
 
     public void LoadData(GameData gameData)
@@ -134,8 +138,18 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         return id;
     }
 
+    public void SetGUID(string GUID)
+    {
+        id = GUID;
+    }
+
     public void AfterAllObjectsLoaded(GameData gameData)
     {
         //do nothing :D
+    }
+
+    public void DestroyIt()
+    {
+        Destroy(gameObject);
     }
 }

@@ -8,4 +8,8 @@ public interface ISavable
     public string GetGUID();
 
     public void AfterAllObjectsLoaded(GameData gameData);
+
+    public void SetGUID(string GUID);
+
+    public void DestroyIt();
 }

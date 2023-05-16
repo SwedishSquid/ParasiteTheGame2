@@ -76,4 +76,47 @@ public class GameData
         }
         return Levels[sceneName];
     }
+
+    public void MoveEnemyFromLevelToLevel(string senderLevelName, string recieverLevelName, string enemyGUID)
+    {
+        var sender = GetLevel(senderLevelName);
+        if (!sender.Enemies.ContainsKey(enemyGUID))
+        {
+            Debug.LogError($"no enemy with GUID={enemyGUID} on level {senderLevelName}");
+            return;
+        }
+        var reciever = GetLevel(recieverLevelName);
+        if (reciever.Enemies.ContainsKey(enemyGUID))
+        {
+            Debug.LogError($"enemy with same GUID={enemyGUID} detected on recieving level {recieverLevelName}");
+            return;
+        }
+
+        sender.RemovedEnemiesGUIDs.Add(enemyGUID);
+        var enemyData = sender.Enemies[enemyGUID];
+        sender.Enemies.Remove(enemyGUID);
+
+        reciever.Enemies.Add(enemyGUID, enemyData);
+    }
+
+    public void MoveItemFromLevelToLevel(string senderLevelName, string recieverLevelName, string itemGUID)
+    {
+        var sender = GetLevel(senderLevelName);
+        if (!sender.Items.ContainsKey(itemGUID))
+        {
+            Debug.LogError($"no item with GUID={itemGUID} found on sending level {senderLevelName}");
+            return;
+        }
+        var reciever = GetLevel(recieverLevelName);
+        if (reciever.Items.ContainsKey(itemGUID))
+        {
+            Debug.LogError($"item with same GUID={itemGUID} found on recieving level {recieverLevelName}");
+        }
+
+        sender.RemovedItemsGUIDs.Add(itemGUID);
+        var itemData = sender.Items[itemGUID];
+        sender.Items.Remove(itemGUID);
+
+        reciever.Items.Add(itemGUID, itemData);
+    }
 }
