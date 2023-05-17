@@ -60,6 +60,13 @@ public class GameData
         return true;
     }*/
 
+    public void SetPlayerPosition(Vector2 newPosition, string sceneName)
+    {
+        var level = GetLevel(sceneName);
+        level.PlayerPosition = newPosition;
+        level.IsPlayerPosInitialised = true;
+    }
+
     public LevelData GetLevel(string sceneName)
     {
         if (!Levels.ContainsKey(sceneName))

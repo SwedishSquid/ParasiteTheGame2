@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ObjectFactory : MonoBehaviour
 {
-    [SerializeField] private List<TypeObjectPair<string, MonoBehaviour>> factoryList;
+    [SerializeField] private List<MonoBehaviour> production;
 
     public MonoBehaviour GenerateGameObjectByName(string typeName, string GUID)
     {
@@ -25,6 +25,6 @@ public class ObjectFactory : MonoBehaviour
 
     private MonoBehaviour GetObjectByName(string typeName)
     {
-        return factoryList.FirstOrDefault(p => p.Type == typeName)?.Object;
+        return production.FirstOrDefault(m => m.GetType().Name == typeName);
     }
 }

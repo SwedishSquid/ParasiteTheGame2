@@ -13,7 +13,7 @@ public class MenuScript: MonoBehaviour
     {
         DisableAllButtons();
         DataPersistenceManager.Instance.SaveGame();
-        SceneManager.LoadSceneAsync("LevelOne");
+        SceneManager.LoadSceneAsync(DataPersistenceManager.Instance.GameData.CurrentLevelName);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//"SceneExample"); // change to scene "GAME_NAME"
     }
 

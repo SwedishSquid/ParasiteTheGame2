@@ -8,14 +8,6 @@ public class AppleBusket : AWeapon
 
     protected static float busketWidth = 0.8f;
 
-    protected override string typeName
-    {
-        get
-        {
-            return "AppleBusket";
-        }
-    }
-
     protected override void Start()
     {
         throwComponent = GetComponent<ThrowComponent>();

@@ -13,8 +13,6 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         id = System.Guid.NewGuid().ToString();
     }
 
-    protected virtual string typeName => "write here classname, for example";
-
     protected IUser user;
     protected int damageAmount = 7;
     protected float fireRate = 0.5f; //seconds between fire
@@ -116,7 +114,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 
         itemData.ItemPosition = transform.position;
 
-        itemData.TypeName = typeName;
+        itemData.TypeName = this.GetType().Name;//typeName;
     }
 
     public void LoadData(GameData gameData)
@@ -150,5 +148,11 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
     public void DestroyIt()
     {
         Destroy(gameObject);
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        //no no no
+        Debug.LogError("why is this called - SetPosition has no effect on item");
     }
 }

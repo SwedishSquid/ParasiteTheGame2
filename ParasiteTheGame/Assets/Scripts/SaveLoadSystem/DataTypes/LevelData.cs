@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class LevelData
 {
     public Vector2 PlayerPosition;
+
+    public bool IsPlayerPosInitialised = false;
 
     public SerializableHashset<string> RemovedGUIDs = new SerializableHashset<string>();
 

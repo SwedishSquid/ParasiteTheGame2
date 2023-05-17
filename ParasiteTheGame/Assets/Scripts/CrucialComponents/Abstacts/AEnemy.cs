@@ -15,8 +15,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         id = System.Guid.NewGuid().ToString();
     }
 
-    protected virtual string typeName => "write here classname, for example";
-
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
     
@@ -206,7 +204,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         enemyData.PickedItemGUID = itemGUID;
         enemyData.Health = health;
 
-        enemyData.TypeName = typeName;
+        enemyData.TypeName = this.GetType().Name;//typeName;
     }
 
     public void LoadData(GameData gameData)
@@ -269,6 +267,11 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             return item as ISavable;
         }
         return null;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        transform.position= position;
     }
 
     public bool HaveItem => item != null;

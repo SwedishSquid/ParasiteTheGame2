@@ -1,3 +1,4 @@
+using UnityEngine;
 
 public interface ISavable
 {
@@ -12,4 +13,6 @@ public interface ISavable
     public void SetGUID(string GUID);
 
     public void DestroyIt();
+
+    public void SetPosition(Vector2 position);
 }

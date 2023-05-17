@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IDamagable, ISavable
 {
@@ -194,7 +195,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         gameData.PlayerInfo.IsInitialised = true;
         gameData.PlayerInfo.Health = health;
         gameData.PlayerInfo.ControlledGUID = controlledGUID;
-        gameData.GetLevel(gameData.CurrentLevelName).PlayerPosition = transform.position;
+        gameData.SetPlayerPosition(transform.position, SceneManager.GetActiveScene().name);
     }
 
     public void LoadData(GameData gameData)
@@ -205,7 +206,13 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         }
         health = gameData.PlayerInfo.Health;
         controlledGUID = gameData.PlayerInfo.ControlledGUID;
-        transform.position = gameData.GetLevel(gameData.CurrentLevelName).PlayerPosition;
+
+        var level = gameData.GetLevel(SceneManager.GetActiveScene().name);
+
+        if (level.IsPlayerPosInitialised)
+        {
+            transform.position = level.PlayerPosition;
+        }
     }
 
     public string GetGUID()
@@ -232,6 +239,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
 
         controlled = enemyData.thisEnemy;
 
+        (controlled as ISavable)?.SetPosition(transform.position);
+
         thisRigidbody2d.simulated = false;
         thisSpriteRenderer.enabled = false;
 
@@ -248,5 +257,11 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
     public void DestroyIt()
     {
         //nope :C
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        //no no no
+        Debug.LogError("why is this called - SetPosition has no effect on player");
     }
 }

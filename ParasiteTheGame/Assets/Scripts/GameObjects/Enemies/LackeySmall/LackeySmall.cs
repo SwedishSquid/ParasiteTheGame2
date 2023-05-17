@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class LackeySmall : AEnemyPlus
 {
-    protected override string typeName { get
-        {
-            return "LackeySmall";
-        }
-    }
-
     protected override void Start()
     {
         base.Start();
