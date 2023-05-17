@@ -6,6 +6,13 @@ public class Postman : AEnemyPlus
 {
     // Start is called before the first frame update
 
+    protected override string typeName
+    {
+        get
+        {
+            return "Postman";
+        }
+    }
     public override void ControlledUpdate(InputInfo inpInf)
     {
         base.ControlledUpdate(inpInf);

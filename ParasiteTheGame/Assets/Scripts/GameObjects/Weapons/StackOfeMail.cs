@@ -5,6 +5,15 @@ using UnityEngine;
 public class StackOfeMail : AWeapon
 {
     [SerializeField] protected eMailProjectile mailPrefab;
+
+    protected override string typeName
+    {
+        get
+        {
+            return "StackOfeMail";
+        }
+    }
+
     protected override void Fire(InputInfo inpInf)
     {
         Vector3 currentDirection = inpInf.GetMouseDir();

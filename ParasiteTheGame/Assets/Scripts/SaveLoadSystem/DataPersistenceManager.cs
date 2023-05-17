@@ -14,8 +14,11 @@ public class DataPersistenceManager : MonoBehaviour
     public GameData GameData { get; private set; }
     public static DataPersistenceManager Instance { get; private set; }
 
-    private List<ISavable> dataPersistenceObjects = new List<ISavable>();
     private FileGameDataHandler gameDataHandler;
+
+    private ObjectFactory objectFactory;
+
+    private bool inMainMenu = true;
 
     private void Awake()
     {
@@ -28,8 +31,12 @@ public class DataPersistenceManager : MonoBehaviour
         Instance = this;
 
         gameDataHandler = new FileGameDataHandler(Application.persistentDataPath, fileName);
+
+        objectFactory = GetComponent<ObjectFactory>();
         
         DontDestroyOnLoad(this.gameObject);
+
+        GameData = gameDataHandler.Load();
     }
 
     private void OnEnable()
@@ -45,13 +52,12 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        /*if (SetCurrentValuesAsDefault)
+        if (inMainMenu)
         {
-            Debug.Log("Current save system mode is writing items new default position." +
-                " Exit application now to save. Disable it after.");
+            inMainMenu = false;
             return;
-        }*/
-        dataPersistenceObjects = FindAllDataPersistenceObjects();
+        }
+
         LoadGame();
     }
 
@@ -64,13 +70,13 @@ public class DataPersistenceManager : MonoBehaviour
     {
         GameData = gameDataHandler.Load();
         
-
-        
         if (GameData == null)
         {
             Debug.Log("found no data to load. loading default");
             NewGame();
         }
+
+        var dataPersistenceObjects = GetAllDataPersistenceObjects();
 
         foreach (var gameObject in dataPersistenceObjects)
         {
@@ -82,7 +88,6 @@ public class DataPersistenceManager : MonoBehaviour
         {
             Debug.Log($"updating object {gameObject}");
             gameObject.AfterAllObjectsLoaded(GameData);
-            
         }
 
         Debug.Log("loaded the game");
@@ -90,18 +95,17 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveGame()
     {
-        dataPersistenceObjects = FindAllDataPersistenceObjects();
+        var dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISavable>().ToList();
         foreach (var dataPersistence in dataPersistenceObjects)
         {
             dataPersistence.SaveGame(GameData);
         }
 
-        /*if (SetCurrentValuesAsDefault)
+        if (GameData == null)
         {
-            gameDataHandler.SaveDefaultLevel(gameData, SceneManager.GetActiveScene().name);
-            Debug.Log("saving new default values finished");
-            return;
-        }*/
+            Debug.LogError("saving null gamedata");
+        }
+
         gameDataHandler.Save(GameData);
 
         Debug.Log("Saved the game");
@@ -112,7 +116,63 @@ public class DataPersistenceManager : MonoBehaviour
         SaveGame();
     }
 
-    private List<ISavable> FindAllDataPersistenceObjects()
+    private List<ISavable> GetAllDataPersistenceObjects()
+    {
+        var savablesOnScene = FindObjectsOfType<MonoBehaviour>().OfType<ISavable>().ToList();
+
+        var added = new List<ISavable>();
+
+        var level = GameData.GetLevel(GameData.CurrentLevelName);
+
+        foreach (var GUID in level.AddedGUIDs)
+        {
+            var typeName = GetTypeNameOfObject(GUID);
+            if (typeName != null)
+            {
+                var inst = objectFactory.GenerateGameObjectByName(typeName, GUID) as ISavable;
+                if (inst != null)
+                {
+                    added.Add(inst);
+                }
+                else
+                {
+                    Debug.LogError("something went horribly wrong :O");
+                }
+            }
+        }
+
+        var result = added.ToList();
+        foreach (var savable in savablesOnScene)
+        {
+            if (level.RemovedGUIDs.Contains(savable.GetGUID()))
+            {
+                savable.DestroyIt();
+            }
+            else
+            {
+                result.Add(savable);
+            }
+        }
+
+        return result;
+    }
+
+    private string GetTypeNameOfObject(string GUID)
+    {
+        if (GameData.Items.ContainsKey(GUID))
+        {
+            return GameData.Items[GUID].TypeName;
+        }
+        if (GameData.Enemies.ContainsKey(GUID))
+        {
+            return GameData.Enemies[GUID].TypeName;
+        }
+
+        Debug.LogError($"no object with GUID = {GUID} found in saved files");
+        return null;
+    }
+
+    /*private List<ISavable> FindAllDataPersistenceObjects()
     {
         if (GameData == null)
         {
@@ -160,5 +220,5 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         return savablesToLoad;
-    }
+    }*/
 }

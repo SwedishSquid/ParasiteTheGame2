@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
     {
         //not very useful in player script
         //much more useful for Enemies and Items
-        return "the-only-one-player";
+        return "the-only-one-player-olala";
     }
 
     public void AfterAllObjectsLoaded(GameData gameData)
@@ -222,26 +222,31 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
             return;
         }
 
-        var r = gameData.GetEnemyOnSceneByGUID(gameData.CurrentLevelName, controlledGUID);
+        if (!gameData.Enemies.ContainsKey(controlledGUID))
+        {
+            Debug.LogError($"cannot control enemy with GUID={controlledGUID} - no such enemy found in gameData");
+            return;
+        }
 
-        
+        var enemyData = gameData.Enemies[controlledGUID];
 
-        controlled = r.thisEnemy;
-
-        Debug.Log(r.thisEnemy);
+        controlled = enemyData.thisEnemy;
 
         thisRigidbody2d.simulated = false;
         thisSpriteRenderer.enabled = false;
+
+        Debug.Log($"controlled = {enemyData.thisEnemy}");
+
         controlled.OnCapture(this);
     }
 
     public void SetGUID(string GUID)
     {
-        Debug.LogError("should never be called setGUID on player - it is a player!");
+        Debug.LogError("should never be called setGUID on the player - it is player!");
     }
 
     public void DestroyIt()
     {
-        //nope :D
+        //nope :C
     }
 }

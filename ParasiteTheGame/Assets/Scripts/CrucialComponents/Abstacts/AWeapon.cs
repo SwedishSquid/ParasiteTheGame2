@@ -13,7 +13,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         id = System.Guid.NewGuid().ToString();
     }
 
-    protected string typeName = "override this and fill the type name here"; // = "AppleBusket" for example
+    protected virtual string typeName => "write here classname, for example";
 
     protected IUser user;
     protected int damageAmount = 7;
@@ -112,7 +112,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 
     public void SaveGame(GameData gameData)
     {
-        var itemData = gameData.GetItemOnSceneByGUID(gameData.CurrentLevelName, id);
+        var itemData = gameData.GetItemToSave(id);
 
         itemData.ItemPosition = transform.position;
 
@@ -121,12 +121,11 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 
     public void LoadData(GameData gameData)
     {
-        if (gameData.TryGetItemOnLevelByGUID(gameData.CurrentLevelName, id, out var itemData))
+        if (gameData.Items.ContainsKey(id))
         {
-            transform.position = itemData.ItemPosition;
+            transform.position = gameData.Items[id].ItemPosition;
+            gameData.Items[id].thisItem = this;
         }
-
-        itemData.thisItem = this;
     }
 
     public string GetGUID()

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4658596684358061077}
   - component: {fileID: 4658596684358061078}
-  - component: {fileID: 4658596684358061064}
   - component: {fileID: 4658596684358061065}
+  - component: {fileID: 4658596684358061064}
   - component: {fileID: 4658596684358061076}
   m_Layer: 12
   m_Name: AppleBusket
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1570399243
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 64dc0e28e71373f45b32bb0572286606, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -87,18 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4658596684358061064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4658596684358061066}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ecf2aee7227d64db4764ccd4b4cfdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4658596684358061065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,9 +99,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d535503d587af5f46abdc1761a71e0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   throwHandlerPrefab: {fileID: 0}
   audioSource: {fileID: 0}
   appleProjPrefab: {fileID: 8766272769348754197, guid: 04b87fe8d3558ee409b409ff5a3a4de5, type: 3}
+--- !u!114 &4658596684358061064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4658596684358061066}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70ecf2aee7227d64db4764ccd4b4cfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!60 &4658596684358061076
 PolygonCollider2D:
   m_ObjectHideFlags: 0

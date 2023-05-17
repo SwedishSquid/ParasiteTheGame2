@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8680620337928268934}
   - component: {fileID: 8680620337928268935}
+  - component: {fileID: 1824307835}
   m_Layer: 0
   m_Name: DataPersistenceManager
   m_TagString: Untagged
@@ -45,3 +46,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: gameData.game
+--- !u!114 &1824307835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8680620337928269048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20809a43ae534684e93191b776d98833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  factoryList:
+  - Type: LackeySmall
+    Object: {fileID: 3958183750173467818, guid: 62f6f2260d756614a8054ae9d144f682, type: 3}
+  - Type: Postman
+    Object: {fileID: 5897750557514288823, guid: 8e94f4bdbc4044744a88ebe91e95bae8, type: 3}
+  - Type: AppleBusket
+    Object: {fileID: 4658596684358061064, guid: ef6e35a0f09162a489edf356abae2dfd, type: 3}
+  - Type: StackOfeMail
+    Object: {fileID: 2630368594541936993, guid: 60e8f7c85c392bd41b6fe8f58dda3f1e, type: 3}

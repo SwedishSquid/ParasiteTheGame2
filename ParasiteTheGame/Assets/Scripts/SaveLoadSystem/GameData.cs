@@ -4,26 +4,18 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
+    public SerializableDictionary<string, EnemyData> Enemies = new SerializableDictionary<string, EnemyData>();
+
+    public SerializableDictionary<string, ItemData> Items = new SerializableDictionary<string, ItemData>();
+
     public string CurrentLevelName = "LevelOne";    //should be menu or something else - changed when level changes
 
     public PlayerData PlayerInfo = new PlayerData();
 
     public SerializableDictionary<string, LevelData> Levels = new SerializableDictionary<string, LevelData>();
 
-    public EnemyData GetEnemyOnSceneByGUID(string sceneName, string GUID)
-    {
-        var level = GetLevel(sceneName);
 
-        if (!level.Enemies.ContainsKey(GUID))
-        {
-            Debug.LogError($"Enemy with GUID {GUID} not found on scene {sceneName}");
-            return null;
-        }
-
-        return level.Enemies[GUID];
-    }
-
-    public bool TryGetEnemyOnLevelByGUID(string levelName, string GUID, out EnemyData enemyData)
+/*    public bool TryGetEnemyOnLevelByGUID(string levelName, string GUID, out EnemyData enemyData)
     {
         var level = GetLevel(levelName);
 
@@ -66,7 +58,7 @@ public class GameData
 
         itemData = level.Items[GUID];
         return true;
-    }
+    }*/
 
     public LevelData GetLevel(string sceneName)
     {
@@ -77,7 +69,52 @@ public class GameData
         return Levels[sceneName];
     }
 
-    public void MoveEnemyFromLevelToLevel(string senderLevelName, string recieverLevelName, string enemyGUID)
+    public ItemData GetItemToSave(string GUID)
+    {
+        if (!Items.ContainsKey(GUID))
+        {
+            Items.Add(GUID, new ItemData());
+        }
+        return Items[GUID];
+    }
+
+    public EnemyData GetEnemyToSave(string GUID)
+    {
+        if (!Enemies.ContainsKey(GUID))
+        {
+            Enemies.Add(GUID, new EnemyData());
+        }
+        return Enemies[GUID];
+    }
+
+    public void MoveObjectReferenceFromLevelToLevel(string senderLevelName, string recieverLevelName, string GUID)
+    {
+        Debug.Log($"moving object from {senderLevelName} to {recieverLevelName} the {GUID}");
+
+        var sender = GetLevel(senderLevelName);
+        
+        var reciever = GetLevel(recieverLevelName);
+
+        if (sender.AddedGUIDs.Contains(GUID))
+        {
+            sender.AddedGUIDs.Remove(GUID);
+        }
+        else
+        {
+            sender.RemovedGUIDs.Add(GUID);
+        }
+
+        if (reciever.RemovedGUIDs.Contains(GUID))
+        {
+            reciever.RemovedGUIDs.Remove(GUID);
+        }
+        else
+        {
+            reciever.AddedGUIDs.Add(GUID);
+        }
+    }
+
+    /*public void MoveEnemyFromLevelToLevel(string senderLevelName, string recieverLevelName, string enemyGUID)
     {
         var sender = GetLevel(senderLevelName);
         if (!sender.Enemies.ContainsKey(enemyGUID))
@@ -118,5 +155,5 @@ public class GameData
         sender.Items.Remove(itemGUID);
 
         reciever.Items.Add(itemGUID, itemData);
-    }
+    }*/
 }

@@ -2,11 +2,19 @@
 //using System.Collections.Generic;
 using UnityEngine;
 
-public class AppleBasket : AWeapon
+public class AppleBusket : AWeapon
 {
     [SerializeField] protected AppleProjectile appleProjPrefab;
 
     protected static float busketWidth = 0.8f;
+
+    protected override string typeName
+    {
+        get
+        {
+            return "AppleBusket";
+        }
+    }
 
     protected override void Start()
     {

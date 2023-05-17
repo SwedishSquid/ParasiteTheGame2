@@ -45,6 +45,11 @@ public class GameController : MonoBehaviour
                 item = (playerController.controlled as AEnemy).GetISavableItem();
             }
 
+            if (enemy == null)
+            {
+                Debug.Log("null enemy somehow");
+            }
+
             levelChanger.ChangeLevel(null, enemy, item);
         }
     }

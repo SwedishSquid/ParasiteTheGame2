@@ -41,13 +41,15 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected virtual void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        //GetGUID(); //to check if has any
     }
 
     protected virtual void Start()
     {
         if (id == null)
         {
-            Debug.LogError($"To enable saving system operation on this item ({this.gameObject}) GUID must be generated");
+            Debug.LogError($"To enable saving system operation on this object" +
+                $" ({this.gameObject}) GUID must be generated");
         }
     }
 
@@ -197,7 +199,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public void SaveGame(GameData gameData)
     {
-        var enemyData = gameData.GetEnemyOnSceneByGUID(gameData.CurrentLevelName, id);
+        var enemyData = gameData.GetEnemyToSave(id);
 
         enemyData.EnemyPosition = transform.position;
         enemyData.CanBeCaptured = CanBeCaptured;
@@ -209,17 +211,18 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public void LoadData(GameData gameData)
     {
-        if (gameData.TryGetEnemyOnLevelByGUID(gameData.CurrentLevelName, id, out var enemyData))
+        if (gameData.Enemies.ContainsKey(id))
         {
+            var enemyData = gameData.Enemies[id];
             transform.position = enemyData.EnemyPosition;
             CanBeCaptured = enemyData.CanBeCaptured;
             itemGUID = enemyData.PickedItemGUID;
             health = enemyData.Health;
+
+            Debug.Log("load something to enemy");
+
+            enemyData.thisEnemy = this;
         }
-
-        enemyData.thisEnemy = this;
-
-        Debug.Log($"EnemyDataLoaded = {enemyData.thisEnemy}");
     }
 
     public string GetGUID()
@@ -238,12 +241,13 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             return;
         }
 
-        if (itemGUID == null)
+        if (!gameData.Items.ContainsKey(itemGUID))
         {
-            Debug.Log("what the heck?!!");
+            Debug.LogError($"cannot pick up item with GUID {itemGUID} - no such item found");
+            return;
         }
 
-        item = gameData.GetItemOnSceneByGUID(gameData.CurrentLevelName, itemGUID).thisItem;
+        item = gameData.Items[itemGUID].thisItem;
 
         item.OnPickUp(this);
     }
