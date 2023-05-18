@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3958183750173467816}
   - component: {fileID: 3958183750173467831}
   - component: {fileID: 3958183750173467829}
+  - component: {fileID: 2551057100239365766}
+  - component: {fileID: 7476560983766445750}
   - component: {fileID: 3958183750173467817}
-  - component: {fileID: 3958183750173467818}
-  - component: {fileID: 3958183750173467819}
   - component: {fileID: -1495425408757876338}
   m_Layer: 8
   m_Name: lackey_small
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1570399243
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 160933458, guid: a48a69bcd5131334b8018d9175f9d320, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -111,6 +111,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2551057100239365766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3958183750173467827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8195de3fb9eaf34cbbd9acfe2c514b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  IsCaptured: 0
+  healthBar: {fileID: 0}
+--- !u!114 &7476560983766445750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3958183750173467827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f9d714a4511b9468ec34cb095f9cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &3958183750173467817
 Animator:
   serializedVersion: 5
@@ -132,32 +159,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3958183750173467818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3958183750173467827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8195de3fb9eaf34cbbd9acfe2c514b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsCaptured: 0
-  healthBar: {fileID: 7320368575330813691}
---- !u!114 &3958183750173467819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3958183750173467827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f9d714a4511b9468ec34cb095f9cfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &-1495425408757876338
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -287,17 +288,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ba8ba6976cfd174e88179c8186ccb2e, type: 3}
---- !u!114 &7320368575330813691 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3700003101337126828, guid: 2ba8ba6976cfd174e88179c8186ccb2e, type: 3}
-  m_PrefabInstance: {fileID: 6254973597367763287}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05bad93b124852d408dd7110b24154e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &9090587338146116587 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2947148961247490748, guid: 2ba8ba6976cfd174e88179c8186ccb2e, type: 3}

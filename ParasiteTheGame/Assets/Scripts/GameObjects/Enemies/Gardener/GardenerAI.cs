@@ -16,8 +16,7 @@ public class GardenerAI : MonoBehaviour
     void Update()
     {
         if (PauseController.gameIsPaused)
-            animator.speed =  1.0f;
-        else animator.speed = 0.0f;
+            return;
         var direction = new Vector2(Random.value*2 - 1, Random.value*2 - 1).normalized;
         //
         if (!gardener.HaveItem)
