@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Gardener : LackeySmall
 {
-    
+    public Animator GetAnimator()
+    {
+        return animator;
+    }
 }

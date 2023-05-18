@@ -5,16 +5,19 @@ using UnityEngine;
 public class GardenerAI : MonoBehaviour
 {
     Gardener gardener;
+    Animator animator;
+
     void Start()
     {
         gardener = GetComponent<Gardener>();
+        animator = gardener.GetAnimator();
     }
 
     void Update()
     {
         if (PauseController.gameIsPaused)
-            gardener.animator.speed =  1.0f;
-        else gardener.animator.speed = 0.0f;
+            animator.speed =  1.0f;
+        else animator.speed = 0.0f;
         var direction = new Vector2(Random.value*2 - 1, Random.value*2 - 1).normalized;
         //
         if (!gardener.HaveItem)
