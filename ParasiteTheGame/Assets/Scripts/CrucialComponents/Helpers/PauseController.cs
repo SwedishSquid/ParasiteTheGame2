@@ -5,7 +5,7 @@ public class PauseController : MonoBehaviour
 {
     public static bool gameIsPaused = false;
 
-    void PauseGame ()
+    public void Pause ()
     {
         gameIsPaused = !gameIsPaused;
         if(gameIsPaused)

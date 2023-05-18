@@ -33,9 +33,9 @@ public class GameController : MonoBehaviour
             AttemptToChangeLevel();
         }
 
-        if (Input.GetButtonDown(KeyCode.Escape)) 
+        if (Input.GetButtonDown("Pause")) 
         {
-            Pause();
+            pauseController.Pause();
         }
     }
 
@@ -59,11 +59,6 @@ public class GameController : MonoBehaviour
 
             levelChanger.ChangeLevel(null, enemy, item);
         }
-    }
-
-    private void UpdateGameState()
-    {
-        gameState = GameState.MainGameMode;
     }
 
     private void UpdateGameState()
