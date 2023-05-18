@@ -67,7 +67,12 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         {
             immunityTime -= Time.deltaTime;
         }
-        
+
+        if (inpInf.PickOrDropPressed)
+        {
+            ActOnPickOrDrop();
+        }
+
         if (item != null)
         {
             item.HandleUpdate(inpInf);
@@ -77,6 +82,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
                 item = null;
                 itemGUID = "";
             }
+        }
+        else if (inpInf.ThrowItemPressed)
+        {
+            ActOnPickOrDrop();
         }
     }
 

@@ -53,13 +53,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         }
         else
         {
-            if (inpInf.PickOrDropPressed)
-            {
-                controlled.ActOnPickOrDrop();
-            }
-
-            controlled.ControlledUpdate(inpInf);
             controlled.UpdatePlayerPos(transform);
+            controlled.ControlledUpdate(inpInf);
         }
         
     }
