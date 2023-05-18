@@ -8,11 +8,13 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerController playerController;
     private InputHandler inputHandler;
     private InputInfo currentInputInfo;
+    private PauseController pauseController;
 
     void Start()
     {
         gameState = GameState.MainGameMode;
         inputHandler = new InputHandler();
+        pauseController = new PauseController();
     }
 
     void Update()
@@ -29,6 +31,11 @@ public class GameController : MonoBehaviour
         if (Input.GetButtonDown("Interact"))
         {
             AttemptToChangeLevel();
+        }
+
+        if (Input.GetButtonDown(KeyCode.Escape)) 
+        {
+            Pause();
         }
     }
 
@@ -52,6 +59,11 @@ public class GameController : MonoBehaviour
 
             levelChanger.ChangeLevel(null, enemy, item);
         }
+    }
+
+    private void UpdateGameState()
+    {
+        gameState = GameState.MainGameMode;
     }
 
     private void UpdateGameState()
