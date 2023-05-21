@@ -49,6 +49,11 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 
     public virtual void HandleUpdate(InputInfo inpInf)
     {
+        //ITSigma - Pause
+        if (PauseController.gameIsPaused)
+            return;
+        //
+
         HandleMovement(inpInf);
         if (inpInf.FirePressed && cooldownLeft <= 0)
         {
@@ -76,6 +81,11 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 
     public virtual void OnPickUp(IUser user)
     {
+        //ITSigma - Pause
+        if (PauseController.gameIsPaused)
+            return;
+        //
+
         if (throwComponent.enabled)
         {
             throwComponent.EndThrow();
@@ -86,12 +96,21 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 
     public virtual void OnDropDown(IUser user)
     {
+        //ITSigma - Pause
+        if (PauseController.gameIsPaused)
+            return;
+        //
+
         this.user = null;
         gameObject.GetComponent<Collider2D>().enabled = true;
     }
 
     public virtual void Throw(InputInfo inpInf)
     {
+        //ITSigma - Pause
+        if (PauseController.gameIsPaused)
+            return;
+        //
         _ = damageSource; //update damageInfo in case it wasn't updated before
         var userVelocity = user.GetUserVelocity();
         OnDropDown(user);

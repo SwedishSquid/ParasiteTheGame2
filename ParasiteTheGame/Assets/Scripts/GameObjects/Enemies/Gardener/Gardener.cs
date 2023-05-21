@@ -28,6 +28,7 @@ public class Gardener : AEnemyPlus
         {
             animator.SetFloat("moveX", lastX);
             animator.SetFloat("moveY", lastY);
+            return;
         }
         //
         if (freezeTime <= 0 && (inpInf.Axis.x != 0 || inpInf.Axis.y != 0))

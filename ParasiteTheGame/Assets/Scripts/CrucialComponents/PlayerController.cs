@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
     private float maxJumpCooldown = 0.8f;
     private float jumpCooldown;
 
+    //ITSigma
+    private bool isPause;
+    private Vector2 jumpPauseDirection;
+    //
+
     [SerializeField]private Canvas arrowJumpOn;
     private bool isChooseDirJump;
     
@@ -64,11 +69,34 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         
     }
 
+    //ITSigma - Sorry for changes.......
     private bool TryHandleJump(InputInfo inpInf)
     {
+        return TryHandleJump(inpInf.JumpoutPressed, inpInf.GetMouseDir());
+    }
+
+    private bool TryHandleJump(bool jumpoutPressed, Vector2 direction)
+    {
+        //ITSigma - Pause
+        if (PauseController.gameIsPaused) // when pause
+        {
+            if (!isPause)
+            {
+                jumpPauseDirection = direction;
+                isPause = true;
+            }
+            return false;
+        }
+        if (isPause) //after pause
+        {
+            isPause = false;
+            return TryHandleJump(jumpoutPressed, jumpPauseDirection);
+        }
+        //
+
         if (jumpCooldown > 0)
         {
-            if (inpInf.JumpoutPressed)
+            if (jumpoutPressed)
                 Debug.Log($"jumpCooldown: {jumpCooldown}");
             jumpCooldown -= Time.deltaTime;
             return false;
@@ -78,18 +106,18 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
             ActJumpOn();
             return true;
         }
-        if (isChooseDirJump && !inpInf.JumpoutPressed)
+        if (isChooseDirJump && !jumpoutPressed)
         {
-            ActOnJumpout(inpInf.GetMouseDir());
+            ActOnJumpout(direction);
             isChooseDirJump = false;
             return true;
         }
         if (isChooseDirJump)
         {
-            ActChooseDirJump(inpInf.GetMouseDir());
+            ActChooseDirJump(direction);
             return controlled is null;
         }
-        if (inpInf.JumpoutPressed)
+        if (jumpoutPressed)
         {
             thisRigidbody2d.velocity = Vector2.zero;
             isChooseDirJump = true;
@@ -98,7 +126,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
 
         return false;
     }
-
+    
     private void ActOnJumpout(Vector3 direction)
     {
         if (controlled != null)

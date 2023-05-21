@@ -68,7 +68,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             immunityTime -= Time.deltaTime;
         }
         
-        if (item != null)
+        if (item != null && !PauseController.gameIsPaused) //ITSigma - Pause
         {
             item.HandleUpdate(inpInf);
             if (inpInf.ThrowItemPressed)
@@ -144,6 +144,11 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     protected virtual void PickUp()
     {
+        //ITSigma - Pause
+        if (PauseController.gameIsPaused)
+            return;
+        //
+
         var t = Physics2D.OverlapCircle(transform.position, itemPickingRadius, LayerConstants.PickableItems);
         if (t)
         {
@@ -162,6 +167,11 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     protected virtual void DropDown()
     {
+        //ITSigma - Pause
+        if (PauseController.gameIsPaused)
+            return;
+        //
+
         item.OnDropDown(this);
         item = null;
         itemGUID = "";
