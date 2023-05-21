@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public bool is_dynamic { get; set; }
+    private bool is_dynamic;
     [SerializeField] private Slider slider;
     [SerializeField] private Gradient gradient;
     [SerializeField] private Image fill;
     private float lastHealthUpdate;
 
-    public void SetMaxHealth(int health)
+    public void SetMaxHealth(int health, bool dynamic)
     {
         slider.maxValue = health;
         slider.value = health;
-        is_dynamic = true;
+        is_dynamic = dynamic;
         fill.color = gradient.Evaluate(1f);
     }
 

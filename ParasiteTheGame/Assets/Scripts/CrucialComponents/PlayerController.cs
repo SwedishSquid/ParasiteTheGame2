@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
     private string controlledGUID = "";
     
     private int health;
-    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private HealthBar healthBarPlr;
+    public HealthBar HealthBarEnemy;
     
     private float jumpVelocity = 20;
     private bool isActJump;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         thisRigidbody2d = GetComponent<Rigidbody2D>();
         thisSpriteRenderer = GetComponent<SpriteRenderer>();
         health = 100;
+        healthBarPlr.SetMaxHealth(health, false);
     }
 
     void Start()
@@ -87,7 +89,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         if (isChooseDirJump)
         {
             ActChooseDirJump(inpInf.GetMouseDir());
-            return controlled is null;
+            return false;
         }
         if (inpInf.JumpoutPressed)
         {
@@ -184,7 +186,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         if (controlled is null && dmgInf.Source != DamageSource.Player)
         {
             health -= dmgInf.Amount;
-            healthBar.SetValue(health);
+            healthBarPlr.SetValue(health);
             Debug.Log($"Player hurt : health = {health}");
             return true;
         }
@@ -206,6 +208,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
             return;
         }
         health = gameData.PlayerInfo.Health;
+        healthBarPlr.SetValue(health);
+        
         controlledGUID = gameData.PlayerInfo.ControlledGUID;
 
         var level = gameData.GetLevel(SceneManager.GetActiveScene().name);

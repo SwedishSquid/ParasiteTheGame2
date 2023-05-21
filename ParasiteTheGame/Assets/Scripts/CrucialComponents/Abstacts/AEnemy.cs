@@ -24,9 +24,11 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected float radius = 1.06f;
     protected float itemPickingRadius = 2f;
     public bool IsCaptured;
+    public PlayerController Capturer;
+    protected int maxHealth = 100;
     protected int health = 100;
     protected DamageSource damageSource = DamageSource.Enemy;
-    
+
     protected Vector2 damageDir;
     protected float freezeVelocity = 3;
     protected float maxFreezeTime = OtherConstants.CommonMaxFreezeTime;
@@ -47,7 +49,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         if (id == null)
         {
             Debug.LogError($"To enable saving system operation on this object" +
-                $" ({this.gameObject}) GUID must be generated");
+                $" ({gameObject}) GUID must be generated");
         }
     }
 
@@ -83,6 +85,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     public virtual void OnCapture(PlayerController player)
     {
         IsCaptured = true;
+        Capturer = player;
+        player.HealthBarEnemy.SetMaxHealth(maxHealth, false);
+        player.HealthBarEnemy.SetValue(health);
         damageSource = DamageSource.Player;
     }
 
@@ -94,6 +99,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             DropDown();
         }
         IsCaptured = false;
+        player.HealthBarEnemy.gameObject.SetActive(false);
         damageSource = DamageSource.Enemy;
     }
 
