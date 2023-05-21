@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class LayerConstants
 {
+    public static readonly LayerMask PlayerLayer = LayerMask.NameToLayer("Player");
+
+    public static readonly LayerMask ControllablesLayerNum = LayerMask.NameToLayer("Controllables");
+
     public static readonly LayerMask ControllablesLayer = LayerMask.GetMask("Controllables");
     
     public static readonly LayerMask CollidableItemsLayer = LayerMask.NameToLayer("CollidableItems");

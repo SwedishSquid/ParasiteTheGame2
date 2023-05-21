@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
         thisRigidbody2d = GetComponent<Rigidbody2D>();
         thisSpriteRenderer = GetComponent<SpriteRenderer>();
         health = 100;
+        healthBar.SetMaxHealth(health);
+        healthBar.is_dynamic = false;
     }
 
     public void HandleUpdate(InputInfo inpInf)
@@ -172,6 +174,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
         if (controlled is null && dmgInf.Source != DamageSource.Player)
         {
             health -= dmgInf.Amount;
+            healthBar.SetValue(health);
             Debug.Log($"Player hurt : health = {health}");
             return true;
         }
