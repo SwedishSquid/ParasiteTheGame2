@@ -5,11 +5,22 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor.Sprites;
 using UnityEngine;
 
-public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
+public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, ISavable
 {
+    [SerializeField] protected string id;
+
+    [ContextMenu("Generate GUID for id")]
+    protected void GenerateGUID()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
+
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
+    
     protected IUsable item;
+    protected string itemGUID = "";
+
     protected float radius = 1.06f;
     protected float itemPickingRadius = 2f;
     public bool IsCaptured;
@@ -25,9 +36,19 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
 
     public virtual bool CanBeCaptured { get; protected set; } = true;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        //GetGUID(); //to check if has any
+    }
+
+    protected virtual void Start()
+    {
+        if (id == null)
+        {
+            Debug.LogError($"To enable saving system operation on this object" +
+                $" ({this.gameObject}) GUID must be generated");
+        }
     }
 
     public virtual void ControlledUpdate(InputInfo inpInf)
@@ -54,6 +75,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
             {
                 item.Throw(inpInf);
                 item = null;
+                itemGUID = "";
             }
         }
     }
@@ -127,6 +149,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
         {
             item = t.gameObject.GetComponent<IUsable>();
             item?.OnPickUp(this);
+            if (t.gameObject.TryGetComponent<ISavable>(out var savable))
+            {
+                itemGUID = savable.GetGUID();
+            }
         }
         else
         {
@@ -138,6 +164,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     {
         item.OnDropDown(this);
         item = null;
+        itemGUID = "";
     }
 
     public virtual Vector2 GetUserPosition()
@@ -167,6 +194,85 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser
     {
         return damageSource;
     }
-    
+
+    public void SaveGame(GameData gameData)
+    {
+        var enemyData = gameData.GetEnemyToSave(id);
+
+        enemyData.EnemyPosition = transform.position;
+        enemyData.CanBeCaptured = CanBeCaptured;
+        enemyData.PickedItemGUID = itemGUID;
+        enemyData.Health = health;
+
+        enemyData.TypeName = this.GetType().Name;//typeName;
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        if (gameData.Enemies.ContainsKey(id))
+        {
+            var enemyData = gameData.Enemies[id];
+            transform.position = enemyData.EnemyPosition;
+            CanBeCaptured = enemyData.CanBeCaptured;
+            itemGUID = enemyData.PickedItemGUID;
+            health = enemyData.Health;
+
+            Debug.Log("load something to enemy");
+
+            enemyData.thisEnemy = this;
+        }
+    }
+
+    public string GetGUID()
+    {
+        if (id == "")
+        {
+            Debug.LogError($"GUID for {this} is not set");
+        }
+        return id;
+    }
+
+    public void AfterAllObjectsLoaded(GameData gameData)
+    {
+        if (itemGUID == "")
+        {
+            return;
+        }
+
+        if (!gameData.Items.ContainsKey(itemGUID))
+        {
+            Debug.LogError($"cannot pick up item with GUID {itemGUID} - no such item found");
+            return;
+        }
+
+        item = gameData.Items[itemGUID].thisItem;
+
+        item.OnPickUp(this);
+    }
+
+    public void SetGUID(string GUID)
+    {
+        id = GUID;
+    }
+
+    public void DestroyIt()
+    {
+        Destroy(gameObject);
+    }
+
+    public ISavable GetISavableItem()
+    {
+        if (item != null && item is AWeapon)
+        {
+            return item as ISavable;
+        }
+        return null;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        transform.position= position;
+    }
+
     public bool HaveItem => item != null;
 }

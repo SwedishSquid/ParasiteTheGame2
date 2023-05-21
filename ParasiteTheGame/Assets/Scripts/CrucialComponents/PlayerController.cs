@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UIElements;
+//using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
+public class PlayerController : MonoBehaviour, IDamagable, ISavable
 {
     private Rigidbody2D thisRigidbody2d;
     private SpriteRenderer thisSpriteRenderer;
     private Vector2 input;
     private float velocity = 3.09f;
     public IControlable controlled;
+    private string controlledGUID = "";
     
     private int health;
     [SerializeField] private HealthBar healthBar;
@@ -27,15 +29,16 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
     [SerializeField]private Canvas arrowJumpOn;
     private bool isChooseDirJump;
     
+    void Awake()
+    {
+        thisRigidbody2d = GetComponent<Rigidbody2D>();
+        thisSpriteRenderer = GetComponent<SpriteRenderer>();
+        health = 100;
+    }
 
     void Start()
     {
         arrowJumpOn.transform.position = transform.position;
-        thisRigidbody2d = GetComponent<Rigidbody2D>();
-        thisSpriteRenderer = GetComponent<SpriteRenderer>();
-        health = 100;
-        healthBar.SetMaxHealth(health);
-        healthBar.is_dynamic = false;
     }
 
     public void HandleUpdate(InputInfo inpInf)
@@ -147,6 +150,12 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
             thisRigidbody2d.simulated = false;
             thisSpriteRenderer.enabled = false;
             controlled.OnCapture(this);
+
+            if (t.collider.gameObject.TryGetComponent<ISavable>(out var savable))
+            {
+                controlledGUID = savable.GetGUID();
+            }
+            
             return true;
         }
         
@@ -167,6 +176,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
         thisSpriteRenderer.enabled = true;
         controlled.OnRelease(this);
         controlled = null;
+        controlledGUID = "";
     }
 
     public bool TryTakeDamage(DamageInfo dmgInf)
@@ -183,11 +193,76 @@ public class PlayerController : MonoBehaviour, IDamagable, IDataPersistence
 
     public void SaveGame(GameData gameData)
     {
-        gameData.playerPosition = transform.position;
+        gameData.PlayerInfo.IsInitialised = true;
+        gameData.PlayerInfo.Health = health;
+        gameData.PlayerInfo.ControlledGUID = controlledGUID;
+        gameData.SetPlayerPosition(transform.position, SceneManager.GetActiveScene().name);
     }
 
     public void LoadData(GameData gameData)
     {
-        transform.position = gameData.playerPosition;
+        if (!gameData.PlayerInfo.IsInitialised)
+        {
+            return;
+        }
+        health = gameData.PlayerInfo.Health;
+        controlledGUID = gameData.PlayerInfo.ControlledGUID;
+
+        var level = gameData.GetLevel(SceneManager.GetActiveScene().name);
+
+        if (level.IsPlayerPosInitialised)
+        {
+            transform.position = level.PlayerPosition;
+        }
+    }
+
+    public string GetGUID()
+    {
+        //not very useful in player script
+        //much more useful for Enemies and Items
+        return "the-only-one-player-olala";
+    }
+
+    public void AfterAllObjectsLoaded(GameData gameData)
+    {
+        if (controlledGUID == "")
+        {
+            return;
+        }
+
+        if (!gameData.Enemies.ContainsKey(controlledGUID))
+        {
+            Debug.LogError($"cannot control enemy with GUID={controlledGUID} - no such enemy found in gameData");
+            return;
+        }
+
+        var enemyData = gameData.Enemies[controlledGUID];
+
+        controlled = enemyData.thisEnemy;
+
+        (controlled as ISavable)?.SetPosition(transform.position);
+
+        thisRigidbody2d.simulated = false;
+        thisSpriteRenderer.enabled = false;
+
+        Debug.Log($"controlled = {enemyData.thisEnemy}");
+
+        controlled.OnCapture(this);
+    }
+
+    public void SetGUID(string GUID)
+    {
+        Debug.LogError("should never be called setGUID on the player - it is player!");
+    }
+
+    public void DestroyIt()
+    {
+        //nope :C
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        //no no no
+        Debug.LogError("why is this called - SetPosition has no effect on player");
     }
 }

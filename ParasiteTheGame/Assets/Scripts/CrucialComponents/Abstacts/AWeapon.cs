@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public abstract class AWeapon : MonoBehaviour, IUsable
+public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 {
+    [SerializeField] protected string id;
+
+    [ContextMenu("Generate GUID for id")]
+    protected void GenerateGUID()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
+
     protected IUser user;
     protected int damageAmount = 7;
     protected float fireRate = 0.5f; //seconds between fire
@@ -28,10 +36,15 @@ public abstract class AWeapon : MonoBehaviour, IUsable
         }
     }
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         throwComponent = GetComponent<ThrowComponent>();
         throwComponent.enabled = false; //just in case weapon creator forgets
+    }
+
+    protected virtual void Start()
+    {
+        
     }
 
     public virtual void HandleUpdate(InputInfo inpInf)
@@ -93,5 +106,53 @@ public abstract class AWeapon : MonoBehaviour, IUsable
             damagable.TryTakeDamage(
                 new DamageInfo(DamageType.Melee, damageSource, damageAmount, Vector2.zero, 0));
         }
+    }
+
+    public void SaveGame(GameData gameData)
+    {
+        var itemData = gameData.GetItemToSave(id);
+
+        itemData.ItemPosition = transform.position;
+
+        itemData.TypeName = this.GetType().Name;//typeName;
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        if (gameData.Items.ContainsKey(id))
+        {
+            transform.position = gameData.Items[id].ItemPosition;
+            gameData.Items[id].thisItem = this;
+        }
+    }
+
+    public string GetGUID()
+    {
+        if (id == "")
+        {
+            Debug.LogError($"GUID for {this} is not set");
+        }
+        return id;
+    }
+
+    public void SetGUID(string GUID)
+    {
+        id = GUID;
+    }
+
+    public void AfterAllObjectsLoaded(GameData gameData)
+    {
+        //do nothing :D
+    }
+
+    public void DestroyIt()
+    {
+        Destroy(gameObject);
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        //no no no
+        Debug.LogError("why is this called - SetPosition has no effect on item");
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Postman : AEnemyPlus
 {
-    // Start is called before the first frame update
-
     public override void ControlledUpdate(InputInfo inpInf)
     {
         base.ControlledUpdate(inpInf);

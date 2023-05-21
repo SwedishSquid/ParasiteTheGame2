@@ -25,6 +25,33 @@ public class GameController : MonoBehaviour
         {
             playerController.HandleUpdate(currentInputInfo);
         }
+
+        if (Input.GetButtonDown("Interact"))
+        {
+            AttemptToChangeLevel();
+        }
+    }
+
+    private void AttemptToChangeLevel()
+    {
+        var t =Physics2D.OverlapPoint(playerController.gameObject.transform.position, LayerConstants.LevelChangersLayer);
+        if (t != null && t.gameObject.TryGetComponent<LevelChanger>(out var levelChanger))
+        {
+            ISavable enemy = null;
+            ISavable item = null;
+            if (playerController.controlled is AEnemy)
+            {
+                enemy = (playerController.controlled as AEnemy) as ISavable;
+                item = (playerController.controlled as AEnemy).GetISavableItem();
+            }
+
+            if (enemy == null)
+            {
+                Debug.Log("null enemy somehow");
+            }
+
+            levelChanger.ChangeLevel(null, enemy, item);
+        }
     }
 
     private void UpdateGameState()

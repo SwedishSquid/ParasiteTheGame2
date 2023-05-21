@@ -7,10 +7,15 @@ public abstract class AEnemyPlus : AEnemy
     protected Animator animator;
     [SerializeField] protected HealthBar healthBar;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        animator = GetComponent<Animator>();
+    }
+
     protected override void Start()
     {
         base.Start();
-        animator = GetComponent<Animator>();
         healthBar.SetMaxHealth(health);
     }
 
