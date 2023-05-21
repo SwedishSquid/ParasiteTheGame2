@@ -5,18 +5,16 @@ using UnityEngine;
 public class GardenerAI : MonoBehaviour
 {
     Gardener gardener;
-    Animator animator;
 
+    // Start is called before the first frame update
     void Start()
     {
         gardener = GetComponent<Gardener>();
-        animator = gardener.GetAnimator();
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (PauseController.gameIsPaused)
-            return;
         var direction = new Vector2(Random.value*2 - 1, Random.value*2 - 1).normalized;
         //
         if (!gardener.HaveItem)
