@@ -6,11 +6,13 @@ public class Gardener : AEnemyPlus
 {
     float lastX;
     float lastY;
+    [SerializeField] GardenerSuperAttack superAttack;
 
     protected override void Start()
     {
         base.Start();
         radius = 2;
+        superAttack = GetComponent<GardenerSuperAttack>();
     }
 
     public override void ControlledUpdate(InputInfo inpInf)
@@ -40,6 +42,10 @@ public class Gardener : AEnemyPlus
             animator.SetBool("isMoving", false);
         }
         //
+        if (Input.GetButtonDown("Super Attack"))
+        {
+            superAttack.Attack(damageSource);
+        }
     }
 
     public override void OnCapture(PlayerController player)
