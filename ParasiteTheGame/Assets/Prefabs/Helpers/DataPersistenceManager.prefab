@@ -58,17 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20809a43ae534684e93191b776d98833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factoryList:
-  - Type: LackeySmall
-    Object: {fileID: 3958183750173467818, guid: 62f6f2260d756614a8054ae9d144f682, type: 3}
-  - Type: Postman
-    Object: {fileID: 5897750557514288823, guid: 8e94f4bdbc4044744a88ebe91e95bae8, type: 3}
-  - Type: AppleBusket
-    Object: {fileID: 4658596684358061065, guid: ef6e35a0f09162a489edf356abae2dfd, type: 3}
-  - Type: StackOfeMail
-    Object: {fileID: 2630368594541936993, guid: 60e8f7c85c392bd41b6fe8f58dda3f1e, type: 3}
   production:
   - {fileID: 3958183750173467818, guid: 62f6f2260d756614a8054ae9d144f682, type: 3}
   - {fileID: 5897750557514288823, guid: 8e94f4bdbc4044744a88ebe91e95bae8, type: 3}
   - {fileID: 4658596684358061065, guid: ef6e35a0f09162a489edf356abae2dfd, type: 3}
   - {fileID: 2630368594541936993, guid: 60e8f7c85c392bd41b6fe8f58dda3f1e, type: 3}
+  - {fileID: 2551057100239365766, guid: 62f6f2260d756614a8054ae9d144f682, type: 3}
+  - {fileID: 2831228310059675664, guid: 16e723f4689356845b31deac67e166c4, type: 3}

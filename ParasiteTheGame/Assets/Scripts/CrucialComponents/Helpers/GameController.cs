@@ -28,7 +28,8 @@ public class GameController : MonoBehaviour
             playerController.HandleUpdate(currentInputInfo);
         }
 
-        if (Input.GetButtonDown("Interact"))
+        if (!PauseController.gameIsPaused 
+            && Input.GetButtonDown("Interact"))
         {
             AttemptToChangeLevel();
         }

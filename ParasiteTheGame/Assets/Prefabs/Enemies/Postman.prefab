@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a1bd0b789d0f44dbe63670c65e0281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 7274cd7c-5063-43cf-8a1d-efcc76d9f85e
+  id: 
   IsCaptured: 0
   healthBar: {fileID: 3062901129772825388}
 --- !u!114 &2483178980950011646
