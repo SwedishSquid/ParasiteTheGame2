@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         
     }
 
-    //ITSigma - Sorry for changes.......
+    //ITSigma - Pause
     private bool TryHandleJump(InputInfo inpInf)
     {
         return TryHandleJump(inpInf.JumpoutPressed, inpInf.GetMouseDir());
