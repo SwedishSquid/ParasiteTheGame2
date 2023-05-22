@@ -24,6 +24,7 @@ public class Settings : MonoBehaviour
 
     public void SetStandart()
     {
-        SettingsAudioM.SetFloat("settingsVolume", -50);
+        SettingsAudioM.SetFloat("settingsVolume", -30);
+        Screen.fullScreen = true;
     }
 }
