@@ -5,7 +5,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor.Sprites;
 using UnityEngine;
 
-public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, ISavable
+public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, ISavable, IEnemyInfoPlate
 {
     [SerializeField] protected string id;
 
@@ -86,8 +86,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     {
         IsCaptured = true;
         Capturer = player;
-        player.HealthBarEnemy.SetMaxHealth(maxHealth, false);
-        player.HealthBarEnemy.SetValue(health);
         damageSource = DamageSource.Player;
     }
 
@@ -99,7 +97,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             DropDown();
         }
         IsCaptured = false;
-        player.HealthBarEnemy.gameObject.SetActive(false);
         damageSource = DamageSource.Enemy;
     }
 
@@ -281,4 +278,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     }
 
     public bool HaveItem => item != null;
+    public int GetHealth() => health;
+    public int GetMaxHealth() => maxHealth;
 }

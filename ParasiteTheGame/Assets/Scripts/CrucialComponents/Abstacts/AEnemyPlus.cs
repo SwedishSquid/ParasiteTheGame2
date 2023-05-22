@@ -24,10 +24,7 @@ public abstract class AEnemyPlus : AEnemy
         var answer = base.TryTakeDamage(dmgInf);
         if (answer && health >= 0 && healthBar is not null)
         {
-            if (IsCaptured)
-                Capturer.HealthBarEnemy.SetValue(health);
-            else
-                healthBar.SetValue(health);
+            if (!IsCaptured) healthBar.SetValue(health);
         }
         return answer;
     }

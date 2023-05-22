@@ -654,8 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50384ac890e417f43b3ca9419c87b8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarPlr: {fileID: 6954148685057064499}
-  HealthBarEnemy: {fileID: 1873260672}
+  infoPlate: {fileID: 5964127293804300263}
   arrowJumpOn: {fileID: 4779392362810072302}
 --- !u!1 &5964127294317520298
 GameObject:
@@ -753,8 +752,9 @@ GameObject:
   - component: {fileID: 1509716393700717812}
   - component: {fileID: 1522637012454755696}
   - component: {fileID: 776953364181161761}
+  - component: {fileID: 5964127293804300263}
   m_Layer: 5
-  m_Name: HealthBarCanvas
+  m_Name: PlayerInfoPlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -843,6 +843,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5964127293804300263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386225299727900922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a3328ade3c49f58d351d27c6578eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPlayer: {fileID: 6954148685057064499}
+  healthBarEnemy: {fileID: 1873260672}
 --- !u!1 &7704620946176474273
 GameObject:
   m_ObjectHideFlags: 0

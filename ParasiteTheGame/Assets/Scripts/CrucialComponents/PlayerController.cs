@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour, IDamagable, ISavable
+public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfoPlate
 {
     private Rigidbody2D thisRigidbody2d;
     private SpriteRenderer thisSpriteRenderer;
@@ -12,11 +12,11 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
     private float velocity = 3.09f;
     public IControlable controlled;
     private string controlledGUID = "";
-    
+
+    [SerializeField] private PlayerInfoPlate infoPlate;
+    private int maxHealth = 100;
     private int health;
-    [SerializeField] private HealthBar healthBarPlr;
-    public HealthBar HealthBarEnemy;
-    
+
     private float jumpVelocity = 20;
     private bool isActJump;
     private float maxJumpTime = 0.3f;
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         thisRigidbody2d = GetComponent<Rigidbody2D>();
         thisSpriteRenderer = GetComponent<SpriteRenderer>();
         health = 100;
-        healthBarPlr.SetMaxHealth(health, false);
+        infoPlate.AwakeData(this);
     }
 
     void Start()
@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
 
     public void HandleUpdate(InputInfo inpInf)
     {
+        infoPlate.UpdateData(this);
         if (TryHandleJump(inpInf))
             return;
         
@@ -186,7 +187,6 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         if (controlled is null && dmgInf.Source != DamageSource.Player)
         {
             health -= dmgInf.Amount;
-            healthBarPlr.SetValue(health);
             Debug.Log($"Player hurt : health = {health}");
             return true;
         }
@@ -208,8 +208,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
             return;
         }
         health = gameData.PlayerInfo.Health;
-        healthBarPlr.SetValue(health);
-        
+
         controlledGUID = gameData.PlayerInfo.ControlledGUID;
 
         var level = gameData.GetLevel(SceneManager.GetActiveScene().name);
@@ -269,4 +268,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable
         //no no no
         Debug.LogError("why is this called - SetPosition has no effect on player");
     }
+
+    public int GetMaxHealth() => maxHealth;
+
+    public int GetHealth() => health;
 }
