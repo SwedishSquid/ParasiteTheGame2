@@ -69,8 +69,18 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         {
             immunityTime -= Time.deltaTime;
         }
+<<<<<<< HEAD
         
         if (item != null && !PauseController.gameIsPaused) //ITSigma - Pause
+=======
+
+        if (inpInf.PickOrDropPressed)
+        {
+            ActOnPickOrDrop();
+        }
+
+        if (item != null)
+>>>>>>> LevelGarden
         {
             item.HandleUpdate(inpInf);
             if (inpInf.ThrowItemPressed)
@@ -79,6 +89,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
                 item = null;
                 itemGUID = "";
             }
+        }
+        else if (inpInf.ThrowItemPressed)
+        {
+            ActOnPickOrDrop();
         }
     }
 

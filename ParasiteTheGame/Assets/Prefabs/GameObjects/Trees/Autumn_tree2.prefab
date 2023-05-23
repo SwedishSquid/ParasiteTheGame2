@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4592351389942834591}
   - component: {fileID: 4592351389942834588}
-  - component: {fileID: 4592351389942834589}
+  - component: {fileID: 1282976399}
   m_Layer: 14
   m_Name: Autumn_tree2
   m_TagString: Untagged
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1570399243
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c62459cb2be86f24f9f796f0c09e3b07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4592351389942834589
-BoxCollider2D:
+--- !u!58 &1282976399
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -98,16 +98,6 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01605606, y: -1.0757542}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
-    newSize: {x: 4, y: 4}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: -1.21}
   serializedVersion: 2
-  m_Size: {x: 1.0135784, y: 1.2704735}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
