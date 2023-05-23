@@ -69,18 +69,13 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         {
             immunityTime -= Time.deltaTime;
         }
-<<<<<<< HEAD
-        
-        if (item != null && !PauseController.gameIsPaused) //ITSigma - Pause
-=======
 
         if (inpInf.PickOrDropPressed)
         {
             ActOnPickOrDrop();
         }
 
-        if (item != null)
->>>>>>> LevelGarden
+        if (item != null && !PauseController.gameIsPaused) //ITSigma - Pause
         {
             item.HandleUpdate(inpInf);
             if (inpInf.ThrowItemPressed)
