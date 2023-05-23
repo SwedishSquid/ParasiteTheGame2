@@ -6,16 +6,17 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    private bool is_dynamic;
     [SerializeField] private Slider slider;
     [SerializeField] private Gradient gradient;
     [SerializeField] private Image fill;
     private float lastHealthUpdate;
 
-    public void SetMaxHealth(int health)
+    public void SetMaxHealth(int health, bool dynamic)
     {
         slider.maxValue = health;
         slider.value = health;
-
+        is_dynamic = dynamic;
         fill.color = gradient.Evaluate(1f);
     }
 
@@ -29,7 +30,7 @@ public class HealthBar : MonoBehaviour
 
     private void Update()
     {
-        if (!gameObject.activeSelf)
+        if (!is_dynamic || !gameObject.activeSelf)
             return;
         if (Time.time - lastHealthUpdate > 5)
             gameObject.SetActive(false);

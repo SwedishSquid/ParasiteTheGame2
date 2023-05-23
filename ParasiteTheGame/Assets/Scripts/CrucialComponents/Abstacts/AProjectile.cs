@@ -1,3 +1,5 @@
+using CrucialComponents.Interfaces;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AProjectile : MonoBehaviour
@@ -26,7 +28,10 @@ public class AProjectile : MonoBehaviour
         var obg = Physics2D.Raycast(transform.position, direction, rayLength, LayerConstants.DamageTakersLayer);
         if (obg)
         {
+            obg.collider.gameObject.GetComponent<IHitEffectable>()?.DoHitEffect(direction);
+            
             var damagable = obg.collider.gameObject.GetComponent<IDamagable>();
+
             //walls can have no scripts and thus can be not a IDamagable instance
             if (damagable is null || damagable.TryTakeDamage(damageInfo))
             {

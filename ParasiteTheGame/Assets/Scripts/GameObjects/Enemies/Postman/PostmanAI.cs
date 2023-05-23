@@ -8,7 +8,7 @@ public class PostmanAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //it sould just stand
+        //it should just stand
         //to test bouncing when damaged
         postman.ControlledUpdate(new InputInfo(Vector2.zero, Vector2.one, false, false, false, false));
     }

@@ -16,13 +16,16 @@ public abstract class AEnemyPlus : AEnemy
     protected override void Start()
     {
         base.Start();
-        healthBar.SetMaxHealth(health);
+        healthBar.SetMaxHealth(health, true);
     }
 
     public override bool TryTakeDamage(DamageInfo dmgInf)
     {
         var answer = base.TryTakeDamage(dmgInf);
-        if (answer && health >= 0 && healthBar != null) healthBar.SetValue(health);
+        if (answer && health >= 0 && healthBar is not null)
+        {
+            if (!IsCaptured) healthBar.SetValue(health);
+        }
         return answer;
     }
 }
