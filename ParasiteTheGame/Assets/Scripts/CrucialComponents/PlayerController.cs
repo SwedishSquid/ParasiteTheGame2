@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
         infoPlate.UpdateData(this);
         if (TryHandleJump(inpInf))
             return;
+        UpdateAnimation(inpInf);
         
         if (controlled is null)
         {
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
                 jumpPauseDirection = direction;
                 isPause = true;
             }
-            return false;
+            return true;
         }
         if (isPause) //after pause
         {
@@ -115,23 +116,16 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
         if (isChooseDirJump)
         {
             ActChooseDirJump(direction);
-            return controlled is null;
         }
-        if (jumpoutPressed)
-        {
-            thisRigidbody2d.velocity = Vector2.zero;
-            isChooseDirJump = true;
-            return true;
-        }
+
+        isChooseDirJump = jumpoutPressed;
 
         return false;
     }
 
-    private void AnimationUpdate(InputInfo inpInf)
+    private void UpdateAnimation(InputInfo inpInf)
     {
-        if (controlled is not null)
-            return;
-        if (inpInf.Axis.x != 0 || inpInf.Axis.y != 0)
+        if (controlled is null && (inpInf.Axis.x != 0 || inpInf.Axis.y != 0))
         {
             animator.SetFloat("moveX", inpInf.Axis.x);
             animator.SetFloat("moveY", inpInf.Axis.y);
