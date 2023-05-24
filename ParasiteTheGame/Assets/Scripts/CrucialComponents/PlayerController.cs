@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     [SerializeField] private PlayerInfoPlate infoPlate;
     private int maxHealth = 100;
     private int health;
+    
+    [SerializeField] private Animator animator;
 
     private float jumpVelocity = 20;
     private bool isActJump;
@@ -124,7 +126,21 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
 
         return false;
     }
-    
+
+    private void AnimationUpdate(InputInfo inpInf)
+    {
+        if (controlled is not null)
+            return;
+        if (inpInf.Axis.x != 0 || inpInf.Axis.y != 0)
+        {
+            animator.SetFloat("moveX", inpInf.Axis.x);
+            animator.SetFloat("moveY", inpInf.Axis.y);
+            animator.SetBool("isMoving", true);   
+        }
+        else
+            animator.SetBool("isMoving", false);
+    }
+
     private void ActOnJumpout(Vector3 direction)
     {
         if (controlled != null)
