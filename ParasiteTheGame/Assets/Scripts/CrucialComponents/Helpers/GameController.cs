@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
 
         UpdateGameState();
 
-        if (gameState == GameState.MainGameMode)
+        if (gameState == GameState.MainGameMode && !PauseController.gameIsPaused)
         {
             playerController.HandleUpdate(currentInputInfo);
         }

@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using CrucialComponents.Interfaces;
 using UnityEngine;
 
-public class TargetAnim : MonoBehaviour, IHitEffectable
+public class TargetAnim : MonoBehaviour, IDamagable
 {
     private Animator animator;
     void Start()
@@ -12,12 +11,9 @@ public class TargetAnim : MonoBehaviour, IHitEffectable
         animator = GetComponent<Animator>();
     }
 
-    public void DoHitEffect(Vector2 direction)
+    public bool TryTakeDamage(DamageInfo dmgInf)
     {
-        animator.SetBool("isSuccess", true);
-        Invoke(nameof(TurnOffEffects), 0.5f);
+        animator.SetTrigger("isSuccess");
+        return true;
     }
-
-    private void TurnOffEffects() => animator.SetBool("isSuccess", false);
-    
 }

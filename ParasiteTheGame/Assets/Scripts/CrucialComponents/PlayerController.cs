@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     public void HandleUpdate(InputInfo inpInf)
     {
         infoPlate.UpdateData(this);
-        if (TryHandleJump(inpInf))
+        if (TryHandleJump(inpInf.JumpoutPressed, inpInf.GetMouseDir()))
             return;
         UpdateAnimation(inpInf);
         
@@ -70,31 +70,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
         
     }
 
-    //ITSigma - Pause
-    private bool TryHandleJump(InputInfo inpInf)
-    {
-        return TryHandleJump(inpInf.JumpoutPressed, inpInf.GetMouseDir());
-    }
-
     private bool TryHandleJump(bool jumpoutPressed, Vector2 direction)
     {
-        //ITSigma - Pause
-        if (PauseController.gameIsPaused) // when pause
-        {
-            if (!isPause)
-            {
-                jumpPauseDirection = direction;
-                isPause = true;
-            }
-            return true;
-        }
-        if (isPause) //after pause
-        {
-            isPause = false;
-            return TryHandleJump(jumpoutPressed, jumpPauseDirection);
-        }
-        //
-
         if (jumpCooldown > 0)
         {
             if (jumpoutPressed)
