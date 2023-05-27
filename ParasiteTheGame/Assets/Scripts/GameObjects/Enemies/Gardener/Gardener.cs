@@ -42,7 +42,7 @@ public class Gardener : AEnemyPlus
             animator.SetBool("isMoving", false);
         }
         //
-        if (Input.GetButtonDown("Super Attack"))
+        if (Input.GetButtonDown("SuperAttack"))
         {
             superAttack.Attack(damageSource);
         }
