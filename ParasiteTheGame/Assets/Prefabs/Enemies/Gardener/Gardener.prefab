@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4918508109608375958}
-  - {fileID: 2831560981425958668}
+  - {fileID: 2639156149758192721}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   IsCaptured: 0
   Capturer: {fileID: 0}
   healthBar: {fileID: 6916790683945640838}
-  superAttack: {fileID: 7774421184998854588}
+  superAttack: {fileID: 6591211459464328104, guid: 2190a1d40dca3004e9a64a416075541e, type: 3}
 --- !u!114 &2831228310059675667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +178,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1001 &3502926424572574740
+--- !u!1001 &3708562813101670217
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -233,36 +233,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: GardenerSuperAttack
       objectReference: {fileID: 0}
-    - target: {fileID: 2816662784492492597, guid: 2190a1d40dca3004e9a64a416075541e, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d41be4ebe5837274ba6dcc37156aa4c3, type: 2}
-    - target: {fileID: 6591211459464328104, guid: 2190a1d40dca3004e9a64a416075541e, type: 3}
-      propertyPath: gardenerSuperProjPrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556239940151228308, guid: 2190a1d40dca3004e9a64a416075541e, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2190a1d40dca3004e9a64a416075541e, type: 3}
---- !u!4 &2831560981425958668 stripped
+--- !u!4 &2639156149758192721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1717943710009398040, guid: 2190a1d40dca3004e9a64a416075541e, type: 3}
-  m_PrefabInstance: {fileID: 3502926424572574740}
+  m_PrefabInstance: {fileID: 3708562813101670217}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7774421184998854588 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6591211459464328104, guid: 2190a1d40dca3004e9a64a416075541e, type: 3}
-  m_PrefabInstance: {fileID: 3502926424572574740}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b595c0ce8d403a249b6eb94a0aa32536, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7828502231589889066
 PrefabInstance:
   m_ObjectHideFlags: 0

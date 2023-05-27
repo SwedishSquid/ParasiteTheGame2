@@ -6,18 +6,21 @@ public class Gardener : AEnemyPlus
 {
     float lastX;
     float lastY;
+    private float maxAttackCooldown = 4f; 
+    private float attackCooldown;
     [SerializeField] GardenerSuperAttack superAttack;
 
     protected override void Start()
     {
         base.Start();
         radius = 2;
-        superAttack = GetComponent<GardenerSuperAttack>();
     }
 
     public override void ControlledUpdate(InputInfo inpInf)
     {
         base.ControlledUpdate(inpInf);
+        //
+        attackCooldown -= Time.deltaTime;
         //
         if (!PauseController.gameIsPaused)
         {
@@ -42,9 +45,12 @@ public class Gardener : AEnemyPlus
             animator.SetBool("isMoving", false);
         }
         //
-        if (Input.GetButtonDown("SuperAttack"))
+        if (damageSource == DamageSource.Player 
+            && Input.GetButtonDown("SuperAttack") 
+            && attackCooldown <= 0)
         {
-            superAttack.Attack(damageSource);
+            attackCooldown = maxAttackCooldown;
+            superAttack.Attack(damageSource, this);
         }
     }
 
