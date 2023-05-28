@@ -10,11 +10,12 @@ public class ExitGuard : MonoBehaviour, IBossfightListener
     {
         transform.localScale = new Vector2(scalingFactor, scalingFactor);
         GetComponent<CircleCollider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().sortingLayerName = "Player";
     }
 
     public void OnBossfightEnd()
     {
-        StartCoroutine(Shrink());        
+        StartCoroutine(Shrink());
     }
 
     IEnumerator Shrink()
@@ -26,12 +27,14 @@ public class ExitGuard : MonoBehaviour, IBossfightListener
             yield return new WaitForSeconds(0.1f);
         }
         GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().sortingLayerName = "Background";
     }
 
     public void OnLoadDuringBossfight()
     {
         transform.localScale = new Vector2(scalingFactor, scalingFactor);
         GetComponent<CircleCollider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().sortingLayerName = "Player";
     }
 
     public void OnLoadAfterBossfight()

@@ -23,7 +23,7 @@ TagManager:
   - 
   - CollidableItems
   - 
-  - LevelChangers
+  - InteractiveObjects
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3032364759
+    locked: 0
+  - name: UI
+    uniqueID: 1035505473
     locked: 0
