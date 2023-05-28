@@ -6,6 +6,8 @@ public abstract class AEnemyPlus : AEnemy
 {
     protected Animator animator;
     [SerializeField] protected HealthBar healthBar;
+    [SerializeField] protected Cloud cloudObject;
+    //cloud
 
     protected override void Awake()
     {
@@ -16,7 +18,9 @@ public abstract class AEnemyPlus : AEnemy
     protected override void Start()
     {
         base.Start();
-        healthBar.SetMaxHealth(health, true);
+        healthBar.SetMaxHealth(maxHealth, true);
+        healthBar.SetValue(health);
+        UpdateCloud();
     }
 
     public override bool TryTakeDamage(DamageInfo dmgInf)
@@ -26,6 +30,45 @@ public abstract class AEnemyPlus : AEnemy
         {
             if (!IsCaptured) healthBar.SetValue(health);
         }
+
+        UpdateCloud();
+
         return answer;
+    }
+
+    public override void OnCapture(PlayerController player)
+    {
+        base.OnCapture(player);
+        UpdateCloud();
+    }
+
+    public override void OnRelease(PlayerController player)
+    {
+        base.OnRelease(player);
+        UpdateCloud();
+    }
+
+    protected override void AfterDataLoaded()
+    {
+        base.AfterDataLoaded();
+        healthBar.SetValue(health);
+        UpdateCloud();
+    }
+
+    protected void UpdateCloud()
+    {
+        if (cloudObject == null)
+        {
+            return;
+        }
+
+        if (PassedOut && !Dead && !IsCaptured)
+        {
+            cloudObject.gameObject.SetActive(true);
+        }
+        else
+        {
+            cloudObject.gameObject.SetActive(false);
+        }
     }
 }
