@@ -36,6 +36,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected float freezeTime;
     protected float immunityTime;
 
+    [SerializeField]protected BaseAttack baseAttack;
+
     public virtual bool CanBeCaptured { get; protected set; } = true;
 
     protected virtual void Awake()
@@ -55,7 +57,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public virtual void ControlledUpdate(InputInfo inpInf)
     {
-
         if (freezeTime > 0)
         {
             freezeTime -= Time.deltaTime;
@@ -75,7 +76,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             ActOnPickOrDrop();
         }
 
-        if (item != null && !PauseController.gameIsPaused) //ITSigma - Pause
+        if (item != null)
         {
             item.HandleUpdate(inpInf);
             if (inpInf.ThrowItemPressed)
@@ -89,6 +90,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         {
             ActOnPickOrDrop();
         }
+        else if (baseAttack is not null)
+            baseAttack.HandleUpdate(inpInf);
     }
 
     public virtual void OnCapture(PlayerController player)

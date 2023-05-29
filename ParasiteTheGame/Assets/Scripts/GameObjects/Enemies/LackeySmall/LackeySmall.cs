@@ -71,6 +71,7 @@ public class LackeySmall : AEnemyPlus
                 healthBar.SetValue(health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
+                animator.SetTrigger("damage");
             }
         }
         return result;

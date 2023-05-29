@@ -6,6 +6,7 @@ public abstract class AEnemyPlus : AEnemy
 {
     protected Animator animator;
     [SerializeField] protected HealthBar healthBar;
+    
 
     protected override void Awake()
     {
