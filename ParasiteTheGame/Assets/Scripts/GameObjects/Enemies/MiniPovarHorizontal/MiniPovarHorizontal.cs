@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniPovar : AEnemyPlus
+public class MiniPovarHorizontal : AEnemyPlus
 {
     protected override void Start()
     {
@@ -32,7 +32,7 @@ public class MiniPovar : AEnemyPlus
         base.OnCapture(player);
         //
         animator.SetBool("isUncontious", false);
-        GetComponent<MiniPovarAI>().enabled = false;
+        GetComponent<MiniPovarHorizontalAI>().enabled = false;
         //
     }
 
@@ -46,7 +46,7 @@ public class MiniPovar : AEnemyPlus
         }
         else
         {
-            GetComponent<MiniPovarAI>().enabled = true;
+            GetComponent<MiniPovarHorizontalAI>().enabled = true;
         }
         animator.SetBool("isMoving", false);
         //
@@ -60,7 +60,7 @@ public class MiniPovar : AEnemyPlus
             if (health <= 0)
             {
                 animator.SetBool("isUncontious", true);
-                GetComponent<MiniPovarAI>().enabled = false;
+                GetComponent<MiniPovarHorizontalAI>().enabled = false;
                 if (item != null)
                 {
                     DropDown();

@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 8232736943276811067}
   - component: {fileID: 8232736943276811066}
   - component: {fileID: 8232736943276811065}
-  - component: {fileID: 4469964028047687824}
-  - component: {fileID: 6293239294827724985}
+  - component: {fileID: 4896160190872865588}
+  - component: {fileID: 6395205205711224340}
   - component: {fileID: 8232736943276811064}
   - component: {fileID: 8232736943276811068}
   m_Layer: 8
-  m_Name: MiniPovar
+  m_Name: MiniPovarHorizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1570399243
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8d696a8dc894006438d75d4dffa9469e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -110,7 +110,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4469964028047687824
+--- !u!114 &4896160190872865588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,10 +122,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472aaa553ad410346830e95200b2b39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  id: 1002e85a-5363-43e2-90bf-c9c46b6babe9
   IsCaptured: 0
+  Capturer: {fileID: 0}
+  baseAttack: {fileID: 0}
   healthBar: {fileID: 0}
---- !u!114 &6293239294827724985
+  cloudObject: {fileID: 0}
+--- !u!114 &6395205205711224340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
