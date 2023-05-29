@@ -127,7 +127,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         }
     }
 
-    public void SaveGame(GameData gameData)
+    public virtual void SaveGame(GameData gameData)
     {
         var itemData = gameData.GetItemToSave(id);
 
@@ -136,7 +136,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         itemData.TypeName = this.GetType().Name;//typeName;
     }
 
-    public void LoadData(GameData gameData)
+    public virtual void LoadData(GameData gameData)
     {
         if (gameData.Items.ContainsKey(id))
         {

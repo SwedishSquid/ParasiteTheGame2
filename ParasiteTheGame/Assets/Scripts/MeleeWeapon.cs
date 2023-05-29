@@ -29,8 +29,8 @@ public class MeleeWeapon : AWeapon
         var enemies = Physics2D.OverlapCircleAll(transform.position, 0.7f, damageTakerLayers);
         for (int i = 0; i < enemies.Length; i++)
         {
-            didDamage = enemies[i].GetComponent<AEnemy>()
-                .TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, 4, transform.position.normalized));
+            enemies[i].GetComponent<AEnemy>()
+                .TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, 4, inpInf.GetMouseDir()));
         }
     }
 
