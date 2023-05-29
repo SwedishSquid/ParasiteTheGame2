@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PostmanAI : MonoBehaviour
+public class PostmanAI : AIntelligence
 {
     [SerializeField] protected Postman postman;
     // Update is called once per frame

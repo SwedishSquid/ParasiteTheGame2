@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LackeySmallAI : MonoBehaviour
+public class LackeySmallAI : AIntelligence
 {
     LackeySmall lackey;
     // Start is called before the first frame update
@@ -14,6 +14,12 @@ public class LackeySmallAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lackey.PassedOut)
+        {
+            lackey.ControlledUpdate(PassedOutMode());
+            return;
+        }
+
         var direction = new Vector2(Random.value*2 - 1, Random.value*2 - 1).normalized;
         //
         if (!lackey.HaveItem)

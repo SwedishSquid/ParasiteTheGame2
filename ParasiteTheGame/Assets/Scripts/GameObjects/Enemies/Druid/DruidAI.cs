@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DruidAI : MonoBehaviour
+public class DruidAI : AIntelligence
 {
     private Druid druid;
     // Update is called once per frame

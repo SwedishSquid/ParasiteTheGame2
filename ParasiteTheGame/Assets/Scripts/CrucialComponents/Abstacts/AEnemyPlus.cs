@@ -7,6 +7,7 @@ public abstract class AEnemyPlus : AEnemy
     protected Animator animator;
     [SerializeField] protected HealthBar healthBar;
     [SerializeField] protected Cloud cloudObject;
+    [SerializeField] protected Sprite grave;
 
     protected override void Awake()
     {
@@ -33,6 +34,17 @@ public abstract class AEnemyPlus : AEnemy
         UpdateCloud();
 
         return answer;
+    }
+
+    protected override void ApplyDeathEffects()
+    {
+        base.ApplyDeathEffects();
+
+        if (grave != null)
+        {
+            GetComponent<Animator>().enabled = false;
+            GetComponent<SpriteRenderer>().sprite = grave;
+        }
     }
 
     public override void OnCapture(PlayerController player)

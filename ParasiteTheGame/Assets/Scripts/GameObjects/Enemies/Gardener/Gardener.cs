@@ -59,7 +59,7 @@ public class Gardener : AEnemyPlus
         base.OnCapture(player);
         //
         animator.SetBool("isUncontious", false);
-        GetComponent<GardenerAI>().enabled = false;
+        //GetComponent<GardenerAI>().enabled = false;
         //
     }
 
@@ -71,10 +71,10 @@ public class Gardener : AEnemyPlus
         {
             animator.SetBool("isUncontious", true);
         }
-        else
+/*        else
         {
             GetComponent<GardenerAI>().enabled = true;
-        }
+        }*/
         animator.SetBool("isMoving", false);
         //
     }
@@ -87,11 +87,11 @@ public class Gardener : AEnemyPlus
             if (health <= 0)
             {
                 animator.SetBool("isUncontious", true);
-                GetComponent<GardenerAI>().enabled = false;
+/*                GetComponent<GardenerAI>().enabled = false;
                 if (item != null)
                 {
                     DropDown();
-                }
+                }*/
             }
             else
             {

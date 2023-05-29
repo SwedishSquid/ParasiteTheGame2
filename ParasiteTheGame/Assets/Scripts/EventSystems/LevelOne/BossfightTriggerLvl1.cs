@@ -73,6 +73,6 @@ public class BossfightTriggerLvl1 : MonoBehaviour, IInteractable, IBossfightList
 
     public void OnLoadDuringBossfight()
     {
-        //isActive = false;
+        isActive = false;
     }
 }

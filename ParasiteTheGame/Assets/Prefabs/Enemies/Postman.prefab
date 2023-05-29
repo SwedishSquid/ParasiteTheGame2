@@ -174,8 +174,10 @@ MonoBehaviour:
   id: 
   IsCaptured: 0
   Capturer: {fileID: 0}
+  baseAttack: {fileID: 0}
   healthBar: {fileID: 3062901129772825388}
   cloudObject: {fileID: 4641812581178173867}
+  grave: {fileID: 1048330562, guid: 2dee814bf5ba89643849b74de68e9e42, type: 3}
 --- !u!114 &2483178980950011646
 MonoBehaviour:
   m_ObjectHideFlags: 0

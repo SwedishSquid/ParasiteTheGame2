@@ -41,7 +41,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     [SerializeField]protected BaseAttack baseAttack;
 
-    public virtual bool CanBeCaptured { get; protected set; } = true;
+    public virtual bool CanBeCaptured { get
+        {
+            return !Dead;
+        } }
 
     public virtual bool PassedOut => health < terminalHealth;
     public virtual bool Dead => health <= 0;
@@ -100,22 +103,66 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             baseAttack.HandleUpdate(inpInf);
     }
 
+    public virtual bool TryPassOut()
+    {
+        if (!PassedOut || Dead)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool TryDie()
+    {
+        if (!Dead)
+        {
+            return false;
+        }
+
+        ApplyDeathEffects();
+
+        gameObject.GetComponent<Collider2D>().enabled= false;
+        myRigidbody.simulated = false;
+
+        return true;
+    }
+
+    protected virtual void ApplyDeathEffects()
+    {
+        if (item != null)
+        {
+            DropDown();
+        }
+
+        GetComponent<AIntelligence>().TryTurnOff();
+        if (IsCaptured)
+        {
+            Capturer.TryHandleJump(true, new Vector2(Random.value, Random.value).normalized);
+        }
+    }
+
     public virtual void OnCapture(PlayerController player)
     {
         IsCaptured = true;
         Capturer = player;
         damageSource = DamageSource.Player;
+        GetComponent<AIntelligence>().enabled = false;
     }
 
     public virtual void OnRelease(PlayerController player)
     {
         myRigidbody.velocity = new Vector2(0, 0);
-        if (item != null)
+/*        if (item != null)
         {
             DropDown();
-        }
+        }*/
         IsCaptured = false;
         damageSource = DamageSource.Enemy;
+        if (!TryPassOut() && !TryDie())
+        {
+            GetComponent<AIntelligence>().enabled = true;
+        }
     }
 
     public virtual void UpdatePlayerPos(Transform playerTransform)
@@ -139,6 +186,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             GetDamageEffect(dmgInf);
             
             Debug.Log($"Creature hurt : health = {health}");
+
+            TryPassOut();
+            TryDie();
             return true;
         }
         return false;
@@ -226,7 +276,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         return damageSource;
     }
 
-    public void SaveGame(GameData gameData)
+    public virtual void SaveGame(GameData gameData)
     {
         var enemyData = gameData.GetEnemyToSave(id);
 
@@ -238,13 +288,13 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         enemyData.TypeName = this.GetType().Name;//typeName;
     }
 
-    public void LoadData(GameData gameData)
+    public virtual void LoadData(GameData gameData)
     {
         if (gameData.Enemies.ContainsKey(id))
         {
             var enemyData = gameData.Enemies[id];
             transform.position = enemyData.EnemyPosition;
-            CanBeCaptured = enemyData.CanBeCaptured;
+            //CanBeCaptured = enemyData.CanBeCaptured;
             itemGUID = enemyData.PickedItemGUID;
             health = enemyData.Health;
 
@@ -253,6 +303,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             enemyData.thisEnemy = this;
         }
         AfterDataLoaded();
+        TryPassOut();
+        TryDie();
     }
 
     protected virtual void AfterDataLoaded()

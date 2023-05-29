@@ -124,11 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db419c0831241254d8de7e2d8e710497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 2d2cef6a-c4c0-46dd-9e28-e98103b53130
+  id: 
   IsCaptured: 0
   Capturer: {fileID: 0}
+  baseAttack: {fileID: 0}
   healthBar: {fileID: 8970134376914039735}
-  cloudObject: {fileID: 0}
+  cloudObject: {fileID: 6826461278705841047}
+  grave: {fileID: 1012266325, guid: 727b47d19592d8b44b08957cfc0b81cf, type: 3}
 --- !u!114 &9133164315956127662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +241,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1564c1f4785f7b4e86d790dd0e7b22e, type: 3}
+--- !u!114 &6826461278705841047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6197404941359682230, guid: c1564c1f4785f7b4e86d790dd0e7b22e, type: 3}
+  m_PrefabInstance: {fileID: 629919729683194145}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ebcdb68dce3c9498ff94ec563841e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9076778081629664306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8451810896460682515, guid: c1564c1f4785f7b4e86d790dd0e7b22e, type: 3}

@@ -125,12 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8195de3fb9eaf34cbbd9acfe2c514b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1a3a63cd-aef2-4bbd-9ccd-ee0550270e45
+  id: 
   IsCaptured: 0
   Capturer: {fileID: 0}
   baseAttack: {fileID: 508229936}
   healthBar: {fileID: 7320368575330813691}
   cloudObject: {fileID: 2495380714686881805}
+  grave: {fileID: 950818620, guid: 727b47d19592d8b44b08957cfc0b81cf, type: 3}
 --- !u!114 &7476560983766445750
 MonoBehaviour:
   m_ObjectHideFlags: 0

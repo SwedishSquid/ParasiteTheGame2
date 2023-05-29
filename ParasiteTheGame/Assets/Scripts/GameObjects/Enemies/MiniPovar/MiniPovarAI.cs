@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniPovarAI : MonoBehaviour
+public class MiniPovarAI : AIntelligence
 {
     MiniPovar miniPovar;
     // Start is called before the first frame update

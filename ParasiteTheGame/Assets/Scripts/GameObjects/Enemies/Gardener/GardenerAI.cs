@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GardenerAI : MonoBehaviour
+public class GardenerAI : AIntelligence
 {
     Gardener gardener;
 

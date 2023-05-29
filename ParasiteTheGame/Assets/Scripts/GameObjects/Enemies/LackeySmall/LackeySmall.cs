@@ -32,7 +32,6 @@ public class LackeySmall : AEnemyPlus
         base.OnCapture(player);
         //
         animator.SetBool("isUncontious", false);
-        GetComponent<LackeySmallAI>().enabled = false;
         //
     }
 
@@ -40,14 +39,6 @@ public class LackeySmall : AEnemyPlus
     {
         base.OnRelease(player);
         //
-        if (health <= 0)
-        {
-            animator.SetBool("isUncontious", true);
-        }
-        else
-        {
-            GetComponent<LackeySmallAI>().enabled = true;
-        }
         animator.SetBool("isMoving", false);
         //
     }
@@ -57,19 +48,10 @@ public class LackeySmall : AEnemyPlus
         var result = base.TryTakeDamage(dmgInf);
         if (result)
         {
-            if (health <= 0)
-            {
-                animator.SetBool("isUncontious", true);
-                GetComponent<LackeySmallAI>().enabled = false;
-                if (item != null)
-                {
-                    DropDown();
-                }
-            }
-            else
+            if (!Dead)
             {
                 healthBar.SetValue(health);
-                animator.SetBool("isUncontious", false);
+                //animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
                 animator.SetTrigger("damage");
             }

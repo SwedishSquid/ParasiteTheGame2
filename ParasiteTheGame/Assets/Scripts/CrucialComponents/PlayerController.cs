@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
         
     }
 
-    private bool TryHandleJump(bool jumpoutPressed, Vector2 direction)
+    public bool TryHandleJump(bool jumpoutPressed, Vector2 direction)
     {
         if (jumpCooldown > 0)
         {

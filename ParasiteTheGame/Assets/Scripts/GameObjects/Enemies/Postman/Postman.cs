@@ -25,12 +25,10 @@ public class Postman : AEnemyPlus
     {
         base.OnRelease(player);
         animator.SetBool("isMoving", false);
-        gameObject.GetComponent<PostmanAI>().enabled = true;
     }
 
     public override void OnCapture(PlayerController player)
     {
         base.OnCapture(player);
-        gameObject.GetComponent<PostmanAI>().enabled = false;
     }
 }
