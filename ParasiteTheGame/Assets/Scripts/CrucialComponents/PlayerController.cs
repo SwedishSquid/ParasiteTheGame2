@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 //using UnityEditor.UIElements;
 using UnityEngine;
@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
 
     [SerializeField]private Canvas arrowJumpOn;
     private bool isChooseDirJump;
+
+    [SerializeField] private PlayerHintE hintE;
     
     void Awake()
     {
@@ -282,4 +284,9 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     public int GetMaxHealth() => maxHealth;
 
     public int GetHealth() => health;
+
+    public void ShowHintE()
+    {
+        hintE.ShowHint();
+    }
 }

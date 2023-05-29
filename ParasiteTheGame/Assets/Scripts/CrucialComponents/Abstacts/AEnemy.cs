@@ -25,8 +25,11 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected float itemPickingRadius = 2f;
     public bool IsCaptured;
     public PlayerController Capturer;
-    protected int maxHealth = 100;
-    protected int health = 100;
+
+    protected int maxHealth = 10;
+    protected int terminalHealth = 10 / 2;
+    protected int health = 10;
+
     protected DamageSource damageSource = DamageSource.Enemy;
 
     protected Vector2 damageDir;
@@ -40,6 +43,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public virtual bool CanBeCaptured { get; protected set; } = true;
 
+    public virtual bool PassedOut => health < terminalHealth;
+    public virtual bool Dead => health <= 0;
+
     protected virtual void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -48,9 +54,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     protected virtual void Start()
     {
-        if (id == null)
+        if (id == null || id == "")
         {
-            Debug.LogError($"To enable saving system operation on this object" +
+            Debug.LogError($"To enable saving system operations on this object" +
                 $" ({gameObject}) GUID must be generated");
         }
     }
@@ -246,6 +252,12 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
             enemyData.thisEnemy = this;
         }
+        AfterDataLoaded();
+    }
+
+    protected virtual void AfterDataLoaded()
+    {
+
     }
 
     public string GetGUID()

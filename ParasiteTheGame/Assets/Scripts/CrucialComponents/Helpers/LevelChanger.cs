@@ -3,19 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelChanger : MonoBehaviour
+public class LevelChanger : MonoBehaviour, IInteractable
 {
     [SerializeField] private string SceneNameToGoTo;
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.gameObject.TryGetComponent<PlayerController>(out var player))
-        {
-            return;
-        }
-        Debug.Log($"Press [E] to go to level {SceneNameToGoTo}");
-    }
 
-    public void ChangeLevel(ISavable player, ISavable enemy, ISavable item)
+    private void ChangeLevel(ISavable player, ISavable enemy, ISavable item)
     {
         var currentSceneName = SceneManager.GetActiveScene().name;
         
@@ -32,5 +24,15 @@ public class LevelChanger : MonoBehaviour
         DataPersistenceManager.Instance.SaveGame();
 
         SceneManager.LoadSceneAsync(SceneNameToGoTo);
+    }
+
+    public void Interact(InteractorInfo interInfo)
+    {
+        ChangeLevel(interInfo.Player, interInfo.Enemy, interInfo.Item);
+    }
+
+    public bool IsActive()
+    {
+        return true;
     }
 }

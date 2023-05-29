@@ -28,38 +28,78 @@ public class GameController : MonoBehaviour
             playerController.HandleUpdate(currentInputInfo);
         }
 
-        if (!PauseController.gameIsPaused 
-            && Input.GetButtonDown("Interact"))
+        if (!PauseController.gameIsPaused)
         {
-            AttemptToChangeLevel();
+            AttemptToInteract();
         }
 
-        if (Input.GetButtonDown("Pause")) 
+        if (Input.GetButtonDown("Pause"))
         {
             pauseController.Pause();
         }
     }
 
-    private void AttemptToChangeLevel()
-    {
-        var t =Physics2D.OverlapPoint(playerController.gameObject.transform.position, LayerConstants.LevelChangersLayer);
-        if (t != null && t.gameObject.TryGetComponent<LevelChanger>(out var levelChanger))
+    /*    private void AttemptToChangeLevel()
         {
-            ISavable enemy = null;
-            ISavable item = null;
-            if (playerController.controlled is AEnemy)
+            var t =Physics2D.OverlapPoint(playerController.gameObject.transform.position, LayerConstants.InteractiveObjectsLayer);
+            if (t != null && t.gameObject.TryGetComponent<LevelChanger>(out var levelChanger))
             {
-                enemy = (playerController.controlled as AEnemy) as ISavable;
-                item = (playerController.controlled as AEnemy).GetISavableItem();
-            }
+                ISavable enemy = null;
+                ISavable item = null;
+                if (playerController.controlled is AEnemy)
+                {
+                    enemy = (playerController.controlled as AEnemy) as ISavable;
+                    item = (playerController.controlled as AEnemy).GetISavableItem();
+                }
 
-            if (enemy == null)
-            {
-                Debug.Log("null enemy somehow");
-            }
+                if (enemy == null)
+                {
+                    Debug.Log("null enemy somehow");
+                }
 
-            levelChanger.ChangeLevel(null, enemy, item);
+                levelChanger.ChangeLevel(null, enemy, item);
+            }
+        }*/
+
+    private void AttemptToInteract()
+    {
+        var t = Physics2D.OverlapPoint(playerController.gameObject.transform.position, LayerConstants.InteractiveObjectsLayer);
+        if (t == null)
+        {
+            return;
         }
+
+        if (!t.gameObject.TryGetComponent<IInteractable>(out var interactable))
+        {
+            return;
+        }
+
+        if (!interactable.IsActive())
+        {
+            return;
+        }
+
+        Debug.Log("before show");
+        playerController.ShowHintE();
+
+        if (!Input.GetButtonDown("Interact"))
+        {
+            return;
+        }
+
+        interactable.Interact(MakeInteractorInfo());
+    }
+
+    private InteractorInfo MakeInteractorInfo()
+    {
+        ISavable enemy = null;
+        ISavable item = null;
+        if (playerController.controlled is AEnemy)
+        {
+            enemy = (playerController.controlled as AEnemy) as ISavable;
+            item = (playerController.controlled as AEnemy).GetISavableItem();
+        }
+        return new InteractorInfo(playerController, enemy, item);
     }
 
     private void UpdateGameState()
