@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class BossfightTrigger : MonoBehaviour, IInteractable, IBossfightListener
+public class BossfightTriggerLvl1 : MonoBehaviour, IInteractable, IBossfightListener
 {
     private bool isActive = true;
 
     [SerializeField] private Sprite spriteAfterInteraction;
+    [SerializeField] private Gardener boss;
 
     private void Start()
     {
@@ -27,6 +29,7 @@ public class BossfightTrigger : MonoBehaviour, IInteractable, IBossfightListener
         if (LevelOneBossfightController.Instance.bossfightState == BossfightState.NotStarted)
         {
             LevelOneBossfightController.Instance.StartBossfight();
+            BringTheBoss();
             Debug.Log("starting bossfight");
         }
         else
@@ -36,6 +39,11 @@ public class BossfightTrigger : MonoBehaviour, IInteractable, IBossfightListener
         }
 
         ChangeSprite();
+    }
+
+    private void BringTheBoss()
+    {
+        boss.gameObject.transform.position = gameObject.transform.position + Vector3.right * 10;
     }
 
     private void ChangeSprite()
