@@ -7,6 +7,7 @@ public class BaseAttack : AWeapon
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private float radiusAttack = 0.7f;
+    //[SerializeField] new private AEnemy user;
 
     protected override void Start()
     {
@@ -40,4 +41,9 @@ public class BaseAttack : AWeapon
     public override void SaveGame(GameData gameData) {}
     
     public override void LoadData(GameData gameData){}
+
+/*    public override string GetGUID()
+    {
+        return "nonono";
+    }*/
 }

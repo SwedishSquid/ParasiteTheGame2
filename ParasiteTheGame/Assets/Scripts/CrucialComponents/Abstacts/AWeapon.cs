@@ -145,7 +145,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         }
     }
 
-    public string GetGUID()
+    public virtual string GetGUID()
     {
         if (id == "")
         {

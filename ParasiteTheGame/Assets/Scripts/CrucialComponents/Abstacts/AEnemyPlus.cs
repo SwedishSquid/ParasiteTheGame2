@@ -6,12 +6,7 @@ public abstract class AEnemyPlus : AEnemy
 {
     protected Animator animator;
     [SerializeField] protected HealthBar healthBar;
-<<<<<<< HEAD
-    
-=======
     [SerializeField] protected Cloud cloudObject;
-    //cloud
->>>>>>> BossAndOther
 
     protected override void Awake()
     {
