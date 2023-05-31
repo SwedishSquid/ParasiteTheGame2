@@ -8,6 +8,9 @@ public class Gardener : AEnemyPlus
     float lastY;
     private float maxAttackCooldown = 4f; 
     private float attackCooldown;
+    private float maxSuperAnimation = 1.28f; 
+    private float superAnimation;
+    private bool isSuper = false;
     [SerializeField] GardenerSuperAttack superAttack;
 
     protected override void Start()
@@ -21,6 +24,17 @@ public class Gardener : AEnemyPlus
         base.ControlledUpdate(inpInf);
         //
         attackCooldown -= Time.deltaTime;
+        //animator.SetBool("isSuper", isSuper);
+        if (isSuper)
+        {
+            superAnimation -= Time.deltaTime;
+            if (superAnimation <= 0) //|| animator.GetBool("isMoving"))
+            {
+                isSuper = false;
+            }
+            
+            animator.SetBool("isSuper", isSuper);
+        }
         //
         if (!PauseController.gameIsPaused)
         {
@@ -38,6 +52,10 @@ public class Gardener : AEnemyPlus
         //
         if (freezeTime <= 0 && (inpInf.Axis.x != 0 || inpInf.Axis.y != 0))
         {
+            //
+            isSuper = false;
+            animator.SetBool("isSuper", isSuper);
+            //
             animator.SetBool("isMoving", true);
         }
         else
@@ -49,8 +67,11 @@ public class Gardener : AEnemyPlus
             && Input.GetButtonDown("SuperAttack") 
             && attackCooldown <= 0)
         {
+            isSuper = true;
             attackCooldown = maxAttackCooldown;
+            superAnimation = maxSuperAnimation;
             superAttack.Attack(damageSource, this);
+            animator.SetBool("isSuper", isSuper);
         }
     }
 
