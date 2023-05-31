@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FileGameDataHandler
 {
-    private readonly string path;
+    private static string path;
 
     public FileGameDataHandler(string pathToDir, string fileName)
     {
@@ -70,4 +70,9 @@ public class FileGameDataHandler
             }
         }
     }*/
+
+    public static bool CheckLoadFileExists()
+    {
+        return File.Exists(path);
+    }
 }
