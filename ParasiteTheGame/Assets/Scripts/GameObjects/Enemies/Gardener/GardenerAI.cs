@@ -12,7 +12,7 @@ public class GardenerAI : AIntelligence
     private float updateInterval = 0.5f;
     private float updateTimeLeft = 0;
 
-    private AEnemy aim;
+    private IKillable aim;
 
     private AWeapon itemAim;
 
@@ -48,7 +48,7 @@ public class GardenerAI : AIntelligence
         var direction = new Vector2(Random.value * 2 - 1, Random.value * 2 - 1).normalized;
         var inpInf = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !gardener.HaveItem, true, false);
 
-        if (aim == null || mode == AIMode.AimSearch)
+        if (aim == null || aim.Dead)
         {
             inpInf = AimlessMode();
         }
@@ -111,7 +111,7 @@ public class GardenerAI : AIntelligence
     {
         var dist = aimDist;
         Debug.Log($"distance is {dist}");
-        if (aim.Dead)
+        if (aim.Dead || !aim.CanBeHit)
         {
             mode = AIMode.AimSearch;
         }
@@ -182,7 +182,7 @@ public class GardenerAI : AIntelligence
             mode = AIMode.StrategyMaking;
         }
 
-        var walkDirection = -((Vector2)(transform.position - aim.gameObject.transform.position)).normalized;
+        var walkDirection = -((Vector2)transform.position - aim.Position).normalized;
         var aimDirection = (walkDirection + new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)) * 0.3f);
         return new InputInfo(walkDirection, aimDirection, false, !gardener.HaveItem, true, false);
     }
@@ -254,7 +254,7 @@ public class GardenerAI : AIntelligence
         return new InputInfo(ItemDir.normalized, ItemDir.normalized, false, !gardener.HaveItem, false, false);
     }
 
-    private AEnemy SearchAim()
+    private IKillable SearchAim()
     {
         updateTimeLeft -= Time.deltaTime;
         if (updateTimeLeft > 0)
@@ -265,25 +265,25 @@ public class GardenerAI : AIntelligence
 
         Debug.Log("doing research");
 
+        aim = null;
+
         foreach (var obj in eye.GetAllObjectsInView(LayerConstants.ControllablesLayer))
         {
-            if (obj.TryGetComponent(out AEnemy creature) && creature.IsCaptured && creature is not Gardener)
+            if (obj.TryGetComponent(out IKillable creature) && creature.CanBeHit)
             {
                 aim = creature;
                 break;
             }
         }
 
-        Debug.Log($"found {aim}");
+        Debug.Log($"found {(aim == null ? "nothing" : aim)}");
 
         return aim;
     }
 
     private Vector2 ItemDir => (Vector2)(itemAim.transform.position - transform.position);
 
-    private Vector2 aimPos => aim.gameObject.transform.position;
-
-    private Vector2 aimDir => (aimPos - (Vector2)transform.position);
+    private Vector2 aimDir => (aim.Position - (Vector2)transform.position);
 
     private float aimDist => aimDir.magnitude;
 }

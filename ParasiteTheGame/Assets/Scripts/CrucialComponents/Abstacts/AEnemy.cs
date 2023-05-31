@@ -5,7 +5,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor.Sprites;
 using UnityEngine;
 
-public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, ISavable, IEnemyInfoPlate
+public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, ISavable, IEnemyInfoPlate, IKillable
 {
     [SerializeField] protected string id;
 
@@ -26,9 +26,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     public bool IsCaptured;
     public PlayerController Capturer;
 
-    protected int maxHealth = 100;
-    protected int terminalHealth = 100 / 2;
-    protected int health = 100;
+    protected int maxHealth = 10;
+    protected int terminalHealth = 10 / 2;
+    protected int health = 10;
     public virtual bool AlmostPassedOut => !PassedOut && (health - terminalHealth) < maxHealth / 5;
 
     protected DamageSource damageSource = DamageSource.Enemy;
@@ -52,6 +52,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public virtual bool PassedOut => health < terminalHealth;
     public virtual bool Dead => health <= 0;
+
+    public Vector2 Position => transform.position;
+
+    public bool CanBeHit => IsCaptured;
 
     protected virtual void Awake()
     {
@@ -386,6 +390,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     }
 
     public bool HaveItem => item != null;
+
+    
+
     public int GetHealth() => health;
     public int GetMaxHealth() => maxHealth;
 }

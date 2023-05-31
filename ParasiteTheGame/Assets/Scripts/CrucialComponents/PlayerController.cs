@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfoPlate
+public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfoPlate, IKillable
 {
     private Rigidbody2D thisRigidbody2d;
     private SpriteRenderer thisSpriteRenderer;
@@ -38,7 +38,17 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     private bool isChooseDirJump;
 
     [SerializeField] private PlayerHintE hintE;
-    
+
+    public bool AlmostPassedOut => false;
+
+    public bool Dead => health <= 0;
+
+    public bool PassedOut => false;
+
+    public Vector2 Position => transform.position;
+
+    public bool CanBeHit => controlled == null;
+
     void Awake()
     {
         thisRigidbody2d = GetComponent<Rigidbody2D>();
