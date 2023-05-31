@@ -19,4 +19,6 @@ public static class LayerConstants
     public static readonly LayerMask DamageTakersLayer = LayerMask.GetMask("Player") | LayerMask.GetMask("Controllables") | LayerMask.GetMask("Walls");
 
     public static readonly LayerMask InteractiveObjectsLayer = LayerMask.GetMask("InteractiveObjects");
+
+    public static readonly LayerMask ObstaclesLayer = LayerMask.GetMask("Walls");
 }

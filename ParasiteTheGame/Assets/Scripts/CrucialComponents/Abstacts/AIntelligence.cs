@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIntelligence : MonoBehaviour
+public abstract class AIntelligence : MonoBehaviour
 {
     public virtual bool TryTurnOff()
     {

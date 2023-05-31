@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
+
 public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
 {
     [SerializeField] protected string id;
@@ -14,7 +15,9 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
     }
 
     protected IUser user;
-    protected int damageAmount = 7;
+    protected int damageAmount = 4;
+    protected int throwDamage = 4;
+
     protected float fireRate = 0.5f; //seconds between fire
     protected float cooldownLeft = 0;
     protected float throwSpeed = 30;
@@ -122,9 +125,10 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         //this rigidbody is not permanent - it will be destroyed sooner or later
         if(TryGetComponent<Rigidbody2D>(out var rigidbody2))
         {
+            int dmg = (int)Mathf.Round(throwDamage * throwComponent.GetDamageMultiplyer());
             damagable.TryTakeDamage(
                 //new DamageInfo(DamageType.Melee, damageSource, damageAmount, Vector2.zero, 0));
-                new DamageInfo(DamageType.Melee, DamageSource.Environment, damageAmount, Vector2.zero, 0));
+                new DamageInfo(DamageType.Melee, DamageSource.Environment, dmg, Vector2.zero, 0));
         }
     }
 

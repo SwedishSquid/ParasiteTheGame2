@@ -5,7 +5,7 @@ using UnityEngine;
 public readonly struct InputInfo
 {
     public readonly Vector2 Axis { get; }
-    public readonly Vector3 MousePos { get; }
+    public readonly Vector3 MouseDirection { get; }
     public readonly bool JumpoutPressed { get; }
 
     public readonly bool PickOrDropPressed { get; }
@@ -14,10 +14,10 @@ public readonly struct InputInfo
 
     public readonly bool ThrowItemPressed { get; }
     
-    public InputInfo(Vector2 axes, Vector3 mousePos, bool jumpout, bool pickOrDrop, bool firePressed, bool throwItem)
+    public InputInfo(Vector2 axes, Vector3 mouseDirection, bool jumpout, bool pickOrDrop, bool firePressed, bool throwItem)
     {
         Axis = axes;
-        MousePos = mousePos;
+        MouseDirection = mouseDirection;
         JumpoutPressed = jumpout;
         PickOrDropPressed = pickOrDrop;
         FirePressed = firePressed;
@@ -29,11 +29,11 @@ public readonly struct InputInfo
     /// </summary>
     public Vector2 GetMouseDir()
     {
-        return new Vector2(MousePos.x - (Screen.width / 2), MousePos.y - (Screen.height / 2)).normalized;
+        return MouseDirection.normalized;
     }
 
     public InputInfo ConstructForFrozen()
     {
-        return new InputInfo(Vector2.zero, MousePos, JumpoutPressed, false, false, false);
+        return new InputInfo(Vector2.zero, MouseDirection, JumpoutPressed, false, false, false);
     }
 }

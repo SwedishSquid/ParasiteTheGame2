@@ -5,12 +5,24 @@ using UnityEngine;
 
 public class ThrowComponent : MonoBehaviour
 {
+    private float initialSpeed;
+
+    private Queue<float> speedQueue;
+    private int speedQueueDepth = 3;
+
     protected float timeLeft = 2f; //seconds
     protected Rigidbody2D rigidbody2d;
     
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         rigidbody2d.velocity *= GetSlowdownFactor(timeLeft);
+
+        speedQueue.Dequeue();
+        speedQueue.Enqueue(rigidbody2d.velocity.magnitude);
+    }
+
+    protected virtual void LateUpdate()
+    {
         timeLeft -= Time.deltaTime;
         if (timeLeft <= 0)
         {
@@ -24,10 +36,12 @@ public class ThrowComponent : MonoBehaviour
     /// <param name="direction"></param>
     /// <param name="speed"></param>
     ///  <param name="rotationSpeed"> Degrees per second </param>
-    public virtual void StartThrow(Vector2 direction, Vector2 additionalVelocity = new Vector2(), float lifetime = 2,
-        float speed = 18f, bool rotateRandomly = true, float rotationSpeed = 140)
+    public virtual void StartThrow(Vector2 direction, Vector2 additionalVelocity = new Vector2(), float lifetime = 1,
+        float speed = 18f, bool rotateRandomly = true, float rotationSpeed = 340)
     {
         timeLeft = lifetime;
+        initialSpeed= speed * direction.magnitude;
+        InitiateSpeedQueue(speed);
 
         gameObject.layer = LayerConstants.CollidableItemsLayer;
 
@@ -55,6 +69,23 @@ public class ThrowComponent : MonoBehaviour
     {
         float factor = 500f;
         return (timeLeft * factor) / (1 + factor * timeLeft);
+    }
+
+    public virtual float GetDamageMultiplyer()
+    {
+        return speedQueue.Peek() / initialSpeed;
+    }
+
+    private void InitiateSpeedQueue(float speed)
+    {
+        if (speedQueue is null)
+        {
+            speedQueue = new Queue<float>();
+        }
+        for (int i = 0; i < speedQueueDepth; i++)
+        {
+            speedQueue.Enqueue(speed);
+        }
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)

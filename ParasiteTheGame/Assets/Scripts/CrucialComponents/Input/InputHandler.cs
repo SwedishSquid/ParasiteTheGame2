@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputHandler
 {
-    // Update is called once per frame
     public InputInfo GetInputInfo()
     {
         var axes = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -13,6 +13,9 @@ public class InputHandler
         var pickOrDrop = Input.GetButtonDown("PickOrDrop");
         var fireeee = Input.GetButton("Fire");
         var throwItem = Input.GetButtonDown("ThrowItem");
-        return new InputInfo(axes, mousePos, jumpout, pickOrDrop, fireeee, throwItem);
+
+        var mouseDir = new Vector2(mousePos.x - (Screen.width / 2), mousePos.y - (Screen.height / 2)).normalized;
+
+        return new InputInfo(axes, mouseDir, jumpout, pickOrDrop, fireeee, throwItem);
     }
 }
