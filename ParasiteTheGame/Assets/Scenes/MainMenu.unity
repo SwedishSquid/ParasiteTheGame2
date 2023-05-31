@@ -317,7 +317,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.625, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -631,8 +631,8 @@ RectTransform:
   m_Father: {fileID: 676736571}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.625, y: 0}
-  m_AnchorMax: {x: 0.625, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 18, y: -3}
   m_SizeDelta: {x: 90, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1055,6 +1055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SettingsAudioM: {fileID: 24100000, guid: 951e5f5b495a9c5419880ff4a0c6dfe7, type: 2}
   fullScreenToggle: {fileID: 905482753}
+  menu: {fileID: 1506155517}
 --- !u!1 &707318943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,7 +1091,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000023841858, y: 188.4743}
+  m_AnchoredPosition: {x: 0.000023841858, y: 105.25}
   m_SizeDelta: {x: 1920, y: 1290}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &707318945
@@ -1270,8 +1271,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0.8235294, b: 0.83137256, a: 1}
+    m_HighlightedColor: {r: 0, g: 0.5411765, b: 0.54901963, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -1308,7 +1309,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1039966149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,7 +1958,7 @@ MonoBehaviour:
     m_Mode: 3
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 347958098}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -2082,9 +2083,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newGameButton: {fileID: 347958098}
   continueButton: {fileID: 1368185406}
+  settingsBackButton: {fileID: 1621644564}
   fullScreenToggle: {fileID: 905482753}
   volumeSlider: {fileID: 1770127745}
-  dataPersistenceManager: {fileID: 1957582556}
 --- !u!1 &1511509024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,9 +2244,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0, g: 0.8235294, b: 0.83137256, a: 1}
+    m_HighlightedColor: {r: 0, g: 0.5411765, b: 0.54901963, a: 1}
+    m_PressedColor: {r: 0, g: 0.43529412, b: 0.44313726, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2280,7 +2281,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 683671671}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: Back
+        m_MethodName: BackPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2482,9 +2483,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0, g: 0.8235294, b: 0.83137256, a: 1}
+    m_HighlightedColor: {r: 0, g: 0.5411765, b: 0.54901963, a: 1}
+    m_PressedColor: {r: 0, g: 0.43529412, b: 0.44313726, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2505,10 +2506,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 215758770}
   m_HandleRect: {fileID: 477912707}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: -30
+  m_Value: 0.0001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2761,6 +2762,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1506155517}
+        m_TargetAssemblyTypeName: MenuScript, Assembly-CSharp
+        m_MethodName: SettingsPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3096,17 +3109,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883031228}
   m_CullTransparentMesh: 1
---- !u!114 &1957582556 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8680620337928268935, guid: 9e521910b41a9ef4588be2780db31875, type: 3}
-  m_PrefabInstance: {fileID: 1824307833}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df19650176b47efa13927d3c526724a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2006513147
 GameObject:
   m_ObjectHideFlags: 0
