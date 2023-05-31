@@ -10,4 +10,6 @@ enum AIMode
     StandartItemAttack,
     SuperAttack,
     ThrowItemAttack,
+    ItemSearch,
+    ItemCapture,
 }

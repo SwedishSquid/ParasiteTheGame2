@@ -45,8 +45,7 @@ public class Gardener : AEnemyPlus
             animator.SetBool("isMoving", false);
         }
         //
-        if (damageSource == DamageSource.Player 
-            && Input.GetButtonDown("SuperAttack") 
+        if (inpInf.SuperAttackPressed
             && attackCooldown <= 0)
         {
             attackCooldown = maxAttackCooldown;

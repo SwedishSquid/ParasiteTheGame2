@@ -13,8 +13,14 @@ public readonly struct InputInfo
     public readonly bool FirePressed { get; }
 
     public readonly bool ThrowItemPressed { get; }
+
+    public readonly bool SuperAttackPressed { get; }
     
-    public InputInfo(Vector2 axes, Vector3 mouseDirection, bool jumpout, bool pickOrDrop, bool firePressed, bool throwItem)
+    public InputInfo(Vector2 axes, Vector3 mouseDirection, bool jumpout, bool pickOrDrop, bool firePressed, bool throwItem) : this(axes, mouseDirection, jumpout, pickOrDrop, firePressed, throwItem, false)
+    {
+    }
+
+    public InputInfo(Vector2 axes, Vector3 mouseDirection, bool jumpout, bool pickOrDrop, bool firePressed, bool throwItem, bool superAttack)
     {
         Axis = axes;
         MouseDirection = mouseDirection;
@@ -22,6 +28,7 @@ public readonly struct InputInfo
         PickOrDropPressed = pickOrDrop;
         FirePressed = firePressed;
         ThrowItemPressed = throwItem;
+        SuperAttackPressed = superAttack;
     }
 
     /// <summary>

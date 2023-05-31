@@ -26,9 +26,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     public bool IsCaptured;
     public PlayerController Capturer;
 
-    protected int maxHealth = 10;
-    protected int terminalHealth = 10 / 2;
-    protected int health = 10;
+    protected int maxHealth = 100;
+    protected int terminalHealth = 100 / 2;
+    protected int health = 100;
+    public virtual bool AlmostPassedOut => !PassedOut && (health - terminalHealth) < maxHealth / 5;
 
     protected DamageSource damageSource = DamageSource.Enemy;
 
@@ -153,6 +154,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         GetComponent<AIntelligence>().TryTurnOff();
         if (IsCaptured)
         {
+            IsCaptured = false;
             Capturer.TryHandleJump(true, new Vector2(Random.value, Random.value).normalized);
         }
     }

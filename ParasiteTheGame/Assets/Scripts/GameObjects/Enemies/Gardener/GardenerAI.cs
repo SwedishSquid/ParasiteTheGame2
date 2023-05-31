@@ -14,6 +14,8 @@ public class GardenerAI : AIntelligence
 
     private AEnemy aim;
 
+    private AWeapon itemAim;
+
     private AIMode mode = AIMode.AimSearch;
 
     private float retreatRadius = 4;
@@ -65,9 +67,25 @@ public class GardenerAI : AIntelligence
         else if (mode == AIMode.AimApproaching)
         {
             inpInf = AimApproaching();
-        }else if (mode == AIMode.Waiting)
+        }
+        else if (mode == AIMode.Waiting)
         {
             inpInf = WaitMode();
+        }
+        else if (mode == AIMode.SuperAttack)
+        {
+            inpInf = UseSuperAttack();
+        }
+        else if (mode == AIMode.ThrowItemAttack)
+        {
+            inpInf = ThrowAttack();
+        }
+        else if (mode == AIMode.ItemSearch)
+        {
+            inpInf = ItemSearch();
+        }else if (mode == AIMode.ItemCapture)
+        {
+            inpInf = ItemCapture();
         }
         else
         {
@@ -97,19 +115,31 @@ public class GardenerAI : AIntelligence
         {
             mode = AIMode.AimSearch;
         }
+        if (!gardener.HaveItem && Random.value > 0.7)
+        {
+            mode = AIMode.ItemSearch;
+        }
+        else if (gardener.AlmostPassedOut && Random.value > 0.5 && dist > gardener.GetUserRadius())
+        {
+            mode = AIMode.ThrowItemAttack;
+        }
         else if (dist < retreatRadius)
         {
-            modeTimeLeft = 0.3f;
-            mode = AIMode.Retreat;
+            if (Random.value > 0.5)
+            {
+                mode = AIMode.SuperAttack;
+            }
+            else
+            {
+                modeTimeLeft = 0.3f;
+                mode = AIMode.Retreat;
+            }
         }
         else if (dist > approachRadius)
         {
             modeTimeLeft = 0.6f;
             mode = AIMode.AimApproaching;
-        }/*else if (eye.DistanceToObstacleByRay(aimDir, LayerConstants.ObstaclesLayer) < dist)
-        {
-            mode = AIMode.AvoidObstacle;
-        }*/
+        }
         else if (Random.value > 0.3)
         {
             modeTimeLeft = 0.6f;
@@ -121,7 +151,18 @@ public class GardenerAI : AIntelligence
             mode = AIMode.StandartItemAttack;
         }
         Debug.Log($"mode = {mode}");
-        return new InputInfo(previousInput.Axis, previousInput.MouseDirection, false, false, false, false);
+        return CopyLastInputRoughly();
+    }
+
+    private InputInfo CopyLastInputRoughly()
+    {
+        return new InputInfo(previousInput.Axis, previousInput.MouseDirection, false, false, previousInput.FirePressed, false);
+    }
+
+    private InputInfo ThrowAttack()
+    {
+        mode = AIMode.StrategyMaking;
+        return new InputInfo(previousInput.Axis, aimDir.normalized, false, false, false, true);
     }
 
     private InputInfo WaitMode()
@@ -130,7 +171,7 @@ public class GardenerAI : AIntelligence
         {
             mode = AIMode.StrategyMaking;
         }
-        return new InputInfo(previousInput.Axis, previousInput.MouseDirection, false, false, false, false);
+        return CopyLastInputRoughly();
     }
 
     //change please
@@ -146,18 +187,12 @@ public class GardenerAI : AIntelligence
         return new InputInfo(walkDirection, aimDirection, false, !gardener.HaveItem, true, false);
     }
 
-    /*private InputInfo ManhuntMode()
+    private InputInfo UseSuperAttack()
     {
-        if (aim.Dead)
-        {
-            aim = null;
-            return AimlessMode();
-        }
-
-        var walkDirection = -((Vector2)(transform.position - aim.gameObject.transform.position)).normalized;
-        var aimDirection = (walkDirection + new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)) * 0.3f);
-        return new InputInfo(walkDirection, aimDirection, false, !gardener.HaveItem, true, false);
-    }*/
+        modeTimeLeft = 0.2f;
+        mode = AIMode.Waiting;
+        return new InputInfo(new Vector2(0, 0), previousInput.MouseDirection, false, false, false, false, true);
+    }
 
     private InputInfo Retreat()
     {
@@ -181,6 +216,42 @@ public class GardenerAI : AIntelligence
         var walkDirection = aimDir.normalized;
         var aimDirection = aimDir.normalized;
         return new InputInfo(walkDirection, aimDirection, false, false, false, false);
+    }
+
+    private InputInfo ItemSearch()
+    {
+        itemAim= null;
+        foreach (var obj in eye.GetAllObjectsInView(LayerConstants.PickableItems))
+        {
+            if (obj.TryGetComponent(out AWeapon item))
+            {
+                itemAim = item;
+                break;
+            }
+        }
+
+        if (itemAim != null)
+        {
+            modeTimeLeft = 1.3f;
+            mode = AIMode.ItemCapture;
+        }
+        else
+        {
+            mode = AIMode.StrategyMaking;
+        }
+        
+        return CopyLastInputRoughly();
+    }
+
+    private InputInfo ItemCapture()
+    {
+        if (modeTimeLeft <= 0 || gardener.HaveItem)
+        {
+            modeTimeLeft= 0;
+            mode = AIMode.StrategyMaking;
+        }
+
+        return new InputInfo(ItemDir.normalized, ItemDir.normalized, false, !gardener.HaveItem, false, false);
     }
 
     private AEnemy SearchAim()
@@ -207,6 +278,8 @@ public class GardenerAI : AIntelligence
 
         return aim;
     }
+
+    private Vector2 ItemDir => (Vector2)(itemAim.transform.position - transform.position);
 
     private Vector2 aimPos => aim.gameObject.transform.position;
 
