@@ -48,7 +48,7 @@ public class GardenerAI : AIntelligence
         var direction = new Vector2(Random.value * 2 - 1, Random.value * 2 - 1).normalized;
         var inpInf = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !gardener.HaveItem, true, false);
 
-        if (aim == null || aim.Dead)
+        if (aim == null || mode == AIMode.AimSearch)
         {
             inpInf = AimlessMode();
         }
@@ -114,8 +114,7 @@ public class GardenerAI : AIntelligence
         if (aim.Dead || !aim.CanBeHit)
         {
             mode = AIMode.AimSearch;
-        }
-        if (!gardener.HaveItem && Random.value > 0.7)
+        }else if (!gardener.HaveItem && Random.value > 0.7)
         {
             mode = AIMode.ItemSearch;
         }

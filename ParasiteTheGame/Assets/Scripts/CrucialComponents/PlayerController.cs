@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 //using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfoPlate, IKillable
 {
@@ -14,7 +16,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     private string controlledGUID = "";
 
     [SerializeField] private PlayerInfoPlate infoPlate;
-    private int maxHealth = 100;
+    private int maxHealth = 10;
     private int health;
     
     [SerializeField] private Animator animator;
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
 
     [SerializeField] private PlayerHintE hintE;
 
+    [SerializeField] private Sprite grave;
+
     public bool AlmostPassedOut => false;
 
     public bool Dead => health <= 0;
@@ -53,7 +57,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     {
         thisRigidbody2d = GetComponent<Rigidbody2D>();
         thisSpriteRenderer = GetComponent<SpriteRenderer>();
-        health = 100;
+        health = maxHealth;
         infoPlate.AwakeData(this);
     }
 
@@ -64,6 +68,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
 
     public void HandleUpdate(InputInfo inpInf)
     {
+        if (Dead) return;
+
         infoPlate.UpdateData(this);
         if (TryHandleJump(inpInf.JumpoutPressed, inpInf.GetMouseDir()))
             return;
@@ -110,6 +116,30 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
         isChooseDirJump = jumpoutPressed;
 
         return false;
+    }
+
+    public bool TryDie()
+    {
+        if (!Dead)
+        {
+            return false;
+        }
+
+        ApplyDeathEffects();
+
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        thisRigidbody2d.simulated = false;
+
+        return true;
+    }
+
+    protected void ApplyDeathEffects()
+    {
+        if (grave != null)
+        {
+            GetComponent<Animator>().enabled = false;
+            GetComponent<SpriteRenderer>().sprite = grave;
+        }
     }
 
     private void UpdateAnimation(InputInfo inpInf)
@@ -210,6 +240,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
         {
             health -= dmgInf.Amount;
             Debug.Log($"Player hurt : health = {health}");
+            TryDie();
             return true;
         }
         return false;
@@ -239,6 +270,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
         {
             transform.position = level.PlayerPosition;
         }
+
+        TryDie();
     }
 
     public string GetGUID()

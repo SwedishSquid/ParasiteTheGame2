@@ -863,6 +863,7 @@ MonoBehaviour:
   animator: {fileID: 2097204218}
   arrowJumpOn: {fileID: 4779392362810072302}
   hintE: {fileID: 5499310701685689202}
+  grave: {fileID: 21300000, guid: 6e3ce2275f00c564e8558f369b721b3d, type: 3}
 --- !u!95 &2097204218
 Animator:
   serializedVersion: 5
