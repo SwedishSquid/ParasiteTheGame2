@@ -39,6 +39,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected float freezeTime;
     protected float immunityTime;
 
+    protected bool immunityMomentForThrowingActive = false;
+    protected float ThrowMomentDuration = 0.05f;
+
     [SerializeField]protected BaseAttack baseAttack;
 
     public virtual bool CanBeCaptured { get
@@ -90,9 +93,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             item.HandleUpdate(inpInf);
             if (inpInf.ThrowItemPressed)
             {
-                item.Throw(inpInf);
-                item = null;
-                itemGUID = "";
+                PerformThrow(inpInf);
             }
         }
         else if (inpInf.ThrowItemPressed)
@@ -101,6 +102,20 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         }
         else if (baseAttack is not null)
             baseAttack.HandleUpdate(inpInf);
+    }
+
+    protected virtual void PerformThrow(InputInfo inpInf)
+    {
+        immunityMomentForThrowingActive = true;
+        item.Throw(inpInf);
+        item = null;
+        itemGUID = "";
+        Invoke(nameof(RestoreImmunityMoment), ThrowMomentDuration);
+    }
+
+    private void RestoreImmunityMoment()
+    {
+        immunityMomentForThrowingActive = false;
     }
 
     public virtual bool TryPassOut()
@@ -178,6 +193,11 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             || (!IsCaptured && dmgInf.Source == DamageSource.Player)
             || dmgInf.Source == DamageSource.Environment)
         {
+            if (immunityMomentForThrowingActive && dmgInf.Source == DamageSource.Environment)
+            {
+                return false;
+            }
+
             if (immunityTime > 0)
             {
                 return true;

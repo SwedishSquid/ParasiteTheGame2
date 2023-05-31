@@ -21,21 +21,21 @@ public class BossfightTriggerLvl1 : MonoBehaviour, IInteractable, IBossfightList
 
     public void Interact(InteractorInfo interInfo)
     {
-        if (LevelOneBossfightController.Instance == null)
+        if (BossfightController.Instance == null)
         {
             return;
         }
 
-        if (LevelOneBossfightController.Instance.bossfightState == BossfightState.NotStarted)
+        if (BossfightController.Instance.BossfightState == BossfightState.NotStarted)
         {
-            LevelOneBossfightController.Instance.StartBossfight();
+            BossfightController.Instance.StartBossfight();
             BringTheBoss();
             Debug.Log("starting bossfight");
         }
         else
         {
             Debug.Log("ending bossfight");
-            LevelOneBossfightController.Instance.EndBossfight();
+            BossfightController.Instance.EndBossfight();
         }
 
         ChangeSprite();
@@ -63,7 +63,7 @@ public class BossfightTriggerLvl1 : MonoBehaviour, IInteractable, IBossfightList
 
     public void OnBossfightStart()
     {
-        //isActive = false;
+        isActive = false;
     }
 
     public void OnLoadAfterBossfight()

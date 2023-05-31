@@ -123,7 +123,8 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         if(TryGetComponent<Rigidbody2D>(out var rigidbody2))
         {
             damagable.TryTakeDamage(
-                new DamageInfo(DamageType.Melee, damageSource, damageAmount, Vector2.zero, 0));
+                //new DamageInfo(DamageType.Melee, damageSource, damageAmount, Vector2.zero, 0));
+                new DamageInfo(DamageType.Melee, DamageSource.Environment, damageAmount, Vector2.zero, 0));
         }
     }
 

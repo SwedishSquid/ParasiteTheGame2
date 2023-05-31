@@ -25,7 +25,7 @@ public class ThrowComponent : MonoBehaviour
     /// <param name="speed"></param>
     ///  <param name="rotationSpeed"> Degrees per second </param>
     public virtual void StartThrow(Vector2 direction, Vector2 additionalVelocity = new Vector2(), float lifetime = 2,
-        float speed = 8f, bool rotateRandomly = true, float rotationSpeed = 40)
+        float speed = 18f, bool rotateRandomly = true, float rotationSpeed = 140)
     {
         timeLeft = lifetime;
 

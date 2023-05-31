@@ -11,26 +11,24 @@ public class MeleeWeapon : AWeapon
     private float animTime;
     public string hitName = "Hit";
 
+    protected float attackRadius = 0.7f;
+
     protected override void Start()
     {
+        base.Start();
         anim = GetComponent<Animator>();
-        throwComponent = GetComponent<ThrowComponent>();
-        throwComponent.enabled = false; //just in case weapon creator forgets
     }
 
     protected override void Fire(InputInfo inpInf)
     {
         anim.SetBool(hitName, true);
         animTime = 0.16f;
-        if (user.GetDamageSource() is DamageSource.Player)
-            damageTakerLayers = LayerMask.GetMask("Controllables");
-        else
-            damageTakerLayers = LayerMask.GetMask("Player");
-        var enemies = Physics2D.OverlapCircleAll(transform.position, 0.7f, damageTakerLayers);
-        for (int i = 0; i < enemies.Length; i++)
+        var enemies = Physics2D.OverlapCircleAll(transform.position, attackRadius,
+            LayerConstants.DamageTakersLayer);
+        foreach (var enemy in enemies)
         {
-            enemies[i].GetComponent<AEnemy>()
-                .TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, 4, inpInf.GetMouseDir()));
+            enemy.GetComponent<IDamagable>()?
+                .TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, damageAmount, inpInf.GetMouseDir()));
         }
     }
 

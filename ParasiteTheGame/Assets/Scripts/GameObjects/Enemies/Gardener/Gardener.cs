@@ -87,17 +87,18 @@ public class Gardener : AEnemyPlus
             if (health <= 0)
             {
                 animator.SetBool("isUncontious", true);
-/*                GetComponent<GardenerAI>().enabled = false;
-                if (item != null)
-                {
-                    DropDown();
-                }*/
             }
             else
             {
                 healthBar.SetValue(health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
+            }
+
+            if (PassedOut && BossfightController.Instance.BossfightState == BossfightState.Continued
+                && BossfightController.Instance.GetBossGUID() == GetGUID())
+            {
+                BossfightController.Instance.EndBossfight();
             }
         }
         return result;
