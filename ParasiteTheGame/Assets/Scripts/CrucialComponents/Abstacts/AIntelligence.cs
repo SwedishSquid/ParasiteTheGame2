@@ -18,4 +18,9 @@ public abstract class AIntelligence : MonoBehaviour
     {
         return new InputInfo();
     }
+
+    public virtual void OnRelease()
+    {
+
+    }
 }

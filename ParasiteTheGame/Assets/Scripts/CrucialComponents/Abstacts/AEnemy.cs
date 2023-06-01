@@ -46,6 +46,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     [SerializeField]protected BaseAttack baseAttack;
 
+    protected AIntelligence intelligence;
+
     public virtual bool CanBeCaptured { get
         {
             return !Dead;
@@ -70,6 +72,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected virtual void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        intelligence = GetComponent<AIntelligence>();
         //GetGUID(); //to check if has any
     }
 
@@ -170,7 +173,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             DropDown();
         }
 
-        GetComponent<AIntelligence>().TryTurnOff();
+        intelligence.TryTurnOff();
         if (IsCaptured)
         {
             IsCaptured = false;
@@ -183,7 +186,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         IsCaptured = true;
         Capturer = player;
         damageSource = DamageSource.Player;
-        GetComponent<AIntelligence>().enabled = false;
+        intelligence.enabled = false;
     }
 
     public virtual void OnRelease(PlayerController player)
@@ -194,7 +197,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         TryPassOut();
         if (!TryDie())
         {
-            GetComponent<AIntelligence>().enabled = true;
+            intelligence.enabled = true;
+            intelligence.OnRelease();
         }
     }
 

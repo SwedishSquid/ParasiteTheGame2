@@ -1,15 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class TextPlatesUpdater : MonoBehaviour, IBossfightListener
 {
-    private List<TextPlateManager> textPlates;
-
-    // Start is called before the first frame update
-    void Start()
+    List<TextPlateManager> list;
+    private List<TextPlateManager> textPlates
     {
-        textPlates = FindObjectsOfType<TextPlateManager>().ToList();
+        get
+        {
+            if (list == null)
+            {
+                list = FindObjectsOfType<TextPlateManager>().ToList();
+            }
+            return list;
+        }
     }
 
     public void OnBossfightEnd()

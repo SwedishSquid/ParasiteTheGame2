@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LackeySmallAI : AIntelligence
 {
-    AEnemy body;
+    private AEnemy body;
 
     private AllSeeingEye eye;
 
@@ -35,11 +35,18 @@ public class LackeySmallAI : AIntelligence
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        body = GetComponent<LackeySmall>();
+        body = GetComponent<AEnemy>();
         eye = GetComponent<AllSeeingEye>();
         previousInput = GetCrazyInput();
+    }
+
+    public override void OnRelease()
+    {
+        modeTimeLeft = 0.4f;
+        mode = AIMode.Waiting;
+        previousInput = PassedOutMode();
     }
 
     InputInfo GetCrazyInput()
@@ -147,7 +154,7 @@ public class LackeySmallAI : AIntelligence
             mode = AIMode.StrategyMaking;
         }
 
-        return new InputInfo(preferedDirection, preferedDirection, false, false, true, false);
+        return new InputInfo(preferedDirection, preferedDirection, false, false, false, false);
     }
 
     /*protected override InputInfo PassedOutMode()

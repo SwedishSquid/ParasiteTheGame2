@@ -22,4 +22,5 @@ enum AIMode
     FarDistanceMeleeAttack,
 
     RunFarAway,
+    JustDance,
 }

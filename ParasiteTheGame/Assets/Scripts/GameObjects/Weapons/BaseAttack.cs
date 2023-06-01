@@ -28,6 +28,7 @@ public class BaseAttack : AMeleeWeapon
 
     protected override void Fire(InputInfo inpInf)
     {
+        animator.SetTrigger("Attack");
         foreach (var obj in GetObjectsAround())
         {
             obj.GetComponent<IDamagable>()?

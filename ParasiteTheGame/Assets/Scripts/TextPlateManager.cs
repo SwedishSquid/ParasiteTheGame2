@@ -12,10 +12,20 @@ public class TextPlateManager : MonoBehaviour, IBossfightListener
 
     private bool bossfightTookPlace = false;
 
-    private TextMeshProUGUI textMeshPro;
+    private TextMeshProUGUI textMesh;
+
+    private TextMeshProUGUI textMeshPro { 
+        get 
+        {
+            if (textMesh == null)
+            {
+                textMesh = GetComponent<TextMeshProUGUI>();
+            }
+            return textMesh;
+        } 
+    }
     void Start()
     {
-        textMeshPro = GetComponent<TextMeshProUGUI>();
         textMeshPro.alpha = 0;
     }
 
