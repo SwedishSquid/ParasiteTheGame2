@@ -10,10 +10,9 @@ public class AppleBusket : AWeapon
 
     protected override void Start()
     {
-        throwComponent = GetComponent<ThrowComponent>();
-        throwComponent.enabled = false; //just in case weapon creator forgets
         fireRate = 0.2f;
         damageAmount = 2;
+        damageType = DamageType.Distant;
     }
 
     protected override void HandleMovement(InputInfo inpInf)

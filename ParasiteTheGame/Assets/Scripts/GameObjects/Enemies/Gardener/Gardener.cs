@@ -10,10 +10,12 @@ public class Gardener : AEnemyPlus
     private float attackCooldown;
     [SerializeField] GardenerSuperAttack superAttack;
 
-    protected override void Start()
+    public override bool CanBeCaptured
     {
-        base.Start();
-        radius = 2;
+        get
+        {
+            return PassedOut && !Dead;
+        }
     }
 
     public override void ControlledUpdate(InputInfo inpInf)
@@ -94,7 +96,10 @@ public class Gardener : AEnemyPlus
                 animator.SetBool("isMoving", false);
             }
 
-            if (PassedOut && BossfightController.Instance.BossfightState == BossfightState.Continued
+
+
+            if (BossfightController.Instance != null &&
+                PassedOut && BossfightController.Instance.BossfightState == BossfightState.Continued
                 && BossfightController.Instance.GetBossGUID() == GetGUID())
             {
                 BossfightController.Instance.EndBossfight();

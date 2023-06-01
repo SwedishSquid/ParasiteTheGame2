@@ -13,4 +13,6 @@ public interface IUsable
     public void OnDropDown(IUser user);
 
     public void DealDamageByThrow(IDamagable damagable);
+
+    public DamageType GetDamageType();
 }

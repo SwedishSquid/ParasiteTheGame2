@@ -15,5 +15,7 @@ public interface IUser
     public float GetUserWidth();
     public float GetUserRadius();
 
-    public DamageSource GetDamageSource();   
+    public DamageSource GetDamageSource();
+
+    public DamageType GetDamageType();
 }

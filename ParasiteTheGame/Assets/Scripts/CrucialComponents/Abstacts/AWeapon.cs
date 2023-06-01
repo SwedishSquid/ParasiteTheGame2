@@ -22,6 +22,8 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
     protected float cooldownLeft = 0;
     protected float throwSpeed = 30;
 
+    protected DamageType? damageType = null;
+
     [SerializeField] protected ThrowHandler throwHandlerPrefab;
 
     protected ThrowComponent throwComponent;
@@ -178,5 +180,14 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
     {
         //no no no
         Debug.LogError("why is this called - SetPosition has no effect on item");
+    }
+
+    public DamageType GetDamageType()
+    {
+        if (damageType != null)
+        {
+            return (DamageType)damageType;
+        }
+        return DamageType.Melee;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor.Sprites;
 using UnityEngine;
@@ -26,9 +27,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     public bool IsCaptured;
     public PlayerController Capturer;
 
-    protected int maxHealth = 10;
-    protected int terminalHealth = 10 / 2;
-    protected int health = 10;
+    protected int maxHealth = 100;
+    protected int terminalHealth = 100 / 2;
+    protected int health = 100;
     public virtual bool AlmostPassedOut => !PassedOut && (health - terminalHealth) < maxHealth / 5;
 
     protected DamageSource damageSource = DamageSource.Enemy;
@@ -57,6 +58,15 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public bool CanBeHit => IsCaptured;
 
+    public DamageType GetDamageType()
+    {
+        if (HaveItem)
+        {
+            return item.GetDamageType();
+        }
+        return DamageType.Melee;
+    }
+
     protected virtual void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -83,7 +93,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             myRigidbody.velocity = inpInf.Axis * velocity;
         }
 
-        if (immunityTime > 0)
+        if (immunityTime >= 0)
         {
             immunityTime -= Time.deltaTime;
         }
@@ -105,7 +115,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         {
             ActOnPickOrDrop();
         }
-        else if (baseAttack is not null)
+        else if (baseAttack != null)
             baseAttack.HandleUpdate(inpInf);
     }
 
@@ -128,6 +138,11 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         if (!PassedOut || Dead)
         {
             return false;
+        }
+
+        if (item != null && !IsCaptured)
+        {
+            DropDown();
         }
 
         return true;
@@ -174,13 +189,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     public virtual void OnRelease(PlayerController player)
     {
         myRigidbody.velocity = new Vector2(0, 0);
-/*        if (item != null)
-        {
-            DropDown();
-        }*/
         IsCaptured = false;
         damageSource = DamageSource.Enemy;
-        if (!TryPassOut() && !TryDie())
+        TryPassOut();
+        if (!TryDie())
         {
             GetComponent<AIntelligence>().enabled = true;
         }
@@ -193,7 +205,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public virtual bool TryTakeDamage(DamageInfo dmgInf)
     {
-        //Debug.Log(immunityTime);
+        Debug.Log(immunityTime);
 
         if ((IsCaptured && dmgInf.Source == DamageSource.Enemy)
             || (!IsCaptured && dmgInf.Source == DamageSource.Player)

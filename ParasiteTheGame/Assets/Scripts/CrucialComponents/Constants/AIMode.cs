@@ -12,4 +12,12 @@ enum AIMode
     ThrowItemAttack,
     ItemSearch,
     ItemCapture,
+
+    PassedOut,
+
+    DistantAttack,
+
+    MeleeAttack,
+    CloseDistanceMeleeAttack,
+    FarDistanceMeleeAttack,
 }
