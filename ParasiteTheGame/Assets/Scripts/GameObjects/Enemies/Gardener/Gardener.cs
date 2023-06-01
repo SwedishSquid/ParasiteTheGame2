@@ -80,7 +80,7 @@ public class Gardener : AEnemyPlus
             isSuper = true;
             attackCooldown = maxAttackCooldown;
             superAnimation = maxSuperAnimation;
-            superAttack.Attack(damageSource, this);
+            superAttack.Attack(damageSource, this, inpInf);
             animator.SetBool("isSuper", isSuper);
         }
     }

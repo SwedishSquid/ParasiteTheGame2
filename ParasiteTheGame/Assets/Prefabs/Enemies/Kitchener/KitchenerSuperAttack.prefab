@@ -28,8 +28,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7752057661903101308}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,66 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kitchenerSuperProjPrefab:
+  - {fileID: 3785405818571067421, guid: ae2f2d776d8803e4e8f754bf354ab96f, type: 3}
+  - {fileID: 3785405818571067421, guid: b5efec69bdfe7eb4a8ea0a8612536df1, type: 3}
+  - {fileID: 3785405818571067421, guid: a2365ffded689054fbb2d7b606fc706d, type: 3}
+  - {fileID: 5791872612438586817, guid: 2cd8c0265872cef4ebae16fa32548d06, type: 3}
   - {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
---- !u!1001 &7726332157160404493
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2953650401307891837}
-    m_Modifications:
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8921501124055746361, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-      propertyPath: m_Name
-      value: KitchenerSuperPlate
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
---- !u!4 &7752057661903101308 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 48877097936841585, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
-  m_PrefabInstance: {fileID: 7726332157160404493}
-  m_PrefabAsset: {fileID: 0}
+  - {fileID: 5791872612438586817, guid: edfdbc3cc5415c14e8a9800da5c0ba0e, type: 3}
+  - {fileID: 5791872612438586817, guid: c0ec689dc1077d243be6a4d4ca92a451, type: 3}
+  - {fileID: 5791872612438586817, guid: bd2df0efb707f054b91e0cf9ff646d99, type: 3}
+  - {fileID: 5791872612438586817, guid: f1ced6eb15707c14c9e5a23a1040f470, type: 3}

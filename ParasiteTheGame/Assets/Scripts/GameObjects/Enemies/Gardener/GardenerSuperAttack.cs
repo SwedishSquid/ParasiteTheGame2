@@ -8,35 +8,31 @@ public class GardenerSuperAttack : MonoBehaviour
 {
     [SerializeField] protected GardenerSuperProjectile gardenerSuperProjPrefab; 
 
-    private static int countProj = 4; //U can do more/less rats
-    private static List<Vector3> directions;
+    //private static int countProj = 5; //U can do more/less rats
+    private static Vector3[] directions;
+    private static float[] rotate_dirs;
     
     protected virtual void Start()
     {
-        var dirsTemp = new Tuple<double, double>[countProj]; 
-        var angle = Math.PI / 2 / countProj;
-        var signs = new int[] { -1, 1 };
-        for (var i = 0; i < countProj; i++)
+        rotate_dirs = new float[] { -30, -15, 0, 13, 30 };
+        directions = new Vector3[5];
+        for (var i = 0; i < 3; i++)
         {
-            dirsTemp[i] = Tuple.Create(Math.Cos(angle * i), Math.Sin(angle * i));
+            var angle = rotate_dirs[i] * Math.PI / 360;
+            directions[i] = new Vector3((float)Math.Cos(angle), (float)Math.Sin(angle), 0);
         }
-        directions = dirsTemp
-            .SelectMany(x => 
-                signs.SelectMany(s1 => 
-                    signs.Select(s2 => 
-                        new Vector3(s1 * (float)x.Item1, s2 * (float)x.Item2, 0).normalized)))
-            .ToList();
-        //directions.Append(Vector3.up * 3); //doesn't work
-        //directions.Append(Vector3.down * 3); //doesn't work
     }
 
-    public void Attack(DamageSource damageSource, Gardener gardener)
+    public void Attack(DamageSource damageSource, Gardener gardener, InputInfo inpInf)
     { 
         GardenerSuperProjectile proj;
-        foreach (var dir in directions)
+        Vector3 mouseVector;
+        mouseVector = inpInf.GetMouseDir();
+        foreach (var dir in rotate_dirs)
         {
             proj = Instantiate(gardenerSuperProjPrefab, gardener.transform.position, transform.rotation);
-            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1, dir));
+            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1, 
+                Quaternion.Euler(0f, 0f, dir) * mouseVector));
         }
     }
 }
