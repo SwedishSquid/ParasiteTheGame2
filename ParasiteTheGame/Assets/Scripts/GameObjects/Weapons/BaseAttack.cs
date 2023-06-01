@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseAttack : AWeapon
+public class BaseAttack : AMeleeWeapon
 {
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private float radiusAttack = 0.7f;
     //[SerializeField] new private AEnemy user;
 
     protected override void Start()
@@ -15,6 +14,7 @@ public class BaseAttack : AWeapon
         spriteRenderer = GetComponent<SpriteRenderer>();
         damageAmount = 2;
         user = GetComponentInParent<AEnemy>();
+        radiusAttack = 0.7f;
     }
 
     protected override void HandleMovement(InputInfo inpInf)
@@ -28,12 +28,9 @@ public class BaseAttack : AWeapon
 
     protected override void Fire(InputInfo inpInf)
     {
-        animator.SetTrigger("Attack");
-        var enemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack,
-            LayerConstants.DamageTakersLayer);
-        foreach (var enemy in enemies)
+        foreach (var obj in GetObjectsAround())
         {
-            enemy.GetComponent<IDamagable>()?
+            obj.GetComponent<IDamagable>()?
                 .TryTakeDamage(new DamageInfo(DamageType.Melee, damageSource, damageAmount, inpInf.GetMouseDir()));
         }
     }
