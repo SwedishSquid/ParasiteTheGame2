@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3261537652485113801}
   - component: {fileID: 3261537652485113802}
   - component: {fileID: 8789929212910572748}
-  - component: {fileID: 3261537652485113844}
   - component: {fileID: 3261537652485113845}
+  - component: {fileID: 101504236535182291}
+  - component: {fileID: 9000945483162646489}
   m_Layer: 8
   m_Name: Kitchener
   m_TagString: Untagged
@@ -146,19 +147,8 @@ MonoBehaviour:
   baseAttack: {fileID: 0}
   healthBar: {fileID: 48692636392128504}
   cloudObject: {fileID: 6197404941359682230, guid: c1564c1f4785f7b4e86d790dd0e7b22e, type: 3}
+  grave: {fileID: 0}
   superAttack: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
---- !u!114 &3261537652485113844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3261537652485113846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f90fd4e58576ec41a472bb6ec23c25c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &3261537652485113845
 Animator:
   serializedVersion: 5
@@ -180,6 +170,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &101504236535182291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3261537652485113846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1521e6d95e1a31a48bf1f753cf0aa1fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9000945483162646489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3261537652485113846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320e6ce6d7060d641a1145fbffbd3789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3744163124691826772
 PrefabInstance:
   m_ObjectHideFlags: 0

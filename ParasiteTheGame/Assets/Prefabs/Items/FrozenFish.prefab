@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76e9247babf46e789ddac6f7382f8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0a9b06a3-2065-4ec3-8741-7ee73a9d2c1d
+  id: 
   throwHandlerPrefab: {fileID: 9171043533338633449, guid: 960248d852c2ba64d895763eb165540d, type: 3}
   audioSource: {fileID: 0}
 --- !u!114 &3340985883500925681
