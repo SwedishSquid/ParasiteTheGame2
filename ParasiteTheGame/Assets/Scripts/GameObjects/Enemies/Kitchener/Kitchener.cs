@@ -6,9 +6,11 @@ public class Kitchener : AEnemyPlus
 {
     float lastX;
     float lastY;
-    Type AIType = typeof(GardenerAI); //ITSigma TODO : Change to KitchenerAI
     private float maxAttackCooldown = 4f; 
     private float attackCooldown;
+    private float maxSuperAnimation = 1.28f; 
+    private float superAnimation;
+    private bool isSuper = false;
     [SerializeField] KitchenerSuperAttack superAttack;
 
     protected override void Start()
@@ -21,10 +23,20 @@ public class Kitchener : AEnemyPlus
     {
         base.ControlledUpdate(inpInf);
         //
-        attackCooldown -= Time.deltaTime;
+        if (!PauseController.gameIsPaused && isSuper)
+        {
+            superAnimation -= Time.deltaTime;
+            if (superAnimation <= 0) 
+            {
+                isSuper = false;
+            }
+            
+            animator.SetBool("isSuper", isSuper);
+        }
         //
         if (!PauseController.gameIsPaused)
         {
+            attackCooldown -= Time.deltaTime;
             animator.SetFloat("moveX", inpInf.Axis.x);
             animator.SetFloat("moveY", inpInf.Axis.y);
             lastX = inpInf.Axis.x;
@@ -39,6 +51,10 @@ public class Kitchener : AEnemyPlus
         //
         if (freezeTime <= 0 && (inpInf.Axis.x != 0 || inpInf.Axis.y != 0))
         {
+            // ITSIgma - Cancel SuperAttack when move
+            isSuper = false;
+            animator.SetBool("isSuper", isSuper);
+            //
             animator.SetBool("isMoving", true);
         }
         else
@@ -46,12 +62,16 @@ public class Kitchener : AEnemyPlus
             animator.SetBool("isMoving", false);
         }
         //
-        if (damageSource == DamageSource.Player 
+        if (!PauseController.gameIsPaused
+            && damageSource == DamageSource.Player 
             && Input.GetButtonDown("SuperAttack") 
             && attackCooldown <= 0)
         {
+            isSuper = true;
             attackCooldown = maxAttackCooldown;
+            superAnimation = maxSuperAnimation;
             superAttack.Attack(damageSource, this);
+            animator.SetBool("isSuper", isSuper);
         }
     }
 
@@ -60,7 +80,7 @@ public class Kitchener : AEnemyPlus
         base.OnCapture(player);
         //
         animator.SetBool("isUncontious", false);
-        GetComponent<AIType>().enabled = false;
+        GetComponent<Kitchener>().enabled = false;
         //
     }
 
@@ -74,7 +94,7 @@ public class Kitchener : AEnemyPlus
         }
         else
         {
-            GetComponent<AIType>().enabled = true;
+            GetComponent<Kitchener>().enabled = true;
         }
         animator.SetBool("isMoving", false);
         //
@@ -88,7 +108,7 @@ public class Kitchener : AEnemyPlus
             if (health <= 0)
             {
                 animator.SetBool("isUncontious", true);
-                GetComponent<AIType>().enabled = false;
+                GetComponent<Kitchener>().enabled = false;
                 if (item != null)
                 {
                     DropDown();

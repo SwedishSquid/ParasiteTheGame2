@@ -23,12 +23,10 @@ public class Gardener : AEnemyPlus
     {
         base.ControlledUpdate(inpInf);
         //
-        attackCooldown -= Time.deltaTime;
-        //animator.SetBool("isSuper", isSuper);
-        if (isSuper)
+        if (!PauseController.gameIsPaused && isSuper)
         {
             superAnimation -= Time.deltaTime;
-            if (superAnimation <= 0) //|| animator.GetBool("isMoving"))
+            if (superAnimation <= 0) 
             {
                 isSuper = false;
             }
@@ -38,6 +36,7 @@ public class Gardener : AEnemyPlus
         //
         if (!PauseController.gameIsPaused)
         {
+            attackCooldown -= Time.deltaTime;
             animator.SetFloat("moveX", inpInf.Axis.x);
             animator.SetFloat("moveY", inpInf.Axis.y);
             lastX = inpInf.Axis.x;
@@ -52,7 +51,7 @@ public class Gardener : AEnemyPlus
         //
         if (freezeTime <= 0 && (inpInf.Axis.x != 0 || inpInf.Axis.y != 0))
         {
-            //
+            // ITSIgma - Cancel SuperAttack when move
             isSuper = false;
             animator.SetBool("isSuper", isSuper);
             //
@@ -63,7 +62,8 @@ public class Gardener : AEnemyPlus
             animator.SetBool("isMoving", false);
         }
         //
-        if (damageSource == DamageSource.Player 
+        if (!PauseController.gameIsPaused
+            && damageSource == DamageSource.Player 
             && Input.GetButtonDown("SuperAttack") 
             && attackCooldown <= 0)
         {
