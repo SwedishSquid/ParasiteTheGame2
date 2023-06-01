@@ -1054,7 +1054,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SettingsAudioM: {fileID: 24100000, guid: 951e5f5b495a9c5419880ff4a0c6dfe7, type: 2}
-  fullScreenToggle: {fileID: 905482753}
   menu: {fileID: 1506155517}
 --- !u!1 &707318943
 GameObject:
@@ -1309,7 +1308,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1039966149
 GameObject:
   m_ObjectHideFlags: 0

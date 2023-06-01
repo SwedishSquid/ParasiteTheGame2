@@ -9,14 +9,12 @@ public class Settings : MonoBehaviour
 {
     public AudioMixer SettingsAudioM;
     [SerializeField] private MenuScript menu;
-    private bool isFullScreen = true;
 
     public void FullScreenToggle()
     {
-        Screen.fullScreen = !Screen.fullScreen;
-        isFullScreen = !isFullScreen;
+        var isFullScreen = !Screen.fullScreen;
+        Screen.fullScreen = isFullScreen;
         PlayerPrefs.SetInt("screenSize", isFullScreen ? 1 : 0);
-        Debug.Log(PlayerPrefs.GetInt("screenSize"));
     }
 
     public void AudioVolume(float sliderValue)
