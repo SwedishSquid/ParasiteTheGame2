@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     private GameState gameState;
     [SerializeField] PlayerController playerController;
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private DeathMenu deathMenu;
     private InputHandler inputHandler;
     private InputInfo currentInputInfo;
 
@@ -20,11 +21,20 @@ public class GameController : MonoBehaviour
     {
         currentInputInfo = inputHandler.GetInputInfo();
 
+        if (gameState == GameState.PlayerDeathMode)
+            return;
+        
         UpdateGameState();
 
         if (gameState == GameState.MainGameMode)
         {
             playerController.HandleUpdate(currentInputInfo);
+        }
+
+        if (playerController.Dead)
+        {
+            gameState = GameState.PlayerDeathMode;
+            deathMenu.StartDeathMenu();
         }
 
         if (!PauseController.gameIsPaused)

@@ -8,6 +8,7 @@ public abstract class AEnemyPlus : AEnemy
     [SerializeField] protected HealthBar healthBar;
     [SerializeField] protected Cloud cloudObject;
     [SerializeField] protected Sprite grave;
+    protected bool isBoss;
 
     protected override void Awake()
     {
@@ -18,17 +19,17 @@ public abstract class AEnemyPlus : AEnemy
     protected override void Start()
     {
         base.Start();
-        healthBar.SetMaxHealth(maxHealth, true);
-        healthBar.SetValue(health);
+        healthBar.SetMaxHealth(MaxHealth, true);
+        healthBar.SetValue(Health);
         UpdateCloud();
     }
 
     public override bool TryTakeDamage(DamageInfo dmgInf)
     {
         var answer = base.TryTakeDamage(dmgInf);
-        if (answer && health >= 0 && healthBar is not null)
+        if (answer && Health >= 0 && healthBar is not null)
         {
-            if (!IsCaptured) healthBar.SetValue(health);
+            if (!isBoss && !IsCaptured) healthBar.SetValue(Health);
         }
 
         UpdateCloud();
@@ -62,7 +63,7 @@ public abstract class AEnemyPlus : AEnemy
     protected override void AfterDataLoaded()
     {
         base.AfterDataLoaded();
-        healthBar.SetValue(health);
+        healthBar.SetValue(Health);
         UpdateCloud();
     }
 

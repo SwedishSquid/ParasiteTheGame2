@@ -88,7 +88,7 @@ public class Kitchener : AEnemyPlus
     {
         base.OnRelease(player);
         //
-        if (health <= 0)
+        if (Health <= 0)
         {
             animator.SetBool("isUncontious", true);
         }
@@ -105,7 +105,7 @@ public class Kitchener : AEnemyPlus
         var result = base.TryTakeDamage(dmgInf);
         if (result)
         {
-            if (health <= 0)
+            if (Health <= 0)
             {
                 animator.SetBool("isUncontious", true);
                 GetComponent<GardenerAI>().enabled = false;
@@ -116,7 +116,7 @@ public class Kitchener : AEnemyPlus
             }
             else
             {
-                healthBar.SetValue(health);
+                healthBar.SetValue(Health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
             }

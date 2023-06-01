@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -31,6 +30,7 @@ public class PauseMenu: MonoBehaviour
         DisableAllButtons();
         pauseCanvas.gameObject.SetActive(false);
         PauseController.Pause();
+        DataPersistenceManager.Instance.SaveGame();
         SceneManager.LoadSceneAsync("MainMenu");
     }
 

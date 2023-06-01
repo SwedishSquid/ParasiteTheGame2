@@ -6,7 +6,7 @@ public class EnemyExample2 : AEnemy
 {
     protected override void Start()
     {
-        health = 150;
+        Health = 150;
         base.Start();
     }
 }

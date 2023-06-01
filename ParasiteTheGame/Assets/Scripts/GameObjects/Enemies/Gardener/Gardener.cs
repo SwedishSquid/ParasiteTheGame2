@@ -21,6 +21,12 @@ public class Gardener : AEnemyPlus
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        isBoss = true;
+    }
+
     public override void ControlledUpdate(InputInfo inpInf)
     {
         base.ControlledUpdate(inpInf);
@@ -89,7 +95,7 @@ public class Gardener : AEnemyPlus
     {
         base.OnRelease(player);
         //
-        if (health <= 0)
+        if (Health <= 0)
         {
             animator.SetBool("isUncontious", true);
         }
@@ -106,13 +112,14 @@ public class Gardener : AEnemyPlus
         var result = base.TryTakeDamage(dmgInf);
         if (result)
         {
-            if (health <= 0)
+            if (Health <= 0)
             {
                 animator.SetBool("isUncontious", true);
             }
             else
             {
-                healthBar.SetValue(health);
+                if (BossfightController.Instance.BossfightState == BossfightState.Finished)
+                    healthBar.SetValue(Health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
             }
