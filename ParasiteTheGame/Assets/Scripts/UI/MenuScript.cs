@@ -56,7 +56,7 @@ public class MenuScript: MonoBehaviour
 
     private void LoadSettings()
     {
-        fullScreenToggle.isOn = PlayerPrefs.GetInt("screenSize", 1) == 1;
+        fullScreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
         volumeSlider.value = PlayerPrefs.GetFloat("settingsVolume", 0.5f);
     }
 
