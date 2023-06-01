@@ -8,6 +8,8 @@ public class AppleBusket : AWeapon
 
     protected static float busketWidth = 0.8f;
 
+    protected new DamageType? damageType = DamageType.Distant;
+
     protected override void Start()
     {
         fireRate = 0.2f;

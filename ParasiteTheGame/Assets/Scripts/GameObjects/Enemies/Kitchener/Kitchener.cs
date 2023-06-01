@@ -13,6 +13,15 @@ public class Kitchener : AEnemyPlus
     private bool isSuper = false;
     [SerializeField] KitchenerSuperAttack superAttack;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        radius = 1.5f;
+        health = 100;
+        maxHealth = 100;
+        terminalHealth = 35;
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -80,7 +89,6 @@ public class Kitchener : AEnemyPlus
         base.OnCapture(player);
         //
         animator.SetBool("isUncontious", false);
-        GetComponent<GardenerAI>().enabled = false;
         //
     }
 
@@ -91,10 +99,6 @@ public class Kitchener : AEnemyPlus
         if (health <= 0)
         {
             animator.SetBool("isUncontious", true);
-        }
-        else
-        {
-            GetComponent<GardenerAI>().enabled = true;
         }
         animator.SetBool("isMoving", false);
         //
@@ -108,11 +112,10 @@ public class Kitchener : AEnemyPlus
             if (health <= 0)
             {
                 animator.SetBool("isUncontious", true);
-                GetComponent<GardenerAI>().enabled = false;
-                if (item != null)
+/*                if (item != null)
                 {
                     DropDown();
-                }
+                }*/
             }
             else
             {

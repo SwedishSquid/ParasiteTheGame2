@@ -6,7 +6,9 @@ public class PanWithPancake : AWeapon
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     [SerializeField] protected PancakeProjectile pancakeProjectile;
-    
+
+    protected new DamageType? damageType = DamageType.Distant;
+
     protected override void Start()
     {
         animator = GetComponent<Animator>();

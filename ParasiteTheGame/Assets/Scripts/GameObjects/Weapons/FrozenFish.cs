@@ -4,6 +4,8 @@ public class FrozenFish : AMeleeWeapon
 {
     private Animator animator;
 
+    protected new DamageType? damageType = DamageType.Melee;
+
     protected override void Start()
     {
         animator = GetComponent<Animator>();
