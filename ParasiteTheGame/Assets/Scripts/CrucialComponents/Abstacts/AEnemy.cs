@@ -16,6 +16,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         id = System.Guid.NewGuid().ToString();
     }
 
+    protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
     
@@ -70,6 +71,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected virtual void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //GetGUID(); //to check if has any
     }
 
@@ -222,6 +224,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             }
             Health -= dmgInf.Amount;
             GetDamageEffect(dmgInf);
+            StartCoroutine(RedSprite());
             
             Debug.Log($"Creature hurt : health = {Health}");
 
@@ -237,6 +240,13 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         freezeTime = dmgInf.FreezeTime;
         immunityTime = maxImmunityTime;
         myRigidbody.velocity += dmgInf.Direction * (freezeVelocity * dmgInf.DamageVelocityMultiplier);
+    }
+
+    protected IEnumerator RedSprite()
+    {
+        spriteRenderer.color = new Color(1, 0.6f, 0.6f, 1);;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = Color.white;
     }
 
     public virtual void ActOnPickOrDrop()
