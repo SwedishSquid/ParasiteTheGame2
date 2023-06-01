@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1273756154937927707}
   - component: {fileID: 3785405818571067421}
   - component: {fileID: 5845319573123138595}
-  - component: {fileID: 3439432923010674575}
   m_Layer: 8
   m_Name: KitchenerSuper_Knife
   m_TagString: Untagged
@@ -112,34 +111,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8921501124055746361}
   m_CullTransparentMesh: 1
---- !u!60 &3439432923010674575
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8921501124055746361}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.030853271, y: -0.43803406}
-      - {x: -0.0619812, y: -0.43659973}
-      - {x: -0.05996704, y: 0.45037842}
-      - {x: 0.06536865, y: 0.31784058}
-      - {x: 0.063690186, y: 0.031906128}
-      - {x: 0.030517578, y: -0.031234741}

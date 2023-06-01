@@ -8,36 +8,34 @@ public class KitchenerSuperAttack : MonoBehaviour
 {
     [SerializeField] protected KitchenerSuperProjectile[] kitchenerSuperProjPrefab; 
 
-    private static int countProj = 4; //U can do more/less rats
-    private static List<Vector3> directions;
+    private static int countProj = 12; //U can do more/less projs
+    private static Vector3[] directions;
+    private static float[] rotate_dirs;
     
     protected virtual void Start()
     {
-        var dirsTemp = new Tuple<double, double>[countProj]; 
-        var angle = Math.PI / 2 / countProj;
-        var signs = new int[] { -1, 1 };
+        directions = new Vector3[countProj];
+        rotate_dirs = new float[countProj];
+        var angle = Math.PI * 2 / countProj;
         for (var i = 0; i < countProj; i++)
         {
-            dirsTemp[i] = Tuple.Create(Math.Cos(angle * i), Math.Sin(angle * i));
+            rotate_dirs[i] = (float)angle * i;
+            directions[i] = new Vector3((float)Math.Cos(rotate_dirs[i]), (float)Math.Sin(rotate_dirs[i]), 0);
         }
-        directions = dirsTemp
-            .SelectMany(x => 
-                signs.SelectMany(s1 => 
-                    signs.Select(s2 => 
-                        new Vector3(s1 * (float)x.Item1, s2 * (float)x.Item2, 0).normalized)))
-            .ToList();
-        //directions.Append(Vector3.up * 3); //doesn't work
-        //directions.Append(Vector3.down * 3); //doesn't work
     }
 
     public void Attack(DamageSource damageSource, Kitchener kitchener)
     { 
         KitchenerSuperProjectile proj;
-        foreach (var dir in directions)
+        Quaternion rotation;
+        float angle;
+        for (var i = 0; i < countProj; i++)
         {
+            angle = rotate_dirs[i];
+            rotation = Quaternion.AngleAxis(rotate_dirs[i], Vector3.forward);
             proj = Instantiate(kitchenerSuperProjPrefab[UnityEngine.Random.Range(0, kitchenerSuperProjPrefab.Length)], 
-                kitchener.transform.position, transform.rotation);
-            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1, dir), dir);
+                kitchener.transform.position, rotation);
+            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1, directions[i]), directions[i], rotate_dirs[i]);
         }
     }
 }
