@@ -4,8 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TextPlateManager : MonoBehaviour
+public class TextPlateManager : MonoBehaviour, IBossfightListener
 {
+    [SerializeField] private bool showBeforeBossfight = true;
+    //[SerializeField] private bool showDuringBossfight = true;
+    [SerializeField] private bool showAfterBossfight = true;
+
+    private bool bossfightTookPlace = false;
+
     private TextMeshProUGUI textMeshPro;
     void Start()
     {
@@ -20,6 +26,12 @@ public class TextPlateManager : MonoBehaviour
 
     private void HandleTrigger(GameObject obj)
     {
+        if (bossfightTookPlace && !showAfterBossfight 
+            || !bossfightTookPlace && !showBeforeBossfight)
+        {
+            return;
+        }
+
         if (obj.layer == LayerConstants.PlayerLayer)
         {
             StartCoroutine(MakeEffects());
@@ -43,6 +55,37 @@ public class TextPlateManager : MonoBehaviour
         {
             textMeshPro.alpha = i;
             yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    public void OnBossfightStart()
+    {
+        AttemptToRemoveAfterBossfight();
+    }
+
+    public void OnLoadDuringBossfight()
+    {
+        AttemptToRemoveAfterBossfight();
+    }
+
+    public void OnBossfightEnd()
+    {
+        AttemptToRemoveAfterBossfight();
+    }
+
+    public void OnLoadAfterBossfight()
+    {
+
+        AttemptToRemoveAfterBossfight();
+    }
+
+    private void AttemptToRemoveAfterBossfight()
+    {
+        bossfightTookPlace = true;
+        if (bossfightTookPlace && !showAfterBossfight
+            || !bossfightTookPlace && !showBeforeBossfight)
+        {
+            textMeshPro.alpha = 0;
         }
     }
 }
