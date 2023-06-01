@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, IBossfightListener
 {
     private GameState gameState;
     [SerializeField] PlayerController playerController;
@@ -11,10 +11,16 @@ public class GameController : MonoBehaviour
     private InputHandler inputHandler;
     private InputInfo currentInputInfo;
 
+    private Listener listener;
+    [SerializeField] private AudioClip simpleMusic;
+    [SerializeField] private AudioClip battleMusic;
+
     void Start()
     {
         gameState = GameState.MainGameMode;
         inputHandler = new InputHandler();
+        listener = new Listener(GetComponent<AudioSource>());
+        listener.PutOnClip(simpleMusic);
     }
 
     void Update()
@@ -94,4 +100,18 @@ public class GameController : MonoBehaviour
     {
         gameState = GameState.MainGameMode;
     }
+
+    public void OnBossfightStart()
+    {
+        listener.PutOnClip(battleMusic);
+    }
+
+    public void OnLoadDuringBossfight() { }
+
+    public void OnBossfightEnd()
+    {
+        listener.PutOnClip(simpleMusic);
+    }
+
+    public void OnLoadAfterBossfight() { }
 }

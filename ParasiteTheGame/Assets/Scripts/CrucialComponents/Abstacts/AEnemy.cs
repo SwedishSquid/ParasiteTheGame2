@@ -16,6 +16,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         id = System.Guid.NewGuid().ToString();
     }
 
+    
+    private Color hurtColor = new Color(1, 0.6f, 0.6f, 1);
     protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
@@ -244,7 +246,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     protected IEnumerator RedSprite()
     {
-        spriteRenderer.color = new Color(1, 0.6f, 0.6f, 1);;
+        spriteRenderer.color = hurtColor;
         yield return new WaitForSeconds(0.2f);
         spriteRenderer.color = Color.white;
     }
