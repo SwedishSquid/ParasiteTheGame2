@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class LackeySmall : AEnemyPlus
 {
-    protected override void Start()
+    protected override void Awake()
+    {
+        base.Awake();
+        radius = 2;
+        health = 30;
+        maxHealth = 30;
+        terminalHealth = 15;
+    }
+
+    /*protected override void Start()
     {
         base.Start();
         radius = 2;
         health = 30;
         maxHealth = 30;
         terminalHealth = 15;
-    }
+    }*/
 
     public override void ControlledUpdate(InputInfo inpInf)
     {

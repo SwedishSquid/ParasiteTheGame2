@@ -13,6 +13,15 @@ public class Gardener : AEnemyPlus
     private bool isSuper = false;
     [SerializeField] GardenerSuperAttack superAttack;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        radius = 1.5f;
+        health = 100;
+        maxHealth = 100;
+        terminalHealth = 35;
+    }
+
     public override bool CanBeCaptured
     {
         get

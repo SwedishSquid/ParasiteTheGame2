@@ -27,9 +27,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     public bool IsCaptured;
     public PlayerController Capturer;
 
-    protected int maxHealth = 100;
-    protected int terminalHealth = 100 / 2;
-    protected int health = 100;
+    protected int maxHealth = 30;
+    protected int terminalHealth = 30 / 2;
+    protected int health = 30;
     public virtual bool AlmostPassedOut => !PassedOut && (health - terminalHealth) < maxHealth / 5;
 
     protected DamageSource damageSource = DamageSource.Enemy;

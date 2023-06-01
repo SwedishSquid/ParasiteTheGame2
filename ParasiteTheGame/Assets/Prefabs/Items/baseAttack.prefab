@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3022669582181621344}
   - component: {fileID: 3022669582181621346}
   - component: {fileID: 3022669582181621359}
-  - component: {fileID: 3022669582181621349}
   m_Layer: 12
   m_Name: baseAttack
   m_TagString: Untagged
@@ -103,7 +102,6 @@ MonoBehaviour:
   id: 
   throwHandlerPrefab: {fileID: 9171043533338633449, guid: 960248d852c2ba64d895763eb165540d, type: 3}
   audioSource: {fileID: 0}
-  user: {fileID: 0}
 --- !u!114 &3022669582181621346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,19 +135,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!58 &3022669582181621349
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3022669582181621356}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
