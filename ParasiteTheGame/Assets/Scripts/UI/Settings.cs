@@ -8,13 +8,15 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     public AudioMixer SettingsAudioM;
-    [SerializeField] private Toggle fullScreenToggle;
     [SerializeField] private MenuScript menu;
+    private bool isFullScreen = true;
 
     public void FullScreenToggle()
     {
         Screen.fullScreen = !Screen.fullScreen;
-        PlayerPrefs.SetInt("screenSize", Screen.fullScreen ? 1 : 0);
+        isFullScreen = !isFullScreen;
+        PlayerPrefs.SetInt("screenSize", isFullScreen ? 1 : 0);
+        Debug.Log(PlayerPrefs.GetInt("screenSize"));
     }
 
     public void AudioVolume(float sliderValue)

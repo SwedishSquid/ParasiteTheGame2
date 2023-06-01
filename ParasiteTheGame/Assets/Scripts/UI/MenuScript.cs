@@ -12,6 +12,7 @@ public class MenuScript: MonoBehaviour
     [SerializeField] private Button settingsBackButton;
     [SerializeField] private Toggle fullScreenToggle;
     [SerializeField] private Slider volumeSlider;
+    public static bool IsGameStart;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class MenuScript: MonoBehaviour
     public void PlayPressed()
     {
         DisableAllButtons();
-        DataPersistenceManager.Instance.SaveGame();
+        IsGameStart = true;
         SceneManager.LoadSceneAsync(DataPersistenceManager.Instance.GameData.CurrentLevelName);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//"SceneExample"); // change to scene "GAME_NAME"
     }
@@ -43,6 +44,7 @@ public class MenuScript: MonoBehaviour
         DisableAllButtons();
         DataPersistenceManager.Instance.NewGame();
         DataPersistenceManager.Instance.SaveGame();
+        IsGameStart = true;
         SceneManager.LoadSceneAsync("Education");
     }
 

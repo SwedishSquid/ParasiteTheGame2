@@ -112,7 +112,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        SaveGame();
+        if (MenuScript.IsGameStart)
+            SaveGame();
     }
 
     private List<ISavable> GetAllDataPersistenceObjects()

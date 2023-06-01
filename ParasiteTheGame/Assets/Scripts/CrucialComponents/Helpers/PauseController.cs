@@ -1,11 +1,11 @@
 
 using UnityEngine;
 
-public class PauseController 
+public static class PauseController 
 {
     public static bool gameIsPaused;
 
-    public void Pause()
+    public static void Pause()
     {
         gameIsPaused = !gameIsPaused;
         if(gameIsPaused)

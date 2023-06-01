@@ -9,13 +9,11 @@ public class GameController : MonoBehaviour
     [SerializeField] private PauseMenu pauseMenu;
     private InputHandler inputHandler;
     private InputInfo currentInputInfo;
-    private PauseController pauseController;
 
     void Start()
     {
         gameState = GameState.MainGameMode;
         inputHandler = new InputHandler();
-        pauseController = new PauseController();
     }
 
     void Update()
@@ -36,7 +34,7 @@ public class GameController : MonoBehaviour
 
         if (Input.GetButtonDown("Pause"))
         {
-            pauseController.Pause();
+            PauseController.Pause();
             pauseMenu.PressedPause();
         }
     }

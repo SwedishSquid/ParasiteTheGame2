@@ -30,6 +30,7 @@ public class PauseMenu: MonoBehaviour
     {
         DisableAllButtons();
         pauseCanvas.gameObject.SetActive(false);
+        PauseController.Pause();
         SceneManager.LoadSceneAsync("MainMenu");
     }
 
