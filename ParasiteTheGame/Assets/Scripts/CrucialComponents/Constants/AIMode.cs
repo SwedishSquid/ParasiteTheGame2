@@ -20,4 +20,6 @@ enum AIMode
     MeleeAttack,
     CloseDistanceMeleeAttack,
     FarDistanceMeleeAttack,
+
+    RunFarAway,
 }

@@ -205,7 +205,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public virtual bool TryTakeDamage(DamageInfo dmgInf)
     {
-        Debug.Log(immunityTime);
+        //Debug.Log(immunityTime);
 
         if ((IsCaptured && dmgInf.Source == DamageSource.Enemy)
             || (!IsCaptured && dmgInf.Source == DamageSource.Player)
