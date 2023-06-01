@@ -234,7 +234,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     public void GetDamageEffect(DamageInfo dmgInf)
     {
-        freezeTime = maxFreezeTime;
+        freezeTime = dmgInf.FreezeTime;
         immunityTime = maxImmunityTime;
         myRigidbody.velocity += dmgInf.Direction * (freezeVelocity * dmgInf.DamageVelocityMultiplier);
     }

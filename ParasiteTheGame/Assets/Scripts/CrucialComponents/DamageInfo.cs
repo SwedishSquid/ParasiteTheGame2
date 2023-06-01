@@ -11,12 +11,20 @@ public struct DamageInfo
 
     public float DamageVelocityMultiplier;
 
-    public DamageInfo(DamageType type, DamageSource source, int amount, Vector2 damageDir, float damageVelocityMultiplier = 1)
+    public float FreezeTime;
+
+    public DamageInfo(DamageType type, DamageSource source, int amount, Vector2 damageDir, float damageVelocityMultiplier = 1) : this(type, source, amount, damageDir, damageVelocityMultiplier, OtherConstants.CommonMaxFreezeTime)
+    {
+
+    }
+
+    public DamageInfo(DamageType type, DamageSource source, int amount, Vector2 damageDir, float damageVelocityMultiplier, float freezeTime)
     {
         Type = type;
         Source = source;
         Amount = amount;
         Direction = damageDir;
         DamageVelocityMultiplier = damageVelocityMultiplier;
+        FreezeTime = freezeTime;
     }
 }

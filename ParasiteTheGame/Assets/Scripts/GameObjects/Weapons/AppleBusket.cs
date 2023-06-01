@@ -28,7 +28,7 @@ public class AppleBusket : AWeapon
         Vector3 currentDirection = inpInf.GetMouseDir();
         var apple = Instantiate(appleProjPrefab, transform.position + (currentDirection * 0.6f), transform.rotation);
         apple.SetParameters(
-            new DamageInfo(DamageType.Distant, damageSource, 1, currentDirection),
+            new DamageInfo(DamageType.Distant, damageSource, 1, currentDirection, 1, 0.1f),
             currentDirection, (Random.value - 0.5f) * 360);
     }
 }
