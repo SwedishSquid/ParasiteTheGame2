@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     private GameState gameState;
     [SerializeField] PlayerController playerController;
+    [SerializeField] private PauseMenu pauseMenu;
     private InputHandler inputHandler;
     private InputInfo currentInputInfo;
     private PauseController pauseController;
@@ -36,6 +37,7 @@ public class GameController : MonoBehaviour
         if (Input.GetButtonDown("Pause"))
         {
             pauseController.Pause();
+            pauseMenu.PressedPause();
         }
     }
 

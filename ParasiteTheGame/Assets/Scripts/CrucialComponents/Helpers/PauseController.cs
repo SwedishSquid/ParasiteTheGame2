@@ -5,7 +5,7 @@ public class PauseController
 {
     public static bool gameIsPaused;
 
-    public void Pause ()
+    public void Pause()
     {
         gameIsPaused = !gameIsPaused;
         if(gameIsPaused)

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3642852004023732148}
   - component: {fileID: 2118585728313429529}
   - component: {fileID: -1089514795991140906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GardenerSuperProj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1570399243
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1368470144, guid: a1ac68e39ce151f4da45087bf07058a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
