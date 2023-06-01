@@ -14,7 +14,7 @@ public class GardenerSuperProjectile: AProjectile
     public void SetParameters(DamageInfo dmjInf)
     {
         animator.SetBool("isRunning", true); 
-        SetParameters(dmjInf, dmjInf.Direction, 7f, 1f, 1f);
+        SetParameters(dmjInf, dmjInf.Direction, 8f, 1f, 1f);
     }
 
     protected override void Update()
