@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.PlasticSCM.Editor.WebApi;
+//using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
-using UnityEditor.Sprites;
+//using UnityEditor.Sprites;
 using UnityEngine;
 
 public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, ISavable, IEnemyInfoPlate, IKillable

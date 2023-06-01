@@ -282,7 +282,7 @@ public class GardenerAI : AIntelligence
             mode = AIMode.StrategyMaking;
         }
 
-        var walkDirection = -((Vector2)transform.position - aim.Position).normalized / 2;
+        var walkDirection = -((Vector2)transform.position - aim.Position).normalized;
         var aimDirection = (walkDirection + new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)) * 0.1f);
         return new InputInfo(walkDirection, aimDirection, false, false, true, false);
     }

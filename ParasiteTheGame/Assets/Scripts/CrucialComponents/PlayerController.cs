@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 //using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfoPlate, IKillable
 {

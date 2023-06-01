@@ -8,6 +8,9 @@ public class LackeySmall : AEnemyPlus
     {
         base.Start();
         radius = 2;
+        health = 30;
+        maxHealth = 30;
+        terminalHealth = 15;
     }
 
     public override void ControlledUpdate(InputInfo inpInf)
