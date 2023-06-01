@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gardener : AEnemyPlus
+public class Kitchener : AEnemyPlus
 {
     float lastX;
     float lastY;
@@ -11,14 +11,12 @@ public class Gardener : AEnemyPlus
     private float maxSuperAnimation = 1.28f; 
     private float superAnimation;
     private bool isSuper = false;
-    [SerializeField] GardenerSuperAttack superAttack;
+    [SerializeField] KitchenerSuperAttack superAttack;
 
-    public override bool CanBeCaptured
+    protected override void Start()
     {
-        get
-        {
-            return PassedOut && !Dead;
-        }
+        base.Start();
+        radius = 2;
     }
 
     public override void ControlledUpdate(InputInfo inpInf)
@@ -33,7 +31,7 @@ public class Gardener : AEnemyPlus
                 isSuper = false;
             }
             
-            animator.SetBool("isSuper", isSuper);
+            //animator.SetBool("isSuper", isSuper); //TODO
         }
         //
         if (!PauseController.gameIsPaused)
@@ -55,7 +53,7 @@ public class Gardener : AEnemyPlus
         {
             // ITSIgma - Cancel SuperAttack when move
             isSuper = false;
-            animator.SetBool("isSuper", isSuper);
+            //animator.SetBool("isSuper", isSuper); //TODO
             //
             animator.SetBool("isMoving", true);
         }
@@ -65,14 +63,15 @@ public class Gardener : AEnemyPlus
         }
         //
         if (!PauseController.gameIsPaused
-            && inpInf.SuperAttackPressed
+            && damageSource == DamageSource.Player 
+            && Input.GetButtonDown("SuperAttack") 
             && attackCooldown <= 0)
         {
             isSuper = true;
             attackCooldown = maxAttackCooldown;
             superAnimation = maxSuperAnimation;
             superAttack.Attack(damageSource, this);
-            animator.SetBool("isSuper", isSuper);
+            //animator.SetBool("isSuper", isSuper); //TODO
         }
     }
 
@@ -81,7 +80,7 @@ public class Gardener : AEnemyPlus
         base.OnCapture(player);
         //
         animator.SetBool("isUncontious", false);
-        //GetComponent<GardenerAI>().enabled = false;
+        GetComponent<GardenerAI>().enabled = false;
         //
     }
 
@@ -93,10 +92,10 @@ public class Gardener : AEnemyPlus
         {
             animator.SetBool("isUncontious", true);
         }
-/*        else
+        else
         {
             GetComponent<GardenerAI>().enabled = true;
-        }*/
+        }
         animator.SetBool("isMoving", false);
         //
     }
@@ -109,21 +108,17 @@ public class Gardener : AEnemyPlus
             if (health <= 0)
             {
                 animator.SetBool("isUncontious", true);
+                GetComponent<GardenerAI>().enabled = false;
+                if (item != null)
+                {
+                    DropDown();
+                }
             }
             else
             {
                 healthBar.SetValue(health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
-            }
-
-
-
-            if (BossfightController.Instance != null &&
-                PassedOut && BossfightController.Instance.BossfightState == BossfightState.Continued
-                && BossfightController.Instance.GetBossGUID() == GetGUID())
-            {
-                BossfightController.Instance.EndBossfight();
             }
         }
         return result;
