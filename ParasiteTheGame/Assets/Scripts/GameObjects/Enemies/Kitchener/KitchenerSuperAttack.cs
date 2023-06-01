@@ -37,8 +37,7 @@ public class KitchenerSuperAttack : MonoBehaviour
         {
             proj = Instantiate(kitchenerSuperProjPrefab[UnityEngine.Random.Range(0, kitchenerSuperProjPrefab.Length)], 
                 kitchener.transform.position, transform.rotation);
-            proj.SetParameters(
-                new DamageInfo(DamageType.Distant, damageSource, 1, dir), dir);
+            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1, dir), dir);
         }
     }
 }

@@ -367,7 +367,39 @@ PrefabInstance:
       value: KitchenerSuperAttack
       objectReference: {fileID: 0}
     - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
+      propertyPath: kitchenerSuperProjPrefab.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
       propertyPath: kitchenerSuperProjPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
+    - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
+      propertyPath: kitchenerSuperProjPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
+    - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
+      propertyPath: kitchenerSuperProjPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
+    - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
+      propertyPath: kitchenerSuperProjPrefab.Array.data[3]
+      value: 
+      objectReference: {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
+    - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
+      propertyPath: kitchenerSuperProjPrefab.Array.data[4]
+      value: 
+      objectReference: {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
+    - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
+      propertyPath: kitchenerSuperProjPrefab.Array.data[5]
+      value: 
+      objectReference: {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
+    - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
+      propertyPath: kitchenerSuperProjPrefab.Array.data[6]
+      value: 
+      objectReference: {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
+    - target: {fileID: 5227243504577572745, guid: d9107b0f193e7544c97b48169efea324, type: 3}
+      propertyPath: kitchenerSuperProjPrefab.Array.data[7]
       value: 
       objectReference: {fileID: 5791872612438586817, guid: 690de4ef1a3167e44b9db6a23d622be2, type: 3}
     m_RemovedComponents: []
