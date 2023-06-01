@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1613199529037977642}
   - component: {fileID: 1613199529037977643}
   - component: {fileID: 1613199529037977620}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MiniPovarVertical
   m_TagString: MiniPovar
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.018383563, y: -0.15166497}
-  m_Size: {x: 0.5, y: 2}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!95 &1613199529037977620
 Animator:
