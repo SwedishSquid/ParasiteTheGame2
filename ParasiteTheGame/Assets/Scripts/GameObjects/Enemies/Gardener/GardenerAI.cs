@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GardenerAI : AIntelligence
 {
-    Gardener gardener;
+    AEnemy body;
     private AllSeeingEye eye;
 
     private float updateInterval = 0.5f;
@@ -32,10 +32,10 @@ public class GardenerAI : AIntelligence
     // Start is called before the first frame update
     void Start()
     {
-        gardener = GetComponent<Gardener>();
+        body = GetComponent<AEnemy>();
         eye = GetComponent<AllSeeingEye>();
         var direction = new Vector2(Random.value * 2 - 1, Random.value * 2 - 1).normalized;
-        previousInput = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !gardener.HaveItem, true, false);
+        previousInput = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !body.HaveItem, true, false);
     }
 
     // Update is called once per frame
@@ -52,7 +52,7 @@ public class GardenerAI : AIntelligence
         
 
         var direction = new Vector2(Random.value * 2 - 1, Random.value * 2 - 1).normalized;
-        var inpInf = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !gardener.HaveItem, true, false);
+        var inpInf = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !body.HaveItem, true, false);
 
         if (aim == null || mode == AIMode.AimSearch)
         {
@@ -112,7 +112,7 @@ public class GardenerAI : AIntelligence
         }
 
         previousInput = inpInf;
-        gardener.ControlledUpdate(inpInf);
+        body.ControlledUpdate(inpInf);
     }
 
     private InputInfo AimlessMode()
@@ -123,7 +123,7 @@ public class GardenerAI : AIntelligence
         }
 
         var direction = new Vector2(Random.value * 2 - 1, Random.value * 2 - 1).normalized;
-        return new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !gardener.HaveItem, true, false);
+        return new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !body.HaveItem, true, false);
     }
 
     /*protected override InputInfo PassedOutMode()
@@ -137,7 +137,7 @@ public class GardenerAI : AIntelligence
 
     private InputInfo StrategyMaking()
     {
-        if (gardener.PassedOut)
+        if (body.PassedOut)
         {
             modeTimeLeft = 1;
             mode = AIMode.PassedOut;
@@ -150,11 +150,11 @@ public class GardenerAI : AIntelligence
         if (aim.Dead || !aim.CanBeHit)
         {
             mode = AIMode.AimSearch;
-        }else if (!gardener.HaveItem && Random.value > 0.7)
+        }else if (!body.HaveItem && Random.value > 0.7)
         {
             mode = AIMode.ItemSearch;
         }
-        else if (gardener.AlmostPassedOut && Random.value > 0.5 && dist > gardener.GetUserRadius())
+        else if (body.AlmostPassedOut && Random.value > 0.5 && dist > body.GetUserRadius())
         {
             mode = AIMode.ThrowItemAttack;
         }
@@ -212,7 +212,7 @@ public class GardenerAI : AIntelligence
     //change please
     private InputInfo StandartItemAttack()
     {
-        if (gardener.GetDamageType() == DamageType.Distant)
+        if (body.GetDamageType() == DamageType.Distant)
         {
             modeTimeLeft = 1f;
             mode = AIMode.DistantAttack;
@@ -248,7 +248,7 @@ public class GardenerAI : AIntelligence
 
         var walkDirection = -((Vector2)transform.position - aim.Position).normalized * speedMult;
         var aimDirection = (walkDirection + new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)) * 0.3f);
-        return new InputInfo(walkDirection, aimDirection, false, !gardener.HaveItem, true, false);
+        return new InputInfo(walkDirection, aimDirection, false, !body.HaveItem, true, false);
     }
 
     private InputInfo FarDistanceMeleeAttack()
@@ -260,7 +260,7 @@ public class GardenerAI : AIntelligence
 
         var walkDirection = -((Vector2)transform.position - aim.Position).normalized;
         var aimDirection = (walkDirection + new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)) * 0.3f);
-        return new InputInfo(walkDirection, aimDirection, false, !gardener.HaveItem, true, false);
+        return new InputInfo(walkDirection, aimDirection, false, !body.HaveItem, true, false);
     }
 
     private InputInfo CloseDistanceMeleeAttack()
@@ -345,13 +345,13 @@ public class GardenerAI : AIntelligence
 
     private InputInfo ItemCapture()
     {
-        if (modeTimeLeft <= 0 || gardener.HaveItem)
+        if (modeTimeLeft <= 0 || body.HaveItem)
         {
             modeTimeLeft= 0;
             mode = AIMode.StrategyMaking;
         }
 
-        return new InputInfo(ItemDir.normalized, ItemDir.normalized, false, !gardener.HaveItem, false, false);
+        return new InputInfo(ItemDir.normalized, ItemDir.normalized, false, !body.HaveItem, false, false);
     }
 
     private IKillable SearchAim()
@@ -363,7 +363,7 @@ public class GardenerAI : AIntelligence
         }
         updateTimeLeft = updateInterval;
 
-        Debug.Log("doing research");
+        //Debug.Log("doing research");
 
         aim = null;
 
@@ -376,7 +376,7 @@ public class GardenerAI : AIntelligence
             }
         }
 
-        Debug.Log($"found {(aim == null ? "nothing" : aim)}");
+        //Debug.Log($"found {(aim == null ? "nothing" : aim)}");
 
         return aim;
     }

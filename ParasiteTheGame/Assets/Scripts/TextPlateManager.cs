@@ -70,12 +70,12 @@ public class TextPlateManager : MonoBehaviour, IBossfightListener
 
     public void OnBossfightStart()
     {
-        AttemptToRemoveAfterBossfight();
+        AttemptToRemoveDuringBossfight();
     }
 
     public void OnLoadDuringBossfight()
     {
-        AttemptToRemoveAfterBossfight();
+        AttemptToRemoveDuringBossfight();
     }
 
     public void OnBossfightEnd()
@@ -85,15 +85,21 @@ public class TextPlateManager : MonoBehaviour, IBossfightListener
 
     public void OnLoadAfterBossfight()
     {
-
         AttemptToRemoveAfterBossfight();
     }
 
     private void AttemptToRemoveAfterBossfight()
     {
         bossfightTookPlace = true;
-        if (bossfightTookPlace && !showAfterBossfight
-            || !bossfightTookPlace && !showBeforeBossfight)
+        if (bossfightTookPlace && !showAfterBossfight)
+        {
+            textMeshPro.alpha = 0;
+        }
+    }
+
+    private void AttemptToRemoveDuringBossfight()
+    {
+        if (!showAfterBossfight)
         {
             textMeshPro.alpha = 0;
         }

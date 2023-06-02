@@ -5,9 +5,15 @@ using UnityEngine;
 public class MiniPovarVerticalAI : MonoBehaviour
 {
     MiniPovarVertical miniPovarV;
-    int moveDirection = 0;
     bool isMovingUp = true;
-    int freezeTime = 0;
+
+    private readonly InputInfo standStill = new InputInfo(new Vector2(0, 0), new Vector3(0, 0, 0), false, false, false, false);
+    private readonly InputInfo moveUp = new InputInfo(new Vector2(0, 1), new Vector3(-1, 0, 0), false, false, false, false);
+    private readonly InputInfo moveLeft = new InputInfo(new Vector2(0, -1), new Vector3(1, 0, 0), false, false, false, false);
+
+    private AIMode mode = AIMode.Waiting;
+    private float modeTimeLeft = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,41 +23,45 @@ public class MiniPovarVerticalAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //var direction = new Vector2(Random.value*2 - 1, Random.value*2 - 1).normalized;
-        //
-        // if (!miniPovar.HaveItem)
-        // {
-        //     miniPovar.ActOnPickOrDrop();
-        // }
-        //
-        var inpInf = new InputInfo(new Vector2(0, 0), new Vector3(0, 0, 0), false, !miniPovarV.HaveItem, true, false);
-        if (isMovingUp == true && freezeTime == 0)
+        if (modeTimeLeft >= 0)
         {
-            inpInf = new InputInfo(new Vector2(0, 1), new Vector3(-1, 0, 0), false, !miniPovarV.HaveItem, true, false);
-            moveDirection -= 1;
-            if (moveDirection == -100)
+            modeTimeLeft -= Time.deltaTime;
+        }
+
+        var inpInf = standStill;
+
+        if (mode == AIMode.Waiting)
+        {
+            if (modeTimeLeft <= 0)
             {
-                isMovingUp = false;
-                freezeTime = 75;
+                modeTimeLeft = 1f;
+                mode = AIMode.AimApproaching;
+                if (isMovingUp)
+                {
+                    isMovingUp = false;
+                }
+                else
+                {
+                    isMovingUp = true;
+                }
             }
-            miniPovarV.ControlledUpdate(inpInf);
         }
-        else if (freezeTime == 0)
+        else if (mode == AIMode.AimApproaching)
         {
-            inpInf = new InputInfo(new Vector2(0, -1), new Vector3(1, 0, 0), false, !miniPovarV.HaveItem, true, false);
-            moveDirection += 1;
-            if (moveDirection == 100)
+            if (isMovingUp)
             {
-                isMovingUp = true;
-                freezeTime = 75;
+                inpInf = moveUp;
             }
-            miniPovarV.ControlledUpdate(inpInf);
+            else
+            {
+                inpInf = moveLeft;
+            }
+            if (modeTimeLeft <= 0)
+            {
+                modeTimeLeft = 0.75f;
+                mode = AIMode.Waiting;
+            }
         }
-        else
-        {
-            freezeTime -= 1;
-            miniPovarV.ControlledUpdate(inpInf);
-        }
-        //miniPovar.ControlledUpdate(inpInf);
+        miniPovarV.ControlledUpdate(inpInf);
     }
 }

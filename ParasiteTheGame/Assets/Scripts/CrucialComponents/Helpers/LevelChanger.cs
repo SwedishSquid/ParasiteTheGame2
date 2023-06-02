@@ -7,6 +7,8 @@ public class LevelChanger : MonoBehaviour, IInteractable
 {
     [SerializeField] private string SceneNameToGoTo;
 
+    [SerializeField] bool moveObjects = true;
+
     private void ChangeLevel(ISavable player, ISavable enemy, ISavable item)
     {
         var currentSceneName = SceneManager.GetActiveScene().name;
@@ -28,7 +30,16 @@ public class LevelChanger : MonoBehaviour, IInteractable
 
     public void Interact(InteractorInfo interInfo)
     {
-        ChangeLevel(interInfo.Player, interInfo.Enemy, interInfo.Item);
+        if (moveObjects)
+        {
+            ChangeLevel(interInfo.Player, interInfo.Enemy, interInfo.Item);
+        }
+        else
+        {
+            DataPersistenceManager.Instance.GameData.CurrentLevelName = SceneNameToGoTo;
+            DataPersistenceManager.Instance.SaveGame();
+            SceneManager.LoadSceneAsync(SceneNameToGoTo);
+        }
     }
 
     public bool IsActive()

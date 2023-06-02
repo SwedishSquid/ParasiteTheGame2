@@ -22,10 +22,12 @@ public class Kitchener : AEnemyPlus
         terminalHealth = 35;
     }
 
-    protected override void Start()
+    public override bool CanBeCaptured
     {
-        base.Start();
-        radius = 2;
+        get
+        {
+            return PassedOut && !Dead;
+        }
     }
 
     public override void ControlledUpdate(InputInfo inpInf)
@@ -112,16 +114,21 @@ public class Kitchener : AEnemyPlus
             if (health <= 0)
             {
                 animator.SetBool("isUncontious", true);
-/*                if (item != null)
-                {
-                    DropDown();
-                }*/
             }
             else
             {
                 healthBar.SetValue(health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
+            }
+
+
+
+            if (BossfightController.Instance != null &&
+                PassedOut && BossfightController.Instance.BossfightState == BossfightState.Continued
+                && BossfightController.Instance.GetBossGUID() == GetGUID())
+            {
+                BossfightController.Instance.EndBossfight();
             }
         }
         return result;

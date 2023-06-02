@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class MovingForScreensaver : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float speed = 3f;
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(0.03f, 0, 0);
+        transform.Translate(Time.deltaTime * speed, 0, 0);
     }
 }

@@ -22,12 +22,12 @@ public class GameController : MonoBehaviour
 
         UpdateGameState();
 
-        if (gameState == GameState.MainGameMode)
+        if (gameState == GameState.MainGameMode && playerController != null)
         {
             playerController.HandleUpdate(currentInputInfo);
         }
 
-        if (!PauseController.gameIsPaused)
+        if (!PauseController.gameIsPaused && playerController != null)
         {
             AttemptToInteract();
         }
@@ -57,7 +57,6 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        Debug.Log("before show");
         playerController.ShowHintE();
 
         if (!Input.GetButtonDown("Interact"))

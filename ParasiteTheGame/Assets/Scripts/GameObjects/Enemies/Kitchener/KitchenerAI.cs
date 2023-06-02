@@ -28,7 +28,6 @@ public class KitchenerAI : AIntelligence
 
     private float subModeTimeLeft;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -125,15 +124,6 @@ public class KitchenerAI : AIntelligence
         var direction = new Vector2(Random.value * 2 - 1, Random.value * 2 - 1).normalized;
         return new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !kitchener.HaveItem, true, false);
     }
-
-    /*protected override InputInfo PassedOutMode()
-    {
-        if (modeTimeLeft <= 0)
-        {
-            mode = AIMode.StrategyMaking;
-        }
-        return new InputInfo(Vector2.zero, Vector2.zero, false, gardener.HaveItem, false, false);
-    }*/
 
     private InputInfo StrategyMaking()
     {
@@ -364,8 +354,6 @@ public class KitchenerAI : AIntelligence
         }
         updateTimeLeft = updateInterval;
 
-        Debug.Log("doing research");
-
         aim = null;
 
         foreach (var obj in eye.GetAllObjectsInView(LayerConstants.ControllablesLayer))
@@ -376,8 +364,6 @@ public class KitchenerAI : AIntelligence
                 break;
             }
         }
-
-        Debug.Log($"found {(aim == null ? "nothing" : aim)}");
 
         return aim;
     }

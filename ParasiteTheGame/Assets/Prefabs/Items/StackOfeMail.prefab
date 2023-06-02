@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17ad01048d917944a5c66c6cf2c5c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 65690041-3a0e-4dd2-9ad1-b27edba03719
+  id: 
   throwHandlerPrefab: {fileID: 9171043533338633449, guid: 960248d852c2ba64d895763eb165540d, type: 3}
   audioSource: {fileID: 1763261271161589506}
   mailPrefab: {fileID: 4832440190181018940, guid: 26bb97a1b8cc9e6489d9f92e8906603a, type: 3}

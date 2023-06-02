@@ -17,10 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelOne.unity
     guid: d6e4afa67508e5345b6006a4f0db9567
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LevelTwo.unity
     guid: ffcf1377feac2e24d959b72e65bad69f
   - enabled: 1
     path: Assets/Scenes/KitchenLevel.unity
     guid: 1278e19cae35b0146848a82f8b60b385
+  - enabled: 1
+    path: Assets/Scenes/Screensaver.unity
+    guid: 3da136f7c1c0405478c6b784e391b151
   m_configObjects: {}
