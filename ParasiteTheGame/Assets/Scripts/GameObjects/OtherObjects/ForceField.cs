@@ -9,6 +9,10 @@ public class ForceField : MonoBehaviour, IDamagable
     private bool isDamaged = false;
     private float resetTime = 0.7f;
 
+    [SerializeField] private AudioSource forceField;
+    [SerializeField] private AudioSource doorDog;
+    
+
     public bool IsDamaged { get { return isDamaged; } }
 
     private void Start()
@@ -18,12 +22,13 @@ public class ForceField : MonoBehaviour, IDamagable
 
     public bool TryTakeDamage(DamageInfo dmgInf)
     {
+        forceField.Play();
         if (!isDamaged)
         {
             isDamaged = true;
             StartCoroutine(AppearDamaged());
         }
-        
+        doorDog.Play();
         return true;
     }
 

@@ -6,6 +6,9 @@ public class PanWithPancake : AWeapon
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     [SerializeField] protected PancakeProjectile pancakeProjectile;
+
+    [SerializeField] private AudioSource throwPanCake;
+    [SerializeField] private AudioSource cracking;
     
     protected override void Start()
     {
@@ -24,7 +27,9 @@ public class PanWithPancake : AWeapon
 
     protected override void Fire(InputInfo inpInf)
     {
+        throwPanCake.Play();
         animator.SetTrigger("isAttack");
+        cracking.Play();
         Vector3 currentDirection = inpInf.GetMouseDir();
         var pancake = Instantiate(pancakeProjectile, transform.position + (currentDirection * 0.6f),
             transform.rotation);
