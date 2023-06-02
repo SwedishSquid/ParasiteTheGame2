@@ -17,8 +17,8 @@ public class LackeySmall : AEnemyPlus
     {
         base.Start();
         radius = 2;
-        health = 30;
-        maxHealth = 30;
+        Health = 30;
+        MaxHealth = 30;
         terminalHealth = 15;
     }*/
 
@@ -62,7 +62,7 @@ public class LackeySmall : AEnemyPlus
         {
             if (!Dead)
             {
-                healthBar.SetValue(health);
+                healthBar.SetValue(Health);
                 //animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
                 animator.SetTrigger("damage");

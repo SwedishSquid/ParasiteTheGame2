@@ -16,6 +16,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         id = System.Guid.NewGuid().ToString();
     }
 
+    
+    protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
     
@@ -27,10 +29,10 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     public bool IsCaptured;
     public PlayerController Capturer;
 
-    protected int maxHealth = 30;
+    public int MaxHealth { get; set; } = 30;
     protected int terminalHealth = 30 / 2;
-    protected int health = 30;
-    public virtual bool AlmostPassedOut => !PassedOut && (health - terminalHealth) < maxHealth / 5;
+    public int Health { get; set; } = 30;
+    public virtual bool AlmostPassedOut => !PassedOut && (Health - terminalHealth) < MaxHealth / 5;
 
     protected DamageSource damageSource = DamageSource.Enemy;
 
@@ -45,6 +47,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected float ThrowMomentDuration = 0.05f;
 
     [SerializeField]protected BaseAttack baseAttack;
+    
+    private Color hurtColor = new (1, 0.6f, 0.6f, 1);
+    [SerializeField] private AudioSource hurt;
 
     protected AIntelligence intelligence;
 
@@ -53,8 +58,8 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             return !Dead;
         } }
 
-    public virtual bool PassedOut => health < terminalHealth;
-    public virtual bool Dead => health <= 0;
+    public virtual bool PassedOut => Health < terminalHealth;
+    public virtual bool Dead => Health <= 0;
 
     public Vector2 Position => transform.position;
 
@@ -73,6 +78,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         intelligence = GetComponent<AIntelligence>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //GetGUID(); //to check if has any
     }
 
@@ -224,10 +230,12 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             {
                 return true;
             }
-            health -= dmgInf.Amount;
+            Health -= dmgInf.Amount;
+            hurt.Play();
             GetDamageEffect(dmgInf);
+            StartCoroutine(RedSprite());
             
-            Debug.Log($"Creature hurt : health = {health}");
+            Debug.Log($"Creature hurt : health = {Health}");
 
             TryPassOut();
             TryDie();
@@ -241,6 +249,13 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         freezeTime = dmgInf.FreezeTime;
         immunityTime = maxImmunityTime;
         myRigidbody.velocity += dmgInf.Direction * (freezeVelocity * dmgInf.DamageVelocityMultiplier);
+    }
+
+    protected IEnumerator RedSprite()
+    {
+        spriteRenderer.color = hurtColor;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = Color.white;
     }
 
     public virtual void ActOnPickOrDrop()
@@ -325,7 +340,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         enemyData.EnemyPosition = transform.position;
         enemyData.CanBeCaptured = CanBeCaptured;
         enemyData.PickedItemGUID = itemGUID;
-        enemyData.Health = health;
+        enemyData.Health = Health;
 
         enemyData.TypeName = this.GetType().Name;//typeName;
     }
@@ -338,7 +353,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
             transform.position = enemyData.EnemyPosition;
             //CanBeCaptured = enemyData.CanBeCaptured;
             itemGUID = enemyData.PickedItemGUID;
-            health = enemyData.Health;
+            Health = enemyData.Health;
 
             Debug.Log("load something to enemy");
 
@@ -409,6 +424,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
     
 
-    public int GetHealth() => health;
-    public int GetMaxHealth() => maxHealth;
+    public int GetHealth() => Health;
+    public int GetMaxHealth() => MaxHealth;
 }

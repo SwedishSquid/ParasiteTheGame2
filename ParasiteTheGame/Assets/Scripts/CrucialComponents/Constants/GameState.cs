@@ -4,5 +4,6 @@ using UnityEngine;
 
 enum GameState
 {
-    MainGameMode
+    MainGameMode,
+    PlayerDeathMode
 }

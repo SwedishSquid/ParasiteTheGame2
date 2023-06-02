@@ -12,6 +12,8 @@ public class Gardener : AEnemyPlus
     private float superAnimation;
     private bool isSuper = false;
     [SerializeField] GardenerSuperAttack superAttack;
+    [SerializeField] private AudioSource playing;
+    [SerializeField] private AudioSource rat;
 
     protected override void Awake()
     {
@@ -28,6 +30,12 @@ public class Gardener : AEnemyPlus
         {
             return PassedOut && !Dead;
         }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        isBoss = true;
     }
 
     public override void ControlledUpdate(InputInfo inpInf)
@@ -77,10 +85,15 @@ public class Gardener : AEnemyPlus
             && inpInf.SuperAttackPressed
             && attackCooldown <= 0)
         {
+            playing.Play();
             isSuper = true;
             attackCooldown = maxAttackCooldown;
             superAnimation = maxSuperAnimation;
+
             superAttack.Attack(damageSource, this, inpInf);
+            //superAttack.Attack(damageSource, this);
+            rat.Play();
+
             animator.SetBool("isSuper", isSuper);
         }
     }
@@ -98,7 +111,7 @@ public class Gardener : AEnemyPlus
     {
         base.OnRelease(player);
         //
-        if (health <= 0)
+        if (Health <= 0)
         {
             animator.SetBool("isUncontious", true);
         }
@@ -115,13 +128,14 @@ public class Gardener : AEnemyPlus
         var result = base.TryTakeDamage(dmgInf);
         if (result)
         {
-            if (health <= 0)
+            if (Health <= 0)
             {
                 animator.SetBool("isUncontious", true);
             }
             else
             {
-                healthBar.SetValue(health);
+                if (BossfightController.Instance.BossfightState == BossfightState.Finished)
+                    healthBar.SetValue(Health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
             }

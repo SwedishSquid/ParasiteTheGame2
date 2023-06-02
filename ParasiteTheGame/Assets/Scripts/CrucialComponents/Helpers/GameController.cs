@@ -2,29 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, IBossfightListener
 {
     private GameState gameState;
     [SerializeField] PlayerController playerController;
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private DeathMenu deathMenu;
     private InputHandler inputHandler;
     private InputInfo currentInputInfo;
+
+    private Listener listener;
+    [SerializeField] private AudioSource simpleMusic;
+    [SerializeField] private AudioSource battleMusic;
 
     void Start()
     {
         gameState = GameState.MainGameMode;
         inputHandler = new InputHandler();
+        listener = new Listener(simpleMusic);
     }
 
     void Update()
     {
         currentInputInfo = inputHandler.GetInputInfo();
 
+        if (gameState == GameState.PlayerDeathMode)
+            return;
+        
         UpdateGameState();
 
         if (gameState == GameState.MainGameMode && playerController != null)
         {
             playerController.HandleUpdate(currentInputInfo);
+        }
+
+        if (playerController.Dead)
+        {
+            gameState = GameState.PlayerDeathMode;
+            deathMenu.StartDeathMenu();
         }
 
         if (!PauseController.gameIsPaused && playerController != null)
@@ -83,4 +98,18 @@ public class GameController : MonoBehaviour
     {
         gameState = GameState.MainGameMode;
     }
+
+    public void OnBossfightStart()
+    {
+        listener.ChangeAudioSource(battleMusic);
+    }
+
+    public void OnLoadDuringBossfight() { }
+
+    public void OnBossfightEnd()
+    {
+        listener.ChangeAudioSource(simpleMusic);
+    }
+
+    public void OnLoadAfterBossfight() { }
 }

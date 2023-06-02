@@ -84,6 +84,8 @@ public class BossfightController: MonoBehaviour, ISavable
         NotifyListenersAfterLoad();
     }
 
+    public AEnemy GetBoss() => boss;
+
     public void DestroyIt()
     {
         //nope

@@ -40,7 +40,7 @@ public class MiniPovarVertical : AEnemyPlus
     {
         base.OnRelease(player);
         //
-        if (health <= 0)
+        if (Health <= 0)
         {
             animator.SetBool("isUncontious", true);
         }
@@ -57,7 +57,7 @@ public class MiniPovarVertical : AEnemyPlus
         var result = base.TryTakeDamage(dmgInf);
         if (result)
         {
-            if (health <= 0)
+            if (Health <= 0)
             {
                 animator.SetBool("isUncontious", true);
                 GetComponent<MiniPovarVerticalAI>().enabled = false;
@@ -68,7 +68,7 @@ public class MiniPovarVertical : AEnemyPlus
             }
             else
             {
-                healthBar.SetValue(health);
+                healthBar.SetValue(Health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);
             }
