@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3261537652485113845}
   - component: {fileID: 101504236535182291}
   - component: {fileID: 4264589113456489932}
+  - component: {fileID: 1391685972843267693}
   m_Layer: 8
   m_Name: Kitchener
   m_TagString: Untagged
@@ -194,6 +195,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f90fd4e58576ec41a472bb6ec23c25c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1391685972843267693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3261537652485113846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f747be0b0a9f3146bd9f1e438bce8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &3744163124691826772

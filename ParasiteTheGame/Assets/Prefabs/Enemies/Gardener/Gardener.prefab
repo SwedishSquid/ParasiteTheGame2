@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2831228310059675753}
   - component: {fileID: 2831228310059675752}
   - component: {fileID: 2055091456899686924}
+  - component: {fileID: 1822612489315109066}
   m_Layer: 8
   m_Name: Gardener
   m_TagString: Untagged
@@ -197,6 +198,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RayAmount: 16
+--- !u!114 &1822612489315109066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2831228310059675755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f747be0b0a9f3146bd9f1e438bce8ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1102515625552362709
 PrefabInstance:
   m_ObjectHideFlags: 0
