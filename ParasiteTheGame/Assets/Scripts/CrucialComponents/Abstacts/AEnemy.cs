@@ -17,7 +17,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     }
 
     
-    private Color hurtColor = new Color(1, 0.6f, 0.6f, 1);
     protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D myRigidbody;
     protected float velocity = 10;
@@ -48,6 +47,9 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     protected float ThrowMomentDuration = 0.05f;
 
     [SerializeField]protected BaseAttack baseAttack;
+    
+    private Color hurtColor = new (1, 0.6f, 0.6f, 1);
+    [SerializeField] private AudioSource hurt;
 
     public virtual bool CanBeCaptured { get
         {
@@ -225,6 +227,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
                 return true;
             }
             Health -= dmgInf.Amount;
+            hurt.Play();
             GetDamageEffect(dmgInf);
             StartCoroutine(RedSprite());
             

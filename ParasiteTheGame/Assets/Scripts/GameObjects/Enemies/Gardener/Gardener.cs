@@ -12,6 +12,8 @@ public class Gardener : AEnemyPlus
     private float superAnimation;
     private bool isSuper = false;
     [SerializeField] GardenerSuperAttack superAttack;
+    [SerializeField] private AudioSource playing;
+    [SerializeField] private AudioSource rat;
 
     public override bool CanBeCaptured
     {
@@ -74,10 +76,12 @@ public class Gardener : AEnemyPlus
             && inpInf.SuperAttackPressed
             && attackCooldown <= 0)
         {
+            playing.Play();
             isSuper = true;
             attackCooldown = maxAttackCooldown;
             superAnimation = maxSuperAnimation;
             superAttack.Attack(damageSource, this);
+            rat.Play();
             animator.SetBool("isSuper", isSuper);
         }
     }

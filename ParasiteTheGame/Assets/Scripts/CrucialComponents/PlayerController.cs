@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text.RegularExpressions;
 //using UnityEditor.UIElements;
 using UnityEngine;
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     private int health;
     
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource hurt;
+    private Color hurtColor = new (1, 0.6f, 0.6f, 1);
 
     private float jumpVelocity = 20;
     private bool isActJump;
@@ -238,12 +241,21 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     {
         if (controlled is null && dmgInf.Source != DamageSource.Player)
         {
+            hurt.Play();
+            StartCoroutine(RedSprite());
             health -= dmgInf.Amount;
             Debug.Log($"Player hurt : health = {health}");
             TryDie();
             return true;
         }
         return false;
+    }
+    
+    protected IEnumerator RedSprite()
+    {
+        thisSpriteRenderer.color = hurtColor;
+        yield return new WaitForSeconds(0.2f);
+        thisSpriteRenderer.color = Color.white;
     }
 
     public void SaveGame(GameData gameData)
