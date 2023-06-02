@@ -393,7 +393,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
 
         item = gameData.Items[itemGUID].thisItem;
 
-        item.OnPickUp(this);
+        item?.OnPickUp(this);
     }
 
     public void SetGUID(string GUID)

@@ -19,9 +19,10 @@ public class Gardener : AEnemyPlus
     {
         base.Awake();
         radius = 1.5f;
-        health = 100;
-        maxHealth = 100;
+        Health = 100;
+        MaxHealth = 100;
         terminalHealth = 35;
+        isBoss = true;
     }
 
     public override bool CanBeCaptured
@@ -30,12 +31,6 @@ public class Gardener : AEnemyPlus
         {
             return PassedOut && !Dead;
         }
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-        isBoss = true;
     }
 
     public override void ControlledUpdate(InputInfo inpInf)

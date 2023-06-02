@@ -17,8 +17,8 @@ public class Kitchener : AEnemyPlus
     {
         base.Awake();
         radius = 1.5f;
-        health = 100;
-        maxHealth = 100;
+        Health = 100;
+        MaxHealth = 100;
         terminalHealth = 35;
     }
 

@@ -8,8 +8,8 @@ public class LackeySmall : AEnemyPlus
     {
         base.Awake();
         radius = 2;
-        health = 30;
-        maxHealth = 30;
+        Health = 30;
+        MaxHealth = 30;
         terminalHealth = 15;
     }
 
