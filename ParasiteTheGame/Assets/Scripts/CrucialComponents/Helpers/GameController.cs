@@ -12,15 +12,14 @@ public class GameController : MonoBehaviour, IBossfightListener
     private InputInfo currentInputInfo;
 
     private Listener listener;
-    [SerializeField] private AudioClip simpleMusic;
-    [SerializeField] private AudioClip battleMusic;
+    [SerializeField] private AudioSource simpleMusic;
+    [SerializeField] private AudioSource battleMusic;
 
     void Start()
     {
         gameState = GameState.MainGameMode;
         inputHandler = new InputHandler();
-        listener = new Listener(GetComponent<AudioSource>());
-        listener.PutOnClip(simpleMusic);
+        listener = new Listener(simpleMusic);
     }
 
     void Update()
@@ -103,14 +102,14 @@ public class GameController : MonoBehaviour, IBossfightListener
 
     public void OnBossfightStart()
     {
-        listener.PutOnClip(battleMusic);
+        listener.ChangeAudioSource(battleMusic);
     }
 
     public void OnLoadDuringBossfight() { }
 
     public void OnBossfightEnd()
     {
-        listener.PutOnClip(simpleMusic);
+        listener.ChangeAudioSource(simpleMusic);
     }
 
     public void OnLoadAfterBossfight() { }

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d535503d587af5f46abdc1761a71e0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: aed8e477-aacf-4c6b-ba32-1c87a4a31213
+  id: 45b6add1-2f08-421c-9d34-a3526e878a36
   throwHandlerPrefab: {fileID: 9171043533338633449, guid: 960248d852c2ba64d895763eb165540d, type: 3}
   audioSource: {fileID: 5686966022529086841}
   appleProjPrefab: {fileID: 8766272769348754197, guid: 04b87fe8d3558ee409b409ff5a3a4de5, type: 3}
@@ -176,7 +176,7 @@ AudioSource:
   Priority: 100
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -263,7 +263,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -3815389255647783585, guid: 951e5f5b495a9c5419880ff4a0c6dfe7, type: 2}
   m_audioClip: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -272,7 +272,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

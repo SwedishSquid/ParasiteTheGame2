@@ -8,11 +8,13 @@ public class Listener
     public Listener(AudioSource source)
     {
         audioSource = source;
+        audioSource.Play();
     }
 
-    public void PutOnClip(AudioClip clip)
+    public void ChangeAudioSource(AudioSource source)
     {
-        audioSource.clip = clip;
+        audioSource.Pause();
+        audioSource = source;
         audioSource.Play();
     }
 }
