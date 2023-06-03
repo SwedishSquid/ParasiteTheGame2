@@ -75,7 +75,6 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
     {
         var desiredRotation = inpInf.GetMouseDir();
         var angle = Mathf.Atan2(desiredRotation.y, desiredRotation.x) * (180 / Mathf.PI);
-        Debug.Log($"user = {user}");
         transform.position = user.GetUserPosition() + (desiredRotation * user.GetUserRadius());
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }

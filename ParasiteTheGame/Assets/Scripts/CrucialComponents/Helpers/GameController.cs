@@ -24,6 +24,17 @@ public class GameController : MonoBehaviour, IBossfightListener
 
     void Update()
     {
+        if (Input.GetButtonDown("Pause"))
+        {
+            PauseController.Pause();
+            pauseMenu.PressedPause();
+        }
+
+        if (playerController == null)
+        {
+            return;
+        }
+
         currentInputInfo = inputHandler.GetInputInfo();
 
         if (gameState == GameState.PlayerDeathMode)
@@ -45,12 +56,6 @@ public class GameController : MonoBehaviour, IBossfightListener
         if (!PauseController.gameIsPaused && playerController != null)
         {
             AttemptToInteract();
-        }
-
-        if (Input.GetButtonDown("Pause"))
-        {
-            PauseController.Pause();
-            pauseMenu.PressedPause();
         }
     }
 
@@ -104,12 +109,18 @@ public class GameController : MonoBehaviour, IBossfightListener
         listener.ChangeAudioSource(battleMusic);
     }
 
-    public void OnLoadDuringBossfight() { }
+    public void OnLoadDuringBossfight()
+    {
+        listener.ChangeAudioSource(battleMusic);
+    }
 
     public void OnBossfightEnd()
     {
         listener.ChangeAudioSource(simpleMusic);
     }
 
-    public void OnLoadAfterBossfight() { }
+    public void OnLoadAfterBossfight()
+    {
+        //listener.ChangeAudioSource(simpleMusic);
+    }
 }

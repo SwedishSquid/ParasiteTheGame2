@@ -22,7 +22,10 @@ public class PauseMenu: MonoBehaviour
 
     public void PressedSaveGame()
     {
-        DataPersistenceManager.Instance.SaveGame();
+        if (DataPersistenceManager.Instance != null)
+        {
+            DataPersistenceManager.Instance.SaveGame();
+        }
     }
 
     public void PressedMainMenu()
@@ -30,7 +33,7 @@ public class PauseMenu: MonoBehaviour
         DisableAllButtons();
         pauseCanvas.gameObject.SetActive(false);
         PauseController.Pause();
-        DataPersistenceManager.Instance.SaveGame();
+        PressedSaveGame();
         SceneManager.LoadSceneAsync("MainMenu");
     }
 

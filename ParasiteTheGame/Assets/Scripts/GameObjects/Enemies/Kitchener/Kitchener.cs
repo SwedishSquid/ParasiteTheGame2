@@ -111,11 +111,7 @@ public class Kitchener : AEnemyPlus
         var result = base.TryTakeDamage(dmgInf);
         if (result)
         {
-            if (Health <= 0)
-            {
-                animator.SetBool("isUncontious", true);
-            }
-            else
+            if (!Dead)
             {
                 healthBar.SetValue(Health);
                 animator.SetBool("isUncontious", false);

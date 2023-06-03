@@ -75,4 +75,14 @@ public class MiniPovarVertical : AEnemyPlus
         }
         return result;
     }
+
+    public override void SaveGame(GameData gameData)
+    {
+        //nope
+    }
+
+    public override void LoadData(GameData gameData)
+    {
+        //nope
+    }
 }

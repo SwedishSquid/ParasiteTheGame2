@@ -11,8 +11,9 @@ public class MiniPovarVerticalAI : MonoBehaviour
     private readonly InputInfo moveUp = new InputInfo(new Vector2(0, 1), new Vector3(-1, 0, 0), false, false, false, false);
     private readonly InputInfo moveLeft = new InputInfo(new Vector2(0, -1), new Vector3(1, 0, 0), false, false, false, false);
 
-    private AIMode mode = AIMode.Waiting;
-    private float modeTimeLeft = 1;
+    private AIMode mode = AIMode.AimApproaching;
+    private float modeTimeLeft = 0.3f;
+    private float movingTime = 0.8f;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,7 @@ public class MiniPovarVerticalAI : MonoBehaviour
         {
             if (modeTimeLeft <= 0)
             {
-                modeTimeLeft = 1f;
+                modeTimeLeft = movingTime;
                 mode = AIMode.AimApproaching;
                 if (isMovingUp)
                 {
