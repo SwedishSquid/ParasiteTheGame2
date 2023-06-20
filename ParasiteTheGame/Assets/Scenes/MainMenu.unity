@@ -1809,7 +1809,7 @@ MonoBehaviour:
       - m_Target: {fileID: 683671671}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: EffectsVolume
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1853,7 +1853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 20}
+  m_AnchoredPosition: {x: -0.000034332, y: 14.873001}
   m_SizeDelta: {x: 216.5, y: 29.746002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1109162252
@@ -1889,7 +1889,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Effects Volume
+  m_Text: Effects
 --- !u!222 &1109162253
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2630,8 +2630,8 @@ MonoBehaviour:
   continueButton: {fileID: 1368185406}
   settingsBackButton: {fileID: 1621644564}
   fullScreenToggle: {fileID: 905482753}
-  musicSlider: {fileID: 0}
-  effectSlider: {fileID: 0}
+  musicSlider: {fileID: 1770127745}
+  effectSlider: {fileID: 1070286353}
 --- !u!1 &1511509024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2747,7 +2747,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 351, y: -310}
+  m_AnchoredPosition: {x: 350, y: -347}
   m_SizeDelta: {x: 340, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1621644563
@@ -3124,7 +3124,7 @@ MonoBehaviour:
       - m_Target: {fileID: 683671671}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: MusicVolume
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3525,7 +3525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 20}
+  m_AnchoredPosition: {x: 0, y: 14.873}
   m_SizeDelta: {x: 216.5, y: 29.746002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1844719215
@@ -3561,7 +3561,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Music Volume
+  m_Text: Music
 --- !u!222 &1844719216
 CanvasRenderer:
   m_ObjectHideFlags: 0
