@@ -27,7 +27,7 @@ public class AppleBusket : AWeapon
 
     protected override void Fire(InputInfo inpInf)
     {
-        audioSource.Play();
+        PlaySound(AudioClips[0]);
         Vector3 currentDirection = inpInf.GetMouseDir();
         var apple = Instantiate(appleProjPrefab, transform.position + (currentDirection * 0.6f), transform.rotation);
         apple.SetParameters(

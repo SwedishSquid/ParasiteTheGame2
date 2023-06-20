@@ -14,7 +14,7 @@ public class FrozenFish : AMeleeWeapon
     
     protected override void Fire(InputInfo inpInf)
     {
-        audioSource.Play();
+        PlaySound(AudioClips[0]);
         animator.SetTrigger("isAttack");
         foreach (var obj in GetObjectsAround())
         {

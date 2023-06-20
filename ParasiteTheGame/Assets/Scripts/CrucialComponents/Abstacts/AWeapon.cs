@@ -4,7 +4,7 @@ using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
 
-public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
+public abstract class AWeapon : ASoundable, IUsable, ISavable
 {
     [SerializeField] protected string id;
 
@@ -27,7 +27,6 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
     [SerializeField] protected ThrowHandler throwHandlerPrefab;
 
     protected ThrowComponent throwComponent;
-    [SerializeField] protected AudioSource audioSource;
 
     protected DamageSource _lastDamageSource;
     protected DamageSource damageSource { 
@@ -45,6 +44,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
     {
         throwComponent = GetComponent<ThrowComponent>();
         throwComponent.enabled = false; //just in case weapon creator forgets
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void Start()
@@ -119,6 +119,7 @@ public abstract class AWeapon : MonoBehaviour, IUsable, ISavable
         _ = damageSource; //update damageInfo in case it wasn't updated before
         var userVelocity = user.GetUserVelocity();
         OnDropDown(user);
+        PlaySound(AudioClips[1]);
         throwComponent.StartThrow(inpInf.GetMouseDir(), userVelocity * 0.2f);
     }
 

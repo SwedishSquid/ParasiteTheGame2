@@ -10,10 +10,8 @@ public class Gardener : AEnemyPlus
     private float attackCooldown;
     private float maxSuperAnimation = 1.28f; 
     private float superAnimation;
-    private bool isSuper = false;
+    private bool isSuper;
     [SerializeField] GardenerSuperAttack superAttack;
-    [SerializeField] private AudioSource playing;
-    [SerializeField] private AudioSource rat;
 
     protected override void Awake()
     {
@@ -80,14 +78,14 @@ public class Gardener : AEnemyPlus
             && inpInf.SuperAttackPressed
             && attackCooldown <= 0)
         {
-            playing.Play();
+            PlaySound(AudioClips[2]);
             isSuper = true;
             attackCooldown = maxAttackCooldown;
             superAnimation = maxSuperAnimation;
 
             superAttack.Attack(damageSource, this, inpInf);
             //superAttack.Attack(damageSource, this);
-            rat.Play();
+            PlaySound(AudioClips[1]);
 
             animator.SetBool("isSuper", isSuper);
         }

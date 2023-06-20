@@ -127,11 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db419c0831241254d8de7e2d8e710497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  AudioClips:
+  - {fileID: 8300000, guid: 7625350b97ae143478245daa477ecf32, type: 3}
+  id: 6e47ea74-63ff-4acd-aeea-f9f9b403e53a
   IsCaptured: 0
   Capturer: {fileID: 0}
   baseAttack: {fileID: 1400302789614459356}
-  hurt: {fileID: 5361942563954184235}
   healthBar: {fileID: 8970134376914039735}
   cloudObject: {fileID: 6826461278705841047}
   grave: {fileID: 1012266325, guid: 727b47d19592d8b44b08957cfc0b81cf, type: 3}
@@ -194,7 +195,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3815389255647783585, guid: 951e5f5b495a9c5419880ff4a0c6dfe7, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 7625350b97ae143478245daa477ecf32, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1

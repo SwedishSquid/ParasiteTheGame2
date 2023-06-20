@@ -6,7 +6,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 //using UnityEditor.Sprites;
 using UnityEngine;
 
-public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, ISavable, IEnemyInfoPlate, IKillable
+public abstract class AEnemy : ASoundable, IControlable, IDamagable, IUser, ISavable, IEnemyInfoPlate, IKillable
 {
     [SerializeField] protected string id;
 
@@ -49,7 +49,6 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
     [SerializeField]protected BaseAttack baseAttack;
     
     private Color hurtColor = new (1, 0.6f, 0.6f, 1);
-    [SerializeField] private AudioSource hurt;
 
     protected AIntelligence intelligence;
 
@@ -79,6 +78,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
         myRigidbody = GetComponent<Rigidbody2D>();
         intelligence = GetComponent<AIntelligence>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         //GetGUID(); //to check if has any
     }
 
@@ -231,7 +231,7 @@ public abstract class AEnemy : MonoBehaviour, IControlable, IDamagable, IUser, I
                 return true;
             }
             Health -= dmgInf.Amount;
-            hurt.Play();
+            PlaySound(AudioClips[0]);
             GetDamageEffect(dmgInf);
             StartCoroutine(RedSprite());
             

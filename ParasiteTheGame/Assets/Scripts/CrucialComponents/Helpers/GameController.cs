@@ -14,12 +14,13 @@ public class GameController : MonoBehaviour, IBossfightListener
     private Listener listener;
     [SerializeField] private AudioSource simpleMusic;
     [SerializeField] private AudioSource battleMusic;
+    [SerializeField] private AudioSource envirMusic;
 
     void Start()
     {
         gameState = GameState.MainGameMode;
         inputHandler = new InputHandler();
-        listener = new Listener(simpleMusic);
+        listener = new Listener(simpleMusic, envirMusic);
     }
 
     void Update()

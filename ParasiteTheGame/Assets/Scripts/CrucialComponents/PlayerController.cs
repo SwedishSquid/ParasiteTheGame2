@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 //using static UnityEditor.Progress;
 
-public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfoPlate, IKillable
+public class PlayerController : ASoundable, IDamagable, ISavable, IPlayerInfoPlate, IKillable
 {
     private Rigidbody2D thisRigidbody2d;
     private SpriteRenderer thisSpriteRenderer;
@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     private int health;
     
     [SerializeField] private Animator animator;
-    [SerializeField] private AudioSource hurt;
     private Color hurtColor = new (1, 0.6f, 0.6f, 1);
 
     private float jumpVelocity = 20;
@@ -60,6 +59,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     {
         thisRigidbody2d = GetComponent<Rigidbody2D>();
         thisSpriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         health = maxHealth;
         infoPlate.AwakeData(this);
     }
@@ -127,7 +127,8 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
         {
             return false;
         }
-
+        
+        infoPlate.UpdateData(this);
         ApplyDeathEffects();
 
         gameObject.GetComponent<Collider2D>().enabled = false;
@@ -199,6 +200,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
             LayerConstants.ControllablesLayer);
         if (t)
         {
+            PlaySound(AudioClips[1]);
             controlled = t.collider.gameObject.GetComponent<IControlable>();
             if (!controlled.CanBeCaptured)
             {
@@ -241,7 +243,7 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     {
         if (controlled is null && dmgInf.Source != DamageSource.Player)
         {
-            hurt.Play();
+            PlaySound(AudioClips[0]);
             StartCoroutine(RedSprite());
             health -= dmgInf.Amount;
             Debug.Log($"Player hurt : health = {health}");

@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour
     public void SetValue(int value)
     {
         gameObject.SetActive(true);
-        slider.value = value;
+        slider.value = value > 0 ? value : 0;
         fill.color = gradient.Evaluate(slider.normalizedValue);
         lastHealthUpdate = Time.time;
     }

@@ -3,32 +3,30 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ForceField : MonoBehaviour, IDamagable
+public class ForceField : ASoundable, IDamagable
 {
     private Animator animator;
     private bool isDamaged = false;
     private float resetTime = 0.7f;
 
-    [SerializeField] private AudioSource forceField;
-    [SerializeField] private AudioSource doorDog;
-    
 
     public bool IsDamaged { get { return isDamaged; } }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public bool TryTakeDamage(DamageInfo dmgInf)
     {
-        forceField.Play();
+        PlaySound(AudioClips[0]);
         if (!isDamaged)
         {
             isDamaged = true;
             StartCoroutine(AppearDamaged());
         }
-        doorDog.Play();
+        PlaySound(AudioClips[1]);
         return true;
     }
 
