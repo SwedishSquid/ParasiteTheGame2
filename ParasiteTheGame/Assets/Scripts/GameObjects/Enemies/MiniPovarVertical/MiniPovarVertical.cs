@@ -54,26 +54,7 @@ public class MiniPovarVertical : AEnemyPlus
 
     public override bool TryTakeDamage(DamageInfo dmgInf)
     {
-        var result = base.TryTakeDamage(dmgInf);
-        if (result)
-        {
-            if (Health <= 0)
-            {
-                animator.SetBool("isUncontious", true);
-                GetComponent<MiniPovarVerticalAI>().enabled = false;
-                if (item != null)
-                {
-                    DropDown();
-                }
-            }
-            else
-            {
-                healthBar.SetValue(Health);
-                animator.SetBool("isUncontious", false);
-                animator.SetBool("isMoving", false);
-            }
-        }
-        return result;
+        return dmgInf.Type == DamageType.Distant;
     }
 
     public override void SaveGame(GameData gameData)

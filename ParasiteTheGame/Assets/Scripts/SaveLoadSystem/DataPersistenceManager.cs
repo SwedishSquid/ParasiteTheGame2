@@ -80,12 +80,10 @@ public class DataPersistenceManager : MonoBehaviour
         foreach (var gameObject in dataPersistenceObjects)
         {
             gameObject.LoadData(GameData);
-            Debug.Log($"loading object {gameObject}");
         }
 
         foreach (var gameObject in dataPersistenceObjects)
         {
-            Debug.Log($"updating object {gameObject}");
             gameObject.AfterAllObjectsLoaded(GameData);
         }
 
