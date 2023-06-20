@@ -23,7 +23,7 @@ public class MeleeWeapon : AWeapon
     {
         if (BossfightController.Instance.BossfightState != BossfightState.NotStarted
             || DataPersistenceManager.Instance.GameData.CurrentLevelName != "LevelOne")
-            audioSource.Play();
+            PlaySound(AudioClips[0]);
         anim.SetBool(hitName, true);
         animTime = 0.16f;
         var enemies = Physics2D.OverlapCircleAll(transform.position, attackRadius,

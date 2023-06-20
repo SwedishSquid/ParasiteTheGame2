@@ -15,8 +15,6 @@ public class ThrowComponent : MonoBehaviour
     protected float timeLeft = 2f; //seconds
     protected Rigidbody2D rigidbody2d;
 
-    [SerializeField] private AudioSource audioSource;
-
     protected virtual void FixedUpdate()
     {
         rigidbody2d.velocity *= GetSlowdownFactor(timeLeft);
@@ -43,8 +41,6 @@ public class ThrowComponent : MonoBehaviour
     public virtual void StartThrow(Vector2 direction, Vector2 additionalVelocity = new Vector2(), float lifetime = 1,
         float speed = 18f, bool rotateRandomly = true, float rotationSpeed = 340)
     {
-        if (audioSource is not null)
-            audioSource.Play();
         timeLeft = lifetime;
         initialSpeed= speed * direction.magnitude;
         InitiateSpeedQueue(speed);

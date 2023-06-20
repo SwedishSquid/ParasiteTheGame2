@@ -56,7 +56,10 @@ public class PlayerInfoPlate : MonoBehaviour, IBossfightListener
         bossHealthBar.gameObject.SetActive(true);
     }
 
-    public void OnLoadDuringBossfight() {}
+    public void OnLoadDuringBossfight()
+    {
+        OnBossfightStart();
+    }
 
     public void OnBossfightEnd()
     {

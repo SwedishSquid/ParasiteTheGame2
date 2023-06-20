@@ -11,7 +11,8 @@ public class MenuScript: MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button settingsBackButton;
     [SerializeField] private Toggle fullScreenToggle;
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider effectSlider;
     public static bool IsGameStart;
 
     private void Start()
@@ -57,7 +58,8 @@ public class MenuScript: MonoBehaviour
     private void LoadSettings()
     {
         fullScreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
-        volumeSlider.value = PlayerPrefs.GetFloat("settingsVolume", 0.5f);
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.5f);
+        effectSlider.value = PlayerPrefs.GetFloat("effectsVolume", 0.5f);
     }
 
     public void UpdateContinueButton()

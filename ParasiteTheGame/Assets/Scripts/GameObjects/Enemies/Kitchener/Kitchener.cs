@@ -10,7 +10,7 @@ public class Kitchener : AEnemyPlus
     private float attackCooldown;
     private float maxSuperAnimation = 1.28f; 
     private float superAnimation;
-    private bool isSuper = false;
+    private bool isSuper;
     [SerializeField] KitchenerSuperAttack superAttack;
 
     protected override void Awake()
@@ -78,6 +78,7 @@ public class Kitchener : AEnemyPlus
             && Input.GetButtonDown("SuperAttack") 
             && attackCooldown <= 0)
         {
+            PlaySound(AudioClips[1]);
             isSuper = true;
             attackCooldown = maxAttackCooldown;
             superAnimation = maxSuperAnimation;

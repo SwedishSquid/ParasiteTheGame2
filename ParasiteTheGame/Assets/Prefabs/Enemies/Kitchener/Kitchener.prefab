@@ -145,11 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6492e0b435b7b4cb034a6ce13d61ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  AudioClips:
+  - {fileID: 8300000, guid: 02b3a1736e65fd9408377fec07f62cb5, type: 3}
+  - {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+  id: b6d86625-f2ec-44a4-83d6-ca4957ca8c1c
   IsCaptured: 0
   Capturer: {fileID: 0}
   baseAttack: {fileID: 2683472497486942364}
-  hurt: {fileID: 2140364295388684944}
   healthBar: {fileID: 48692636392128504}
   cloudObject: {fileID: 3946345382665725135}
   grave: {fileID: 1012266325, guid: 727b47d19592d8b44b08957cfc0b81cf, type: 3}
@@ -222,7 +224,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3815389255647783585, guid: 951e5f5b495a9c5419880ff4a0c6dfe7, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 7625350b97ae143478245daa477ecf32, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
@@ -474,6 +476,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2947148961247490748, guid: 2ba8ba6976cfd174e88179c8186ccb2e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139812753748238249, guid: 2ba8ba6976cfd174e88179c8186ccb2e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139812753748238249, guid: 2ba8ba6976cfd174e88179c8186ccb2e, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

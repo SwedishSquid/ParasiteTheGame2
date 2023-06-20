@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetAnim : MonoBehaviour, IDamagable
+public class TargetAnim : ASoundable, IDamagable
 {
     private Animator animator;
-    private AudioSource audioSource;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -16,7 +15,7 @@ public class TargetAnim : MonoBehaviour, IDamagable
     public bool TryTakeDamage(DamageInfo dmgInf)
     {
         animator.SetTrigger("isSuccess");
-        audioSource.Play();
+        PlaySound(AudioClips[0]);
         return true;
     }
 }

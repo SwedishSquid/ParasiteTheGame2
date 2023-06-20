@@ -7,9 +7,6 @@ public class PanWithPancake : AWeapon
     private SpriteRenderer spriteRenderer;
     [SerializeField] protected PancakeProjectile pancakeProjectile;
 
-    [SerializeField] private AudioSource throwPanCake;
-    [SerializeField] private AudioSource cracking;
-    
     protected override void Start()
     {
         animator = GetComponent<Animator>();
@@ -28,9 +25,12 @@ public class PanWithPancake : AWeapon
 
     protected override void Fire(InputInfo inpInf)
     {
-        throwPanCake.Play();
+        if (BossfightController.Instance.BossfightState == BossfightState.NotStarted)
+            return;
+        
+        PlaySound(AudioClips[0]);
         animator.SetTrigger("isAttack");
-        cracking.Play();
+        PlaySound(AudioClips[2]);
         Vector3 currentDirection = inpInf.GetMouseDir();
         var pancake = Instantiate(pancakeProjectile, transform.position + (currentDirection * 0.6f),
             transform.rotation);

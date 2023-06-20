@@ -17,10 +17,17 @@ public class Settings : MonoBehaviour
         PlayerPrefs.SetInt("screenSize", isFullScreen ? 1 : 0);
     }
 
-    public void AudioVolume(float sliderValue)
+    public void MusicVolume(float sliderValue)
     {
-        SettingsAudioM.SetFloat("settingsVolume", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("settingsVolume", sliderValue);
+        Debug.Log($"is {sliderValue}");
+        SettingsAudioM.SetFloat("musicVolume", Mathf.Log10(sliderValue) * 20);
+        PlayerPrefs.SetFloat("musicVolume", sliderValue);
+    }
+
+    public void EffectsVolume(float sliderValue)
+    {
+        SettingsAudioM.SetFloat("effectsVolume", Mathf.Log10(sliderValue) * 20);
+        PlayerPrefs.SetFloat("effectsVolume", sliderValue);
     }
 
     public void BackPressed()

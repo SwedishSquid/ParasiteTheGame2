@@ -176,6 +176,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6267600422678164486, guid: 9a39e20d6d7bffa4a8718e9802255597, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6267600422678164486, guid: 9a39e20d6d7bffa4a8718e9802255597, type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9178092080308817705, guid: 9a39e20d6d7bffa4a8718e9802255597, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -224,6 +232,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
+    - target: {fileID: 9178092081148721389, guid: 9a39e20d6d7bffa4a8718e9802255597, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 465daf8d35c781b40a10e225b391249a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a39e20d6d7bffa4a8718e9802255597, type: 3}
 --- !u!1 &429128545
