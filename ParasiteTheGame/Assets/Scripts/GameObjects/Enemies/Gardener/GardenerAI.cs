@@ -34,6 +34,7 @@ public class GardenerAI : AIntelligence
     {
         body = GetComponent<AEnemy>();
         eye = GetComponent<AllSeeingEye>();
+        eye.Radius = 30;
         var direction = new Vector2(Random.value * 2 - 1, Random.value * 2 - 1).normalized;
         previousInput = new InputInfo(new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)), direction, false, !body.HaveItem, true, false);
     }
