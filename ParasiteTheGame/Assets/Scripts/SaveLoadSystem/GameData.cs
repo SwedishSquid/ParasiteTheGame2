@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class GameData
@@ -8,7 +9,7 @@ public class GameData
 
     public SerializableDictionary<string, ItemData> Items = new SerializableDictionary<string, ItemData>();
 
-    public string CurrentLevelName = "LevelOne";    //should be menu or something else - changed when level changes
+    public string CurrentLevelName = "level nope";
 
     public PlayerData PlayerInfo = new PlayerData();
 
@@ -76,4 +77,6 @@ public class GameData
             reciever.AddedGUIDs.Add(GUID);
         }
     }
+
+    public bool PlayerDead => PlayerInfo.Health <= 0;
 }

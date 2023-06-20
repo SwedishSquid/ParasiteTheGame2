@@ -62,7 +62,7 @@ public class MenuScript: MonoBehaviour
 
     public void UpdateContinueButton()
     {
-        continueButton.gameObject.SetActive(FileGameDataHandler.CheckLoadFileExists());
+        continueButton.gameObject.SetActive(FileGameDataHandler.CheckLoadFileExists() && !DataPersistenceManager.Instance.GameData.PlayerDead);
         EventSystem.current.SetSelectedGameObject(FileGameDataHandler.CheckLoadFileExists()
             ? continueButton.gameObject
             : newGameButton.gameObject);

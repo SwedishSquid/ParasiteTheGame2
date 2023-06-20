@@ -34,10 +34,10 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     private float maxJumpCooldown = 0.8f;
     private float jumpCooldown;
 
-    //ITSigma
+/*    //ITSigma
     private bool isPause;
     private Vector2 jumpPauseDirection;
-    //
+    //*/
 
     [SerializeField]private Canvas arrowJumpOn;
     private bool isChooseDirJump;

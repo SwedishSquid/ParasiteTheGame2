@@ -63,6 +63,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         GameData = new GameData();
+        GameData.CurrentLevelName = "Education";
     }
 
     public void LoadGame()
