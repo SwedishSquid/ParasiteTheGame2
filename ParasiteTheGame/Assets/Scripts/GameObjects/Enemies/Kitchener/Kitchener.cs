@@ -74,8 +74,7 @@ public class Kitchener : AEnemyPlus
         }
         //
         if (!PauseController.gameIsPaused
-            && damageSource == DamageSource.Player 
-            && Input.GetButtonDown("SuperAttack") 
+            && inpInf.SuperAttackPressed
             && attackCooldown <= 0)
         {
             PlaySound(AudioClips[1]);

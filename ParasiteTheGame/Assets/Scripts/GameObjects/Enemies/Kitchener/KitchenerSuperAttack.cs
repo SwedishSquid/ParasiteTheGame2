@@ -35,7 +35,7 @@ public class KitchenerSuperAttack : MonoBehaviour
             rotation = Quaternion.AngleAxis(rotate_dirs[i], Vector3.forward);
             proj = Instantiate(kitchenerSuperProjPrefab[UnityEngine.Random.Range(0, kitchenerSuperProjPrefab.Length)], 
                 kitchener.transform.position, rotation);
-            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1, directions[i]), directions[i], rotate_dirs[i]);
+            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 2, directions[i]), directions[i], rotate_dirs[i]);
         }
     }
 }

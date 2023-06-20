@@ -31,7 +31,7 @@ public class GardenerSuperAttack : MonoBehaviour
         foreach (var dir in rotate_dirs)
         {
             proj = Instantiate(gardenerSuperProjPrefab, gardener.transform.position, transform.rotation);
-            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 1, 
+            proj.SetParameters(new DamageInfo(DamageType.Distant, damageSource, 3, 
                 Quaternion.Euler(0f, 0f, dir) * mouseVector));
         }
     }
