@@ -6,8 +6,6 @@ public class StackOfeMail : AWeapon
 {
     [SerializeField] protected eMailProjectile mailPrefab;
 
-    protected new DamageType? damageType = DamageType.Distant;
-
     protected override void Start()
     {
         base.Start();

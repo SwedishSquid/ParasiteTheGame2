@@ -33,12 +33,17 @@ public class LackeySmallAI : AIntelligence
 
     //private float subModeTimeLeft;
 
+    private float distantAttackRadius = 8;
+
+    private float distantAttackWalkStopLag;
+
 
     // Start is called before the first frame update
     void Awake()
     {
         body = GetComponent<AEnemy>();
         eye = GetComponent<AllSeeingEye>();
+        eye.Radius = 12;
         previousInput = GetCrazyInput();
     }
 
@@ -237,7 +242,7 @@ public class LackeySmallAI : AIntelligence
             modeTimeLeft = 0.6f;
             mode = AIMode.AimApproaching;
         }
-        else if (Random.value > 0.3)
+        else if (Random.value > 0.7)
         {
             modeTimeLeft = 0.6f;
             mode = AIMode.Waiting;
@@ -252,7 +257,7 @@ public class LackeySmallAI : AIntelligence
 
     private InputInfo CopyLastInputRoughly()
     {
-        return new InputInfo(previousInput.Axis, previousInput.MouseDirection, false, false, previousInput.FirePressed, false);
+        return new InputInfo(previousInput.Axis, previousInput.MouseDirection, false, false, false, false);
     }
 
     private InputInfo ThrowAttack()
@@ -273,6 +278,7 @@ public class LackeySmallAI : AIntelligence
     //change please
     private InputInfo StandartItemAttack()
     {
+        Debug.Log(body.GetDamageType());
         if (body.GetDamageType() == DamageType.Distant)
         {
             modeTimeLeft = 1f;
@@ -343,8 +349,26 @@ public class LackeySmallAI : AIntelligence
             mode = AIMode.StrategyMaking;
         }
 
-        var walkDirection = -((Vector2)transform.position - aim.Position).normalized;
-        var aimDirection = (walkDirection + new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)) * 0.1f);
+        var aimDirection = -((Vector2)transform.position - aim.Position).normalized;
+        var walkDirection = aimDirection;
+
+        if (aimDist < distantAttackRadius)
+        {
+            if (distantAttackWalkStopLag > 0)
+            {
+                distantAttackWalkStopLag -= Time.deltaTime;
+            }
+            else
+            {
+                walkDirection = Vector2.zero;
+            }
+        }
+        else if (distantAttackWalkStopLag < 0.02)
+        {
+            distantAttackWalkStopLag = Random.value * 0.3f;
+        }
+
+        aimDirection += new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)) * 0.05f;
         return new InputInfo(walkDirection, aimDirection, false, false, true, false);
     }
 

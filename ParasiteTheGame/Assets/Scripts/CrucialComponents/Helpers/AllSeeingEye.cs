@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AllSeeingEye : MonoBehaviour
 {
-    public float Radius { get; set; } = 9;
+    public float Radius { get; set; } = 12;
 
     public float RayAmount = 16;
 

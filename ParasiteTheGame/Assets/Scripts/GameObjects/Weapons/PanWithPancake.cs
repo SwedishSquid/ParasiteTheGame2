@@ -7,8 +7,6 @@ public class PanWithPancake : AWeapon
     private SpriteRenderer spriteRenderer;
     [SerializeField] protected PancakeProjectile pancakeProjectile;
 
-    protected new DamageType? damageType = DamageType.Distant;
-
     [SerializeField] private AudioSource throwPanCake;
     [SerializeField] private AudioSource cracking;
     
@@ -16,8 +14,9 @@ public class PanWithPancake : AWeapon
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        damageType = DamageType.Distant;
     }
-    
+
     protected override void HandleMovement(InputInfo inpInf)
     {
         var desiredRotation = inpInf.GetMouseDir();

@@ -95,8 +95,6 @@ public class PlayerController : MonoBehaviour, IDamagable, ISavable, IPlayerInfo
     {
         if (jumpCooldown > 0)
         {
-            if (jumpoutPressed)
-                Debug.Log($"jumpCooldown: {jumpCooldown}");
             jumpCooldown -= Time.deltaTime;
             return false;
         }
