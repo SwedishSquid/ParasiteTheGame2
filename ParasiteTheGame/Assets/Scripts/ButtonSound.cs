@@ -6,8 +6,6 @@ public class ButtonSound: ASoundable
     public void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        
-        DontDestroyOnLoad(gameObject);
     }
 
     public void OnSelected()

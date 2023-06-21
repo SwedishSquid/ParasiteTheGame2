@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioClips:
   - {fileID: 8300000, guid: 7625350b97ae143478245daa477ecf32, type: 3}
-  id: 1cb40e32-0413-4be5-8318-06ff6d3faaa1
+  id: 418bc704-1b61-4623-a3bd-6702dc0bb572
   IsCaptured: 0
   Capturer: {fileID: 0}
   baseAttack: {fileID: 508229936}
@@ -309,6 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f747be0b0a9f3146bd9f1e438bce8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 79e6baad2fd414b82a6d49ce1568d2e5, type: 3}
 --- !u!1001 &3022669581674784592
 PrefabInstance:
   m_ObjectHideFlags: 0

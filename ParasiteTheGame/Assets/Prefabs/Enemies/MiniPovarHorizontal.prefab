@@ -123,11 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472aaa553ad410346830e95200b2b39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1002e85a-5363-43e2-90bf-c9c46b6babe9
+  AudioClips: []
+  id: 4b8f34e8-ee1a-4fed-a823-78d11ab9bbec
   IsCaptured: 0
   Capturer: {fileID: 0}
   baseAttack: {fileID: 0}
-  hurt: {fileID: 0}
   healthBar: {fileID: 6273658200655904908}
   cloudObject: {fileID: 0}
   grave: {fileID: 0}
