@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -8586983942180812934}
   - component: {fileID: 5818393286241973337}
   - component: {fileID: 1791584584183888082}
+  - component: {fileID: 5018814860621412130}
   m_Layer: 0
   m_Name: TextPlate
   m_TagString: Untagged
@@ -111,6 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a3ecba085cc7e439527b89bcf1dfee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showBeforeBossfight: 1
+  showAfterBossfight: 1
 --- !u!222 &5818393286241973337
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -210,3 +213,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!223 &5018814860621412130
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350933961034536429}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: -1428868519
+  m_SortingOrder: 0
+  m_TargetDisplay: 0

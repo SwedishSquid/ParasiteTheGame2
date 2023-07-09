@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Screensaver.unity
     guid: 3da136f7c1c0405478c6b784e391b151
+  - enabled: 1
+    path: Assets/Scenes/TeleRoom.unity
+    guid: bf60c45b2037ac24eb8ad8287581a4f9
   m_configObjects: {}
