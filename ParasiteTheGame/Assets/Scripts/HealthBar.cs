@@ -12,8 +12,10 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image fill;
     private float lastHealthUpdate;
 
-    public void SetMaxHealth(int health, bool dynamic)
+    public void SetMaxHealth(IDamagable creature, int health, bool dynamic)
     {
+        if (creature is AEnemy enemy)
+            SetGradientForEnemy(enemy);
         slider.maxValue = health;
         slider.value = health;
         is_dynamic = dynamic;
@@ -34,5 +36,12 @@ public class HealthBar : MonoBehaviour
             return;
         if (Time.time - lastHealthUpdate > 5)
             gameObject.SetActive(false);
+    }
+
+    private void SetGradientForEnemy(AEnemy enemy)
+    {
+        var colorKeys = gradient.colorKeys;
+        colorKeys[1].time = enemy.relativeTerminalHealth;
+        gradient.colorKeys = colorKeys;
     }
 }

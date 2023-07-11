@@ -21,7 +21,6 @@ public class PlayerController : ASoundable, IDamagable, ISavable, IPlayerInfoPla
     private int health;
     
     [SerializeField] private Animator animator;
-    private Color hurtColor = new (1, 0.6f, 0.6f, 1);
 
     private float jumpVelocity = 20;
     private bool isActJump;
@@ -253,7 +252,7 @@ public class PlayerController : ASoundable, IDamagable, ISavable, IPlayerInfoPla
     
     protected IEnumerator RedSprite()
     {
-        thisSpriteRenderer.color = hurtColor;
+        thisSpriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         thisSpriteRenderer.color = Color.white;
     }

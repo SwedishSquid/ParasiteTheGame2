@@ -499,7 +499,7 @@ Transform:
   m_GameObject: {fileID: 241452571}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 435, y: 191, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1244,7 +1244,7 @@ GameObject:
   - component: {fileID: 688240927}
   - component: {fileID: 688240926}
   m_Layer: 5
-  m_Name: Menu
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2605,8 +2605,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1452201001}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1506155517}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnSelected
           m_Mode: 1
           m_Arguments:
@@ -2621,8 +2621,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1452201001}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1506155517}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
           m_Mode: 1
           m_Arguments:
@@ -2637,9 +2637,37 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1452201001}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1506155517}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1506155517}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
+          m_MethodName: OnSelected
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1368185406}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

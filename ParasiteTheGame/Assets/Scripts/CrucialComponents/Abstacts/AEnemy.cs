@@ -31,6 +31,7 @@ public abstract class AEnemy : ASoundable, IControlable, IDamagable, IUser, ISav
 
     public int MaxHealth { get; set; } = 30;
     protected int terminalHealth = 30 / 2;
+    public float relativeTerminalHealth { get; private set; }
     public int Health { get; set; } = 30;
     public virtual bool AlmostPassedOut => !PassedOut && (Health - terminalHealth) < MaxHealth / 5;
 
@@ -48,8 +49,6 @@ public abstract class AEnemy : ASoundable, IControlable, IDamagable, IUser, ISav
 
     [SerializeField]protected BaseAttack baseAttack;
     
-    private Color hurtColor = new (1, 0.6f, 0.6f, 1);
-
     protected AIntelligence intelligence;
 
     public virtual bool CanBeCaptured { get
@@ -89,6 +88,7 @@ public abstract class AEnemy : ASoundable, IControlable, IDamagable, IUser, ISav
             Debug.LogError($"To enable saving system operations on this object" +
                 $" ({gameObject}) GUID must be generated");
         }
+        relativeTerminalHealth = terminalHealth / (float)MaxHealth;
     }
 
     public virtual void ControlledUpdate(InputInfo inpInf)
@@ -253,7 +253,7 @@ public abstract class AEnemy : ASoundable, IControlable, IDamagable, IUser, ISav
 
     protected IEnumerator RedSprite()
     {
-        spriteRenderer.color = hurtColor;
+        spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         spriteRenderer.color = Color.white;
     }

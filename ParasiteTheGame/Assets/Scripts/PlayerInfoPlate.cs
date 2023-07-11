@@ -11,7 +11,7 @@ public class PlayerInfoPlate : MonoBehaviour, IBossfightListener
 
     public void AwakeData(PlayerController player)
     {
-        playerHealthBar.SetMaxHealth(player.GetMaxHealth(), false);
+        playerHealthBar.SetMaxHealth(player ,player.GetMaxHealth(), false);
     }
 
     public void UpdateData(PlayerController player)
@@ -36,7 +36,7 @@ public class PlayerInfoPlate : MonoBehaviour, IBossfightListener
                 enemyHealthBar.SetValue(enemy.GetHealth());
             else
             {
-                enemyHealthBar.SetMaxHealth(enemy.GetMaxHealth(), false);
+                enemyHealthBar.SetMaxHealth(enemy, enemy.GetMaxHealth(), false);
                 enemyHealthBar.SetValue(enemy.GetHealth());
             }
         }
@@ -52,7 +52,7 @@ public class PlayerInfoPlate : MonoBehaviour, IBossfightListener
     public void OnBossfightStart()
     {
         boss = BossfightController.Instance.GetBoss();
-        bossHealthBar.SetMaxHealth(boss.MaxHealth, false);
+        bossHealthBar.SetMaxHealth(boss, boss.MaxHealth, false);
         bossHealthBar.gameObject.SetActive(true);
     }
 

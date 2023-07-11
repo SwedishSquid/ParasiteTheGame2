@@ -83,7 +83,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6418577944549551806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,15 +287,15 @@ MonoBehaviour:
     key0: {r: 1, g: 0.24705884, b: 0.29803923, a: 1}
     key1: {r: 0.9607843, g: 0.949283, b: 0.0588235, a: 1}
     key2: {r: 0.2042865, g: 0.9622642, b: 0.058098912, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0.2042865, g: 0.9622642, b: 0.058098912, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 19661
+    ctime0: 13107
     ctime1: 39321
     ctime2: 65535
-    ctime3: 0
+    ctime3: 65535
     ctime4: 0
     ctime5: 0
     ctime6: 0

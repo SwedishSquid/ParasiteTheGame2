@@ -19,7 +19,7 @@ public abstract class AEnemyPlus : AEnemy
     protected override void Start()
     {
         base.Start();
-        healthBar.SetMaxHealth(MaxHealth, true);
+        healthBar.SetMaxHealth(this ,MaxHealth, true);
         healthBar.SetValue(Health);
         UpdateCloud();
     }
