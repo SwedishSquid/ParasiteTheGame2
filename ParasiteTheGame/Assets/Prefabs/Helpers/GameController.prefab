@@ -312,8 +312,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 875895728}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnSelected
           m_Mode: 1
           m_Arguments:
@@ -328,8 +328,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 875895728}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
           m_Mode: 1
           m_Arguments:
@@ -344,9 +344,37 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 875895728}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 875895728}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
+          m_MethodName: OnSelected
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 378906707}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -469,7 +497,7 @@ GameObject:
   - component: {fileID: 712964002}
   - component: {fileID: 712964001}
   - component: {fileID: 712964000}
-  - component: {fileID: 3148449297633673067}
+  - component: {fileID: 764434833438519181}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -592,7 +620,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3148449297633673067
+--- !u!114 &764434833438519181
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -609,8 +637,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 875895728}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnSelected
           m_Mode: 1
           m_Arguments:
@@ -625,8 +653,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 875895728}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
           m_Mode: 1
           m_Arguments:
@@ -641,9 +669,37 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 875895728}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 875895728}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
+          m_MethodName: OnSelected
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 712964000}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1003,7 +1059,7 @@ GameObject:
   - component: {fileID: 1174302977}
   - component: {fileID: 1174302976}
   - component: {fileID: 1174302975}
-  - component: {fileID: 880467309908810658}
+  - component: {fileID: 9028502843292954169}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1126,7 +1182,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &880467309908810658
+--- !u!114 &9028502843292954169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1143,8 +1199,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1162235094}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnSelected
           m_Mode: 1
           m_Arguments:
@@ -1159,8 +1215,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1162235094}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
           m_Mode: 1
           m_Arguments:
@@ -1175,9 +1231,37 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1162235094}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1162235094}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
+          m_MethodName: OnSelected
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1174302975}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1199,7 +1283,7 @@ GameObject:
   - component: {fileID: 1475196921}
   - component: {fileID: 1475196920}
   - component: {fileID: 1475196919}
-  - component: {fileID: 3691809259766956867}
+  - component: {fileID: 8090693567309379045}
   m_Layer: 5
   m_Name: SaveGame
   m_TagString: Untagged
@@ -1322,7 +1406,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3691809259766956867
+--- !u!114 &8090693567309379045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1339,8 +1423,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1162235094}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnSelected
           m_Mode: 1
           m_Arguments:
@@ -1355,8 +1439,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1162235094}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
           m_Mode: 1
           m_Arguments:
@@ -1371,9 +1455,37 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8682280220350453469}
-          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        - m_Target: {fileID: 1162235094}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
           m_MethodName: OnPressed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1162235094}
+          m_TargetAssemblyTypeName: AMenu, Assembly-CSharp
+          m_MethodName: OnSelected
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1475196919}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2178,17 +2290,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cac658f1eaa0f548976e2eb8b676775, type: 3}
---- !u!114 &8682280220350453469 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5434745512261149390, guid: 8cac658f1eaa0f548976e2eb8b676775, type: 3}
-  m_PrefabInstance: {fileID: 3679933354911396883}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd20184e383f43f798f673cb5aba373b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &8682280220350453471 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5434745512261149388, guid: 8cac658f1eaa0f548976e2eb8b676775, type: 3}
