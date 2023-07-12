@@ -142,8 +142,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d6a93158887ac1546a9a1ef2db4dff52, type: 3}
   - {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
   id: 
-  throwHandlerPrefab: {fileID: 9171043533338633449, guid: 960248d852c2ba64d895763eb165540d,
-    type: 3}
+  throwHandlerPrefab: {fileID: 9171043533338633449, guid: 960248d852c2ba64d895763eb165540d, type: 3}
 --- !u!114 &3340985883500925681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,11 +164,10 @@ AudioSource:
   m_GameObject: {fileID: 3340985883500925694}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -3815389255647783585, guid: 951e5f5b495a9c5419880ff4a0c6dfe7,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: -3815389255647783585, guid: 951e5f5b495a9c5419880ff4a0c6dfe7, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -178,9 +176,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -213,7 +211,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
