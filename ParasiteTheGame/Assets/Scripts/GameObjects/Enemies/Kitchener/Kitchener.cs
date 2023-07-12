@@ -81,7 +81,7 @@ public class Kitchener : AEnemyPlus
             isSuper = true;
             attackCooldown = maxAttackCooldown;
             superAnimation = maxSuperAnimation;
-            superAttack.Attack(damageSource, this);
+            superAttack.Attack(DamageSource, this);
             //animator.SetBool("isSuper", isSuper); //TODO
         }
     }

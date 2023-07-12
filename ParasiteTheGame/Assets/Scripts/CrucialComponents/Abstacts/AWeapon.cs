@@ -24,8 +24,6 @@ public abstract class AWeapon : ASoundable, IUsable, ISavable
 
     protected DamageType? damageType = null;
 
-    [SerializeField] protected ThrowHandler throwHandlerPrefab;
-
     protected ThrowComponent throwComponent;
 
     protected DamageSource _lastDamageSource;

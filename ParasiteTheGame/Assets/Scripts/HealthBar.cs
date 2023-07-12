@@ -41,7 +41,7 @@ public class HealthBar : MonoBehaviour
     private void SetGradientForEnemy(AEnemy enemy)
     {
         var colorKeys = gradient.colorKeys;
-        colorKeys[1].time = enemy.relativeTerminalHealth;
+        colorKeys[1].time = enemy.RelativeTerminalHealth;
         gradient.colorKeys = colorKeys;
     }
 }

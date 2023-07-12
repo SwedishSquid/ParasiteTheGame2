@@ -83,7 +83,7 @@ public class Gardener : AEnemyPlus
             attackCooldown = maxAttackCooldown;
             superAnimation = maxSuperAnimation;
 
-            superAttack.Attack(damageSource, this, inpInf);
+            superAttack.Attack(DamageSource, this, inpInf);
             //superAttack.Attack(damageSource, this);
             PlaySound(AudioClips[1]);
 
