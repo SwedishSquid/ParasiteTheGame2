@@ -25,9 +25,6 @@ public class PanWithPancake : AWeapon
 
     protected override void Fire(InputInfo inpInf)
     {
-        if (BossfightController.Instance.BossfightState == BossfightState.NotStarted)
-            return;
-        
         PlaySound(AudioClips[0]);
         animator.SetTrigger("isAttack");
         PlaySound(AudioClips[2]);

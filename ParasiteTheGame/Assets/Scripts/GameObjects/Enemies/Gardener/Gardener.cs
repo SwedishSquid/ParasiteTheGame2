@@ -127,7 +127,8 @@ public class Gardener : AEnemyPlus
             }
             else
             {
-                if (BossfightController.Instance.BossfightState == BossfightState.Finished)
+                if (BossfightController.Instance != null 
+                    && BossfightController.Instance.BossfightState == BossfightState.Finished)
                     healthBar.SetValue(Health);
                 animator.SetBool("isUncontious", false);
                 animator.SetBool("isMoving", false);

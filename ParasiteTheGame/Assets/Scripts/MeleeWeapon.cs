@@ -21,9 +21,7 @@ public class MeleeWeapon : AWeapon
 
     protected override void Fire(InputInfo inpInf)
     {
-        if (BossfightController.Instance.BossfightState != BossfightState.NotStarted
-            || DataPersistenceManager.Instance.GameData.CurrentLevelName != "LevelOne")
-            PlaySound(AudioClips[0]);
+        PlaySound(AudioClips[0]);
         anim.SetBool(hitName, true);
         animTime = 0.16f;
         var enemies = Physics2D.OverlapCircleAll(transform.position, attackRadius,
