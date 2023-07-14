@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private Gradient gradient;
     [SerializeField] private Image fill;
+    [SerializeField] private Text valueText;
     private float lastHealthUpdate;
 
     public void SetMaxHealth(IDamagable creature, int health, bool dynamic)
@@ -25,9 +26,11 @@ public class HealthBar : MonoBehaviour
     public void SetValue(int value)
     {
         gameObject.SetActive(true);
-        slider.value = value > 0 ? value : 0;
+        value = value > 0 ? value : 0;
+        slider.value = value;
         fill.color = gradient.Evaluate(slider.normalizedValue);
         lastHealthUpdate = Time.time;
+        valueText.text = value.ToString();
     }
 
     private void Update()
