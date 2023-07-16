@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
 public class Settings : AMenu
 {
     public AudioMixer SettingsAudioM;
-    [SerializeField] private MenuScript menu;
+    [SerializeField] private Button back;
 
     public void FullScreenToggle()
     {
@@ -32,6 +33,10 @@ public class Settings : AMenu
     public void BackPressed()
     {
         PlayerPrefs.Save();
-        menu.UpdateContinueButton();
+    }
+
+    public override void OnActive()
+    {
+        EventSystem.current.SetSelectedGameObject(back.gameObject);
     }
 }

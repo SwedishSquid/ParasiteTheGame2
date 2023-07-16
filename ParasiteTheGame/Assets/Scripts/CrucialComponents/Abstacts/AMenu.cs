@@ -6,4 +6,5 @@ public abstract class AMenu : MonoBehaviour
 
      public void OnSelected() => ButtonSound.Instance.OnSelected();
      
+     public virtual void OnActive() {}
 }

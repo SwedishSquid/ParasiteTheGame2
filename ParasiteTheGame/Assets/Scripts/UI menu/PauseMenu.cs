@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class PauseMenu: AMenu
 {
     [SerializeField] private Canvas pauseCanvas;
+    [SerializeField] private Button continueGame;
     [SerializeField] private Button saveGame;
+    [SerializeField] private Button settings;
     [SerializeField] private Button mainMenu;
 
     public void PressedPause()
@@ -17,7 +19,13 @@ public class PauseMenu: AMenu
             return;
         }
         pauseCanvas.gameObject.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(saveGame.gameObject);
+        OnActive();
+    }
+
+    public void PressedContinue()
+    {
+        PauseController.Pause();
+        PressedPause();
     }
 
     public void PressedSaveGame()
@@ -39,8 +47,15 @@ public class PauseMenu: AMenu
 
     private void DisableAllButtons()
     {
+        continueGame.interactable = false;
         saveGame.interactable = false;
+        settings.interactable = false;
         mainMenu.interactable = false;
+    }
+
+    public override void OnActive()
+    {
+        EventSystem.current.SetSelectedGameObject(continueGame.gameObject);
     }
     
 }

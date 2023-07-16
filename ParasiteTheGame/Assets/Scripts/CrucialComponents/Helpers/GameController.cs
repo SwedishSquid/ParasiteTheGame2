@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour, IBossfightListener
 {
@@ -8,6 +9,9 @@ public class GameController : MonoBehaviour, IBossfightListener
     [SerializeField] PlayerController playerController;
     [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private DeathMenu deathMenu;
+    [SerializeField] private Toggle fullScreenToggle;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider effectSlider;
     private InputHandler inputHandler;
     private InputInfo currentInputInfo;
 
@@ -21,10 +25,14 @@ public class GameController : MonoBehaviour, IBossfightListener
         gameState = GameState.MainGameMode;
         inputHandler = new InputHandler();
         listener = new Listener(simpleMusic, envirMusic);
+        UpdateSettingsMenu();
     }
 
     void Update()
     {
+        if (gameState == GameState.PlayerDeathMode)
+            return;
+        
         if (Input.GetButtonDown("Pause"))
         {
             PauseController.Pause();
@@ -38,9 +46,6 @@ public class GameController : MonoBehaviour, IBossfightListener
 
         currentInputInfo = inputHandler.GetInputInfo();
 
-        if (gameState == GameState.PlayerDeathMode)
-            return;
-        
         UpdateGameState();
 
         if (gameState == GameState.MainGameMode && playerController != null)
@@ -103,6 +108,13 @@ public class GameController : MonoBehaviour, IBossfightListener
     private void UpdateGameState()
     {
         gameState = GameState.MainGameMode;
+    }
+
+    private void UpdateSettingsMenu()
+    {
+        fullScreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.5f);
+        effectSlider.value = PlayerPrefs.GetFloat("effectsVolume", 0.5f);
     }
 
     public void OnBossfightStart()

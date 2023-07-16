@@ -9,7 +9,6 @@ public class MenuScript: AMenu
 {
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
-    [SerializeField] private Button settingsBackButton;
     [SerializeField] private Toggle fullScreenToggle;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider effectSlider;
@@ -18,7 +17,7 @@ public class MenuScript: AMenu
     private void Start()
     {
         LoadSettings();
-        UpdateContinueButton();
+        OnActive();
     }
 
     public void PlayPressed()
@@ -27,11 +26,6 @@ public class MenuScript: AMenu
         IsGameStart = true;
         SceneManager.LoadSceneAsync(DataPersistenceManager.Instance.GameData.CurrentLevelName);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//"SceneExample"); // change to scene "GAME_NAME"
-    }
-
-    public void SettingsPressed()
-    {
-        EventSystem.current.SetSelectedGameObject(settingsBackButton.gameObject);
     }
 
     public void ExitPressed()
@@ -62,7 +56,7 @@ public class MenuScript: AMenu
         effectSlider.value = PlayerPrefs.GetFloat("effectsVolume", 0.5f);
     }
 
-    public void UpdateContinueButton()
+    public override void OnActive()
     {
         continueButton.gameObject.SetActive(FileGameDataHandler.CheckLoadFileExists());
         EventSystem.current.SetSelectedGameObject(FileGameDataHandler.CheckLoadFileExists()
